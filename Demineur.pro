@@ -6,3 +6,6 @@ CONFIG -= qt
 SOURCES += main.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
+
+HEADERS += \
+    case.h
