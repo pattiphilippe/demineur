@@ -4,9 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    case.cpp
+    Model/case.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
 HEADERS += \
-    case.h
+    case.h \
+    Model/case.h
