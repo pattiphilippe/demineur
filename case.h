@@ -1,11 +1,6 @@
 #ifndef CASE_H
 #define CASE_H
 
-/*
-    Test git versionning sur pc portable...
-
-    blablabla modifs dautres modifs
-*/
 
 /*
 10: analyse
@@ -16,20 +11,50 @@
 enum CaseState{
     dft,
     marked,
-    revealed,
-    lol //TODO à retirer
+    revealed
 };
 
 class Case{
 private:
-    int indice;
-    int line;
-    int column;
-    CaseState state;
+    int line_;
+    int column_;
+    int nbNearBombs_{0};
+    bool isBomb_{false};
+    CaseState state_{dft};
 
 public:
-    Case(line, column);
-
+    Case(int line, int column);
+    void init(int line, int column);
+    inline bool isBomb() const;
+    inline void setBomb();
+    inline int getNbNearBombs() const;
+    inline void addNearBomb();
+    inline CaseState getState() const;
+    inline void setState(CaseState);
 };
+
+bool Case::isBomb() const{
+    return isBomb_;
+}
+
+void Case::setBomb(){
+    isBomb_ = true;
+}
+
+int Case::getNbNearBombs() const{
+    return nbNearBombs_;
+}
+
+void Case::addNearBomb(){
+    ++nbNearBombs_;
+}
+
+CaseState Case::getState() const{
+    return state_;
+}
+
+void Case::setState(CaseState newState){
+    state_ = newState;
+}
 
 #endif // CASE_H
