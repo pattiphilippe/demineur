@@ -4,7 +4,7 @@
 /*
     Test git versionning sur pc portable...
 
-    blablabla modifs
+    blablabla modifs dautres modifs
 */
 
 /*
