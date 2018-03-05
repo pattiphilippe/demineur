@@ -1,4 +1,4 @@
-#include "case.h"
+#include "Case.h"
 
 Case::Case(int line, int column):
     line_{line},
