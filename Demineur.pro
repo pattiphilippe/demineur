@@ -5,10 +5,12 @@ CONFIG -= qt
 
 SOURCES += \
     Model/Case.cpp \
-    Main.cpp
+    Main.cpp \
+    Model/Game.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
 HEADERS += \
     case.h \
-    Model/Case.h
+    Model/Case.h \
+    Model/Game.h
