@@ -8,19 +8,29 @@ enum GameState{
     inProgress,
     win,
     lose
-}
+};
 
 class Game {
 private:
-    Board board;
-    GameState state;
+    Board board_;
+    GameState state_;
 
-    void setGameState() const;
+    inline void setGameState() const;
 
 public:
     Game();
-
-
+    vector<CasePublic> reveal(int line, int column);
+    void mark(int line, int column);
+    BoardPublic getBoard();
+    inline GameState getGameState() const;
 };
+
+void Game::setGameState(GameState state){
+    state_ = state;
+}
+
+GameState Game::getGameState(){
+    return state_;
+}
 
 #endif // GAME_H
