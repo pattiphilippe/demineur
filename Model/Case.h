@@ -42,12 +42,18 @@ public:
     inline void setState(CaseState);
 };
 
+/**
+  * @brief Class Public Case
+  * Class that includes a case and gives info about a specific case,
+  * but without any modifier.
+  * Only gives the infos available with the current tile state.
+*/
 class CasePublic{
 private:
     Case & case_;
 
 public:
-    CasePublic(Case other);
+    CasePublic(Case src);
     bool isBomb() const;
     int getNbNearBombs() const;
     inline CaseState getState() const;

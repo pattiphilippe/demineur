@@ -28,10 +28,20 @@ void Case::init(int line, int column){
     state_ = dft;
 }
 
-CasePublic::CasePublic(Case other):
-    case_{other}
+/**
+ * @brief Public Case constructor
+ * Public Case is linked to the given case
+ * @param other the source case
+*/
+CasePublic::CasePublic(Case src):
+    case_{src}
 {}
 
+/**
+ * @brief isBomb getter
+ * Returns true if it is a bomb.
+ * @throws GameException if the state is not revealed
+ */
 bool CasePublic::isBomb() const{
     if(getState() != revealed){
         throw GameException("Wrong state, can't see details of the case!");
@@ -39,6 +49,12 @@ bool CasePublic::isBomb() const{
     return case_.isBomb();
 }
 
+
+/**
+ * @brief nbNearBombs getter
+ * Returns the number of bombs next to this case
+ * @throws GameException if the state is not revealed
+ */
 int CasePublic::getNbNearBombs() const{
     if(getState() != revealed){
         throw GameException("Wrong state, can't see details of the case!");

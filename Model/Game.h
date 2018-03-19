@@ -7,6 +7,9 @@
 
 using namespace std;
 
+/**
+ * Possibles state of the game.
+*/
 enum GameState{
     init,
     inProgress,
@@ -14,6 +17,11 @@ enum GameState{
     lose
 };
 
+/**
+ * @brief Represents a demineur game.
+ * Class that englobes the model and all the rules for a demineur game.
+ * Englobes the board and the score.
+*/
 class Game {
 private:
     Board board_;
@@ -30,10 +38,18 @@ public:
     inline GameState getGameState() const;
 };
 
+/**
+ * @brief gameState setter
+ * Sets the game to the given state.
+*/
 void Game::setGameState(GameState state){
     state_ = state;
 }
 
+/**
+ * @brief gameState getter
+ * Returns the game state.
+*/
 GameState Game::getGameState() const{
     return state_;
 }
