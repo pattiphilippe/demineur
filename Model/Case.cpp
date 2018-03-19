@@ -1,11 +1,25 @@
 #include "Case.h"
 #include "gameexception.h"
 
+
+/**
+ * @brief Case::Case
+ * Creates a new case with the given coordinates.
+ * Is not a bomb by default,
+ * has no near bombs by default,
+ * is set in dft state.
+ */
 Case::Case(int line, int column):
     line_{line},
     column_{column}
 {}
 
+/**
+ * @brief Case initializer
+ * Sets the case to the given coordinates
+ * Default values are set to its attributes
+ * (see Case::Case for further description)
+ */
 void Case::init(int line, int column){
     line_ = line;
     column_ = column;
