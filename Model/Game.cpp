@@ -1,7 +1,7 @@
 #include "game.h"
 
 Game::Game():
-    state_{inProgress},
+    state_{init},
     board_{}
 {}
 

@@ -5,6 +5,7 @@
 #include "vector"
 
 enum GameState{
+    init,
     inProgress,
     win,
     lose
@@ -13,13 +14,13 @@ enum GameState{
 class Game {
 private:
     Board board_;
-    GameState state_;
+    GameState state_ ;
 
-    inline void setGameState() const;
+    inline void setGameState(GameState);
 
 public:
     Game();
-    vector<CasePublic> reveal(int line, int column);
+    Vector<CasePublic> reveal(int line, int column);
     void mark(int line, int column);
     BoardPublic getBoard();
     inline GameState getGameState() const;
@@ -29,7 +30,7 @@ void Game::setGameState(GameState state){
     state_ = state;
 }
 
-GameState Game::getGameState(){
+GameState Game::getGameState() const{
     return state_;
 }
 
