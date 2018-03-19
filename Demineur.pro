@@ -15,4 +15,5 @@ HEADERS += \
     case.h \
     Model/Case.h \
     Model/Game.h \
-    Model/Board.h
+    Model/Board.h \
+    Model/GameException.h

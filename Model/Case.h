@@ -18,9 +18,9 @@ class Case{
 private:
     int line_;
     int column_;
-    int nbNearBombs_;
-    bool isBomb_;
-    CaseState state_;
+    int nbNearBombs_{0};
+    bool isBomb_{false};
+    CaseState state_{dft};
 
 public:
     Case(int line, int column);
@@ -35,20 +35,17 @@ public:
 
 class CasePublic{
 private:
-    Case case_;
+    Case & case_;
 
 public:
     CasePublic(Case other);
-    inline bool isBomb() const;
-    inline int getNbNearBombs() const;
+    bool isBomb() const;
+    int getNbNearBombs() const;
+    inline CaseState getState() const;
 };
 
 bool Case::isBomb() const{
-    return isBomb_;
-}
-
-bool CasePublic::isBomb() const{
-    return case_.isBomb();
+  return isBomb_;
 }
 
 void Case::setBomb(){
@@ -59,9 +56,6 @@ int Case::getNbNearBombs() const{
     return nbNearBombs_;
 }
 
-int CasePublic::getNbNearBombs() const{
-    return case_.getNbNearBombs();
-}
 
 void Case::addNearBomb(){
     ++nbNearBombs_;

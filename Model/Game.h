@@ -1,8 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "Case.h"
 #include "Board.h"
 #include "vector"
+
+using namespace std;
 
 enum GameState{
     init,
@@ -14,15 +17,16 @@ enum GameState{
 class Game {
 private:
     Board board_;
-    GameState state_ ;
+    BoardPublic boardPublic_;
+    GameState state_ {init};
 
     inline void setGameState(GameState);
 
 public:
     Game();
-    Vector<CasePublic> reveal(int line, int column);
+    vector<CasePublic> reveal(int line, int column);
     void mark(int line, int column);
-    BoardPublic getBoard();
+    BoardPublic getBoard() const;
     inline GameState getGameState() const;
 };
 
