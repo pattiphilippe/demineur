@@ -1,5 +1,5 @@
 #include "Board.h"
-#include "case.h"
+#include "Case.h"
 #include "stdbool.h"
 
 using namespace std;
@@ -109,6 +109,34 @@ Board::mark(int clickedLine, int clickedColumn)
  */
 Board::reveal(int clickedLine, int clickedColumn)
 {
+    if(!m_firstClickOnBoard){
+        this->generateBombs(999,999); // 999 = Impossible value in the board
+    }
+    bool checked[m_nbLines][m_nbColumns];
+    for (int i=0; i<m_nbLines; i++){
+        for(int j=0; j<m_nbColumns; j++){
+            checked[i][j] = false ;
+        }
+    }
 
+
+}
+
+Board::RevealRec(int line, int column, bool checked[][]){
+    Case tile ;
+    tile = m_cases[line][column];
+    checked[line][column] = true ;
+    tile.setState(revealed);
+    if (tile.isBomb()){
+        game.setState(lost);  //MODIF A FAIRE CAR PAS CORRECT
+    }else{
+        if(tile.getNbNearBombs()==0){
+            Coordinates pos, neighbour ;
+            pos = new Coordinates(line, column);
+            for(Direction dir : Direction.getValues()){ //Foreach pas correct non plus
+                // à Continuer ici
+            }
+        }
+    }
 }
 

@@ -40,4 +40,6 @@ private:
     int m_nbColumns ;
     bool m_firstClickOnBoard;
     Case m_cases [nbLines][nbColumns];
+
+    void RevealRec(int line, int column, bool checked[][]);
 }
