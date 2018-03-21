@@ -8,13 +8,6 @@
 
 #endif // BOARD_H
 
-/**
- * @brief Direction enum
- * Describe the eight principal direction in a board
- */
-enum Direction{
-    N, NE, E, SE, S, SO, O, NO
-};
 
 class Board{
 public:

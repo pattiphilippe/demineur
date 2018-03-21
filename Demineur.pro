@@ -7,7 +7,8 @@ SOURCES += \
     Model/Case.cpp \
     Main.cpp \
     Model/Game.cpp \
-    Model/Board.cpp
+    Model/Board.cpp \
+    Model/Coordinates.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
@@ -16,4 +17,6 @@ HEADERS += \
     Model/Case.h \
     Model/Game.h \
     Model/Board.h \
-    Model/GameException.h
+    Model/GameException.h \
+    Model/Coordinates.h \
+    Model/coordinates.h

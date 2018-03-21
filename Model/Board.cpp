@@ -3,6 +3,7 @@
 #include "stdbool.h"
 #include "Game.h"
 #include <vector>
+#include "Coordinates.h"
 
 using namespace std;
 
@@ -142,7 +143,8 @@ Board::RevealRec(int line, int column, bool checked[][]){
         if(tile.getNbNearBombs()==0){
             Coordinates pos, neighbour ;
             pos = new Coordinates(line, column);
-            for(Direction dir : Direction.getValues()){ //Foreach pas correct non plus à mon avis
+            for(int dirInt =N ; dirInt != Last; dirInt++ ){
+                Direction dirFor = static_cast<Direction>(dirInt);
                 neighbour = pos.move(dir);
                 if(!check[neighbour.getLine()][neighbour.getColumn()]){
                     this->reveal(neighbour.getLine(), neighbour.getColumn);
