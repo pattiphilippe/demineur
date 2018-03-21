@@ -8,6 +8,14 @@
 
 #endif // BOARD_H
 
+/**
+ * @brief Direction enum
+ * Describe the eight principal direction in a board
+ */
+enum Direction{
+    N, NE, E, SE, S, SO, O, NO
+};
+
 class Board{
 public:
 
@@ -17,7 +25,7 @@ public:
     Board(int nbLines, int nbColumns, int nbBombs);
     Board(int nbLines, int nbColumns, double densityBombs);
 
-    void generateBombs();
+    void generateBombs(int line, int column);
 
     bool reveal(int line, int column);
     bool mark(int line, int column);
