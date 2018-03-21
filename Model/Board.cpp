@@ -1,6 +1,8 @@
 #include "Board.h"
 #include "Case.h"
 #include "stdbool.h"
+#include "Game.h"
+#include <vector>
 
 using namespace std;
 
@@ -118,7 +120,14 @@ Board::reveal(int clickedLine, int clickedColumn)
             checked[i][j] = false ;
         }
     }
-
+    RevealRec(line, column, checked);
+    std::vector<std::Coordinates> changedPos ;
+    for(int i=0; i<m_nbLines ; i++){
+        for(int j=0; j<m_nbColumns ; j++){
+            changedPos.push_back(new Coordinates(i,j));
+        }
+    }
+    return changedPos ;
 
 }
 
@@ -128,13 +137,16 @@ Board::RevealRec(int line, int column, bool checked[][]){
     checked[line][column] = true ;
     tile.setState(revealed);
     if (tile.isBomb()){
-        game.setState(lost);  //MODIF A FAIRE CAR PAS CORRECT
+        game.setState(Lost);  //Modif à faire dans game pour que ça fonctionne
     }else{
         if(tile.getNbNearBombs()==0){
             Coordinates pos, neighbour ;
             pos = new Coordinates(line, column);
-            for(Direction dir : Direction.getValues()){ //Foreach pas correct non plus
-                // à Continuer ici
+            for(Direction dir : Direction.getValues()){ //Foreach pas correct non plus à mon avis
+                neighbour = pos.move(dir);
+                if(!check[neighbour.getLine()][neighbour.getColumn()]){
+                    this->reveal(neighbour.getLine(), neighbour.getColumn);
+                }
             }
         }
     }
