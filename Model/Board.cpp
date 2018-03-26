@@ -7,12 +7,6 @@
 
 using namespace std;
 
-int m_nbLines ;
-int m_nbColumns ;
-int m_nbBombs ;
-bool m_firstClickOnBoard ;
-Case m_cases ;
-
 /**
  * @brief Board::Board
  * Basic constructor of board without args
@@ -20,15 +14,13 @@ Case m_cases ;
  * Set the number of columns to 10
  * Default density of bombs wich is 10%
  */
-Board::Board()
-{
-    m_nbLines = 10 ;
-    m_nbColumns = 10 ;
-    m_nbBombs = 10 ;  /* 10 percent of 100 cases */
-    m_firstClickOnBoard = false ;
-    m_cases = Case[m_nbLines][m_nbColumns];
-
-}
+Board::Board():
+    b_nbLines{10},
+    b_nbColumns{10},
+    b_nbBombs{10}, /* 10% of 100 cases */
+    b_firstClickOnBoard{true},
+    b_cases{Case[b_nbLines][b_nbColumns]}
+{}
 
 /**
  * @brief Board::Board
@@ -38,14 +30,16 @@ Board::Board()
  * @param nbColumns The number of columns of the board
  *
  */
-Board::Board(int nbLines, int nbColumns)
-{
-    m_nbLines = nbLines ;
-    m_nbColumns = nbColumns ;
-    m_nbBombs = (nbLines * nbColumns) * 0.1 ;
-    m_firstClickOnBoard = true ;
-    m_cases = Case[m_nbLines][m_nbColumns];
-}
+Board::Board(int nbLines, int nbColumns):
+    b_nbLines{nbLines},
+    b_nbColumns{nbColumns},
+    //TODO try to put 0.1 in defaultBombsPercentage var?
+    b_nbBombs{static_cast<int>((nbLines * nbColumns) * 0.1 )}, /* 10% of 100 cases */
+    //TODO délégation de constructeurs?
+    b_firstClickOnBoard{true},
+    //TODO travailler avec classe array?
+    b_cases{Case[b_nbLines][b_nbColumns]}
+{}
 
 /**
  * @brief Board::Board
@@ -56,14 +50,14 @@ Board::Board(int nbLines, int nbColumns)
  * @param densityBombs Pourcentage of density of bombs you want in your board
  *
  */
-Board::Board(int nbLines, int nbColumns, double densityBombs)
-{
-    m_nbLines = nbLines ;
-    m_nbColumns = nbColumns ;
-    m_nbBombs = (nbLines * nbColumns) * densityBombs ;
-    m_firstClickOnBoard = true ;
-    m_cases = Case[m_nbLines][m_nbColumns];
-}
+Board::Board(int nbLines, int nbColumns, double densityBombs):
+    b_nbLines{nbLines},
+    b_nbColumns{nbColumns},
+    b_nbBombs{densityBombs},
+    b_firstClickOnBoard{true},
+    b_cases{Case[b_nbLines][b_nbColumns]}
+{}
+
 
 /**
  * @brief Board::generateBombs
@@ -72,18 +66,18 @@ Board::Board(int nbLines, int nbColumns, double densityBombs)
  * @param column column of the clicked case
  *
  */
-void Board::generateBombs(Coordinates pos)
+void Board::generateBombs(Coordinates pos, bool canBeBomb)
 {
-    int bombLine, bombColumn, clickedLine = pos.getLine(), clickedColumn = pos.getColumn();
-    for(int bomb=0; bomb < m_nbBombs; bomb++){
+    int bombLine, bombColumn, line = pos.getLine(), col = pos.getColumn();
+    for(int bomb=0; bomb < b_nbBombs; bomb++){
         do {
-            bombLine = rand() % m_nbLines ;
-            bombColumn = rand() % m_nbColumns ;
-        } while (bombLine==clickedLine && bombColumn==clickedColumn);
-        m_cases[bombLine][bombColumn].setBomb();
+            bombLine = rand() % b_nbLines ;
+            bombColumn = rand() % b_nbColumns ;
+        } while (!canBeBomb || (bombLine==line && bombColumn==col));
+        b_cases[bombLine][bombColumn].setBomb();
     }
 
-    m_firstClickOnBoard = false ;
+    b_firstClickOnBoard = false ;
 }
 
 /**
@@ -92,13 +86,13 @@ void Board::generateBombs(Coordinates pos)
  * @param clickedLine int, line of the clicked case
  * @param clickedColumn int, column of the clicked case
  */
-void Board::mark(int clickedLine, int clickedColumn)
+void Board::mark(Coordinates pos)
 {
-    if(m_firstClickOnBoard){
-        this->generateBombs(-1, -1); // -1 = Impossible value in the board
+    if(b_firstClickOnBoard){
+        this->generateBombs(pos, false); // -1 = Impossible value in the board
     }
-    Case & tile {m_cases[clickedLine][clickedColumn]};
-    tile.setState(tile.getState == marked ? dft : marked);
+    Case & tile {b_cases[pos.getLine()][pos.getColumn()]};
+    tile.setState(tile.getState() == marked ? dft : marked);
 }
 
 /**
@@ -108,12 +102,12 @@ void Board::mark(int clickedLine, int clickedColumn)
  * @param clickedColumn int, clicked column in the board
  * @return true if it didn't reveal a bomb, false if it exploded
  */
-bool Board::reveal(int clickedLine, int clickedColumn)
+bool Board::reveal(Coordinates pos)
 {
-    if(m_firstClickOnBoard){
-        this->generateBombs(clickedLine,clickedColumn);
+    if(b_firstClickOnBoard){
+        this->generateBombs(pos, true);
     }
-    Case & tile {m_cases[clickedLine][clickedColumn]};
+    Case & tile {b_cases[pos.getLine()][pos.getColumn()]};
     if(tile.isBomb()){
         tile.setState(revealed);
         return false;
@@ -121,32 +115,31 @@ bool Board::reveal(int clickedLine, int clickedColumn)
         if(tile.getNbNearBombs() != 0){
             tile.setState(revealed);
         } else {
-            bool checked[m_nbLines][m_nbColumns];
-            for (int i=0; i<m_nbLines; i++){
-                for(int j=0; j<m_nbColumns; j++){
+            bool checked [b_nbLines][b_nbColumns];
+            for (int i=0; i<b_nbLines; i++){
+                for(int j=0; j<b_nbColumns; j++){
                     checked[i][j] = false ;
                 }
             }
-            return revealRec(clickedLine, clickedColumn, checked);
+            return revealRec(pos, checked);
         }
     }
     return true;
 }
 
 
-bool Board::revealRec(Coordinates pos, bool checked[][]){
-    Case & tile {m_cases[line][column]};
+bool Board::revealRec(Coordinates pos, bool** checked){
+    Case & tile {b_cases[line][column]};
     checked[pos.getLine()][pos.getColumn()] = true ;
     tile.setState(revealed);
     if(tile.getNbNearBombs()==0){
-        Coordinates neighbour ;
         Direction dir;
         pos = Coordinates(line, column);
         for(int dirInt =N ; dirInt != Last; dirInt++ ){
             dir = static_cast<Direction>(dirInt);
-            neighbour = pos.move(dir);
+            Coordinates neighbour = pos.move(dir);
             if(!checked[neighbour.getLine()][neighbour.getColumn()]){
-                this->reveal(neighbour.getLine(), neighbour.getColumn);
+                this->reveal(neighbour);
             }
         }
     }

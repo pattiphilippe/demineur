@@ -12,21 +12,21 @@ public:
     Board(int nbLines, int nbColumns, int nbBombs);
     Board(int nbLines, int nbColumns, double densityBombs);
 
-    inline Case getCase(Coordinates pos) const;
+    inline Case getCase(Coordinates) const;
 
     bool reveal(Coordinates);
     void mark(Coordinates);
 
 private:
 
-    int m_nbBombs ;
-    int m_nbLines ;
-    int m_nbColumns ;
-    bool m_firstClickOnBoard;
-    Case m_cases [m_nbLines][m_nbColumns];
+    const int b_nbBombs ;
+    const int b_nbLines ;
+    const int b_nbColumns ;
+    bool b_firstClickOnBoard;
+    const Case** b_cases;
 
-    bool revealRec(Coordinates, bool checked[][]);
-    void generateBombs(Coordinates);
+    bool revealRec(Coordinates, bool** checked);
+    void generateBombs(Coordinates, bool canBeBomb);
 };
 
 class BoardPublic{
@@ -38,8 +38,11 @@ public :
     inline CasePublic getCase(Coordinates) const;
 };
 
+
+//Inline methods
+
 Case Board::getCase(Coordinates pos) const {
-    return m_cases [pos.getLine()][pos.getColumn()];
+    return b_cases [pos.getLine()][pos.getColumn()];
 }
 
 CasePublic BoardPublic::getCase(Coordinates pos) const{

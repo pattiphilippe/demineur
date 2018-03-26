@@ -8,16 +8,6 @@ int m_column ;
 
 /**
  * @brief Coordinates::Coordinates
- * Constructor of coordinates, set line and column to 0
- */
-Coordinates::Coordinates()
-{
-    m_line = 0 ;
-    m_column = 0;
-}
-
-/**
- * @brief Coordinates::Coordinates
  * Coordinates with set value
  * @param line int line of the coordinates
  * @param column int column of the coordinates

@@ -15,8 +15,8 @@ Game::Game():
  * @param line
  * @param column
 */
-void Game::mark(int line, int column){
-    board_.mark(line, column);
+void Game::mark(Coordinates pos){
+    board_.mark(pos);
 }
 
 /**
@@ -26,19 +26,10 @@ void Game::mark(int line, int column){
  * @param line the src line
  * @param column the src column
 */
-void Game::reveal(int line, int column){
-    if(!board_.reveal(line, column)){
+void Game::reveal(Coordinates pos){
+    if(!board_.reveal(pos)){
         setGameState(lose);
     }
+    //TODO checker si game gagné
 }
 
-/**
- * @brief public board getter
- * Returns the public version of the board,
- * so that you can get the infos you need to show the board,
- * but can't modify the data.
- * @return the public version of the board
-*/
-BoardPublic Game::getBoard(){
-    return boardPublic_;
-}

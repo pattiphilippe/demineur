@@ -33,9 +33,9 @@ private:
 public:
     Game();
     //TODO rajouter constr pour taille de board
-    void reveal(int line, int column);
-    void mark(int line, int column);
-    BoardPublic getBoard() const;
+    void reveal(Coordinates);
+    void mark(Coordinates);
+    inline BoardPublic getBoard() const;
     inline GameState getGameState() const;
 };
 
@@ -55,6 +55,15 @@ GameState Game::getGameState() const{
     return state_;
 }
 
-
+/**
+ * @brief public board getter
+ * Returns the public version of the board,
+ * so that you can get the infos you need to show the board,
+ * but can't modify the data.
+ * @return the public version of the board
+*/
+BoardPublic Game::getBoard() const{
+    return boardPublic_;
+}
 
 #endif // GAME_H
