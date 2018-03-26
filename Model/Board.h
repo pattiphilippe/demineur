@@ -30,6 +30,7 @@ private:
 
     bool revealRec(Coordinates, vector<vector<bool>> checked);
     void generateBombs(Coordinates, bool canBeBomb);
+    inline bool isOnBoard(Coordinates) const;
 };
 
 class BoardPublic{
@@ -51,6 +52,11 @@ Case Board::getCase(Coordinates pos) const {
 CasePublic BoardPublic::getCase(Coordinates pos) const{
     //TODO optimiser
     return CasePublic(board_.getCase(pos));
+}
+
+bool Board::isOnBoard(Coordinates pos) const{
+    return 0 < pos.getLine() && pos.getLine() < b_nbLines
+            && 0 < pos.getColumn() && pos.getColumn() << b_nbColumns;
 }
 
 #endif // BOARD_H

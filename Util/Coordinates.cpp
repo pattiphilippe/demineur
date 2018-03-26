@@ -11,77 +11,51 @@ using namespace std;
  */
 Coordinates::Coordinates(unsigned line, unsigned column)
 {
-    m_line = line ;
-    m_column = column ;
+    c_line = line ;
+    c_column = column ;
 }
 
-unsigned Coordinates::getLine()
-{
-    return m_line ;
-}
-
-unsigned Coordinates::getColumn()
-{
-    return m_column ;
-}
 
 /**
  * @brief Coordinates::move
  * Moves the coordinate in a given direction
  * @param dir Enum of direction
  */
-Coordinates Coordinates::move(Direction dir)
+Coordinates Coordinates::move(Direction dir) const
 {
     //TODO à tester
+    //TODO mettre attributs aux directions et faire en sorte de pouvoir faire un foreach sur les directions
     int line{c_line}, column{c_column};
     switch (dir) {
-    case N: case NE: case NO:
-        line--;
-        break;
-    case S: case SE: case SO:
+    case N:
         line++;
         break;
-    case E: case NE: case SE:
+    case NE:
+        line ++;
         column++;
         break;
-    case O: case NO: case SO:
+    case E:
+        column++;
+        break;
+    case SE:
+        line--;
+        column++;
+        break;
+    case S:
+        line--;
+        break;
+    case SO:
+        line --;
         column--;
         break;
+    case O:
+        column--;
+        break;
+    case NO:
+        line++;
+        column--;
     default:
         throw GameException("Unknown direction!");
     }
-        /*
-    case NE:
-        newLine -=1 ;
-        newColumn +=1 ;
-        break;
-
-    case E:
-        newColumn +=1 ;
-        break;
-
-    case SE:
-        newLine +=1 ;
-        newColumn +=1 ;
-        break;
-
-    case S:
-        newLine +=1 ;
-        break;
-
-    case SO:
-        newLine +=1 ;
-        newColumn -=1 ;
-        break;
-
-    case O:
-        newColumn -=1 ;
-        break;
-
-    case NO:
-        newLine -=1 ;
-        newColumn -=1 ;
-        break;
-        */
     return Coordinates(line, column);
 }

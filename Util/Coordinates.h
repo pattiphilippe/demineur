@@ -11,8 +11,8 @@ enum Direction{
 
 class Coordinates {
 private:
-    unsigned c_line;
-    unsigned c_column;
+    int c_line;
+    int c_column;
 
 public:
     Coordinates(unsigned line, unsigned column);

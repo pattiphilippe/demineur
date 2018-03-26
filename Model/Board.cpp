@@ -8,6 +8,8 @@
 
 using namespace std;
 
+//TODO use isOnBoard(Coordinates)
+
 /**
  * @brief Board::Board
  * Basic constructor of board without args
