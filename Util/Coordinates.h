@@ -11,14 +11,14 @@ enum Direction{
 
 class Coordinates {
 private:
-    const int c_line;
-    const int c_column;
+    int c_line;
+    int c_column;
 
 public:
     Coordinates(int line, int column);
     inline int getColumn() const;
     inline int getLine() const;
-    Coordinates move(Direction dir);
+    Coordinates move(Direction dir) const;
 };
 
 //TODO documenter le tout

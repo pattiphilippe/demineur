@@ -1,5 +1,5 @@
 #include "Case.h"
-#include "gameexception.h"
+#include "Util/GameException.h"
 
 
 /**
@@ -9,9 +9,9 @@
  * has no near bombs by default,
  * is set in dft state.
  */
-Case::Case(int line, int column):
-    line_{line},
-    column_{column}
+Case::Case(Coordinates pos):
+    line_{pos.getLine()},
+    column_{pos.getColumn()}
 {}
 
 /**
@@ -20,9 +20,9 @@ Case::Case(int line, int column):
  * Default values are set to its attributes
  * (see Case::Case for further description)
  */
-void Case::init(int line, int column){
-    line_ = line;
-    column_ = column;
+void Case::init(Coordinates pos){
+    line_ = pos.getLine();
+    column_ = pos.getColumn();
     isBomb_ = false;
     nbNearBombs_ = 0;
     state_ = dft;

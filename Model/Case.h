@@ -1,12 +1,6 @@
 #ifndef CASE_H
 #define CASE_H
-
-
-/*
-10: analyse
-40: model et console
-50: remise graphique 20 et examen 30
-*/
+#include "Util/Coordinates.h"
 
 /**
  * @brief Case state enum
@@ -25,6 +19,7 @@ enum CaseState{
 */
 class Case{
 private:
+    //TODO put const to every possible attribute
     int line_;
     int column_;
     int nbNearBombs_{0};
@@ -32,8 +27,8 @@ private:
     CaseState state_{dft};
 
 public:
-    Case(int line, int column);
-    void init(int line, int column);
+    Case(Coordinates pos);
+    void init(Coordinates);
     inline bool isBomb() const;
     inline void setBomb();
     inline int getNbNearBombs() const;

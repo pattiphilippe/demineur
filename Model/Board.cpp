@@ -129,12 +129,11 @@ bool Board::reveal(Coordinates pos)
 
 
 bool Board::revealRec(Coordinates pos, bool** checked){
-    Case & tile {b_cases[line][column]};
+    Case & tile {b_cases[pos.getLine()][pos.getColumn()]};
     checked[pos.getLine()][pos.getColumn()] = true ;
     tile.setState(revealed);
     if(tile.getNbNearBombs()==0){
         Direction dir;
-        pos = Coordinates(line, column);
         for(int dirInt =N ; dirInt != Last; dirInt++ ){
             dir = static_cast<Direction>(dirInt);
             Coordinates neighbour = pos.move(dir);
