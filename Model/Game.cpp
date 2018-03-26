@@ -25,10 +25,11 @@ void Game::mark(int line, int column){
  * Otherwise, the tile and every tile without near bombs next to the src will be revealed.
  * @param line the src line
  * @param column the src column
- * @return a vector with the positions that have changed during this method.
 */
-vector<CasePublic> Game::reveal(int line, int column){
-    return board_.reveal(line, column);
+void Game::reveal(int line, int column){
+    if(!board_.reveal(line, column)){
+        setGameState(lose);
+    }
 }
 
 /**

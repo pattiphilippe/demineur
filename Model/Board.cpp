@@ -26,7 +26,7 @@ Board::Board()
     m_nbColumns = 10 ;
     m_nbBombs = 10 ;  /* 10 percent of 100 cases */
     m_firstClickOnBoard = false ;
-    m_cases = new Case[m_nbLines][m_nbColumns];
+    m_cases = Case[m_nbLines][m_nbColumns];
 
 }
 
@@ -43,8 +43,8 @@ Board::Board(int nbLines, int nbColumns)
     m_nbLines = nbLines ;
     m_nbColumns = nbColumns ;
     m_nbBombs = (nbLines * nbColumns) * 0.1 ;
-    m_firstClickOnBoard = false ;
-    m_cases = new Case[m_nbLines][m_nbColumns];
+    m_firstClickOnBoard = true ;
+    m_cases = Case[m_nbLines][m_nbColumns];
 }
 
 /**
@@ -61,8 +61,8 @@ Board::Board(int nbLines, int nbColumns, double densityBombs)
     m_nbLines = nbLines ;
     m_nbColumns = nbColumns ;
     m_nbBombs = (nbLines * nbColumns) * densityBombs ;
-    m_firstClickOnBoard = false ;
-    m_cases = new Case[m_nbLines][m_nbColumns];
+    m_firstClickOnBoard = true ;
+    m_cases = Case[m_nbLines][m_nbColumns];
 }
 
 /**
@@ -72,7 +72,7 @@ Board::Board(int nbLines, int nbColumns, double densityBombs)
  * @param column column of the clicked case
  *
  */
-Board::generateBombs(int clickedLine, int clickedColumn)
+void Board::generateBombs(int clickedLine, int clickedColumn)
 {
     int bombLine, bombColumn ;
     for(int bomb=0; bomb < m_nbBombs; bomb++){
@@ -83,7 +83,7 @@ Board::generateBombs(int clickedLine, int clickedColumn)
         m_cases[bombLine][bombColumn].setBomb();
     }
 
-    m_firstClickOnBoard = true ;
+    m_firstClickOnBoard = false ;
 }
 
 /**
@@ -92,16 +92,13 @@ Board::generateBombs(int clickedLine, int clickedColumn)
  * @param clickedLine int, line of the clicked case
  * @param clickedColumn int, column of the clicked case
  */
-Board::mark(int clickedLine, int clickedColumn)
+void Board::mark(int clickedLine, int clickedColumn)
 {
-    if(!m_firstClickOnBoard){
-        this->generateBombs(999,999); // 999 = Impossible value in the board
+    if(m_firstClickOnBoard){
+        this->generateBombs(-1, -1); // -1 = Impossible value in the board
     }
-    if(m_cases[clickedLine][clickedColumn].getState() == marked){
-        m_cases[clickedLine][clickedColumn].setState(dft);
-    }else{
-        m_cases[clickedLine][clickedColumn].setState(marked);
-    }
+    Case & tile {m_cases[clickedLine][clickedColumn]};
+    tile.setState(tile.getState == marked ? dft : marked);
 }
 
 /**
@@ -109,41 +106,48 @@ Board::mark(int clickedLine, int clickedColumn)
  * Reveal cases as described in the rules of Démineur.
  * @param clickedLine int, clicked line in the board
  * @param clickedColumn int, clicked column in the board
+ * @return true if it didn't reveal a bomb, false if it exploded
  */
-Board::reveal(int clickedLine, int clickedColumn)
+bool Board::reveal(int clickedLine, int clickedColumn)
 {
-    if(!m_firstClickOnBoard){
-        this->generateBombs(999,999); // 999 = Impossible value in the board
+    if(m_firstClickOnBoard){
+        this->generateBombs(clickedLine,clickedColumn);
     }
-    bool checked[m_nbLines][m_nbColumns];
-    for (int i=0; i<m_nbLines; i++){
-        for(int j=0; j<m_nbColumns; j++){
-            checked[i][j] = false ;
+    Case & tile {m_cases[clickedLine][clickedColumn]};
+    if(tile.isBomb()){
+        tile.setState(revealed);
+        return false;
+    } else if(tile.getState() != revealed){
+        if(tile.getNbNearBombs() != 0){
+            tile.setState(revealed);
+        } else {
+            bool checked[m_nbLines][m_nbColumns];
+            for (int i=0; i<m_nbLines; i++){
+                for(int j=0; j<m_nbColumns; j++){
+                    checked[i][j] = false ;
+                }
+            }
+            return revealRec(clickedLine, clickedColumn, checked);
         }
     }
-    RevealRec(line, column, checked);
+    return true;
 }
 
 
-Board::RevealRec(int line, int column, bool checked[][]){
-    Case tile ;
-    tile = m_cases[line][column];
+bool Board::revealRec(int line, int column, bool checked[][]){
+    Case & tile {m_cases[line][column]};
     checked[line][column] = true ;
     tile.setState(revealed);
-    if (tile.isBomb()){
-        game.setState(Lost);  //Modif à faire dans game pour que ça fonctionne
-    }else{
-        if(tile.getNbNearBombs()==0){
-            Coordinates pos, neighbour ;
-            pos = new Coordinates(line, column);
-            for(int dirInt =N ; dirInt != Last; dirInt++ ){
-                Direction dirFor = static_cast<Direction>(dirInt);
-                neighbour = pos.move(dir);
-                if(!check[neighbour.getLine()][neighbour.getColumn()]){
-                    this->reveal(neighbour.getLine(), neighbour.getColumn);
-                }
+    if(tile.getNbNearBombs()==0){
+        Coordinates pos, neighbour ;
+        pos = Coordinates(line, column);
+        for(int dirInt =N ; dirInt != Last; dirInt++ ){
+            Direction dir = static_cast<Direction>(dirInt);
+            neighbour = pos.move(dir);
+            if(!checked[neighbour.getLine()][neighbour.getColumn()]){
+                this->reveal(neighbour.getLine(), neighbour.getColumn);
             }
         }
     }
+    return true;
 }
-

@@ -32,7 +32,8 @@ private:
 
 public:
     Game();
-    vector<CasePublic> reveal(int line, int column);
+    //TODO rajouter constr pour taille de board
+    void reveal(int line, int column);
     void mark(int line, int column);
     BoardPublic getBoard() const;
     inline GameState getGameState() const;
