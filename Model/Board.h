@@ -3,6 +3,9 @@
 
 #include "Case.h"
 #include "Util/Coordinates.h"
+#include <vector>
+
+using namespace std;
 
 class Board{
 public:

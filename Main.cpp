@@ -20,8 +20,12 @@ int main(int argc, char *argv[])
         cout << e.what() << endl;
     }
     */
-//TODO mettre un max de méthodes inline
+
+
+    //TODO documenter le tout
+    //TODO mettre un max de méthodes inline
     //TODO mettre un max de const (indique qu'une méthode ne modifie pas l'état de l'objet)
+    //TODO employer les références pour optimiser (case, coordinates, boardPublic, casePublic)
 
     return 0;
 }

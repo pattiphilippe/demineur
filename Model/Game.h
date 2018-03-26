@@ -32,6 +32,9 @@ private:
 
 public:
     Game();
+    Game(int nbLines, int nbColumns);
+    Game(int nbLines, int nbColumns, int nbBombs);
+    Game(int nbLines, int nbColumns, double densityBombs);
     //TODO rajouter constr pour taille de board
     void reveal(Coordinates);
     void mark(Coordinates);

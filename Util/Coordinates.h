@@ -21,7 +21,6 @@ public:
     Coordinates move(Direction dir) const;
 };
 
-//TODO documenter le tout
 
 /**
  * @brief Coordinates::getLine

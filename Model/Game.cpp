@@ -10,6 +10,13 @@ Game::Game():
     boardPublic_{board_}
 {}
 
+Game::Game(int nbLines, int nbColumns):
+    state_{init},
+    board_{nbLines, nbColumns},
+    boardPublic_{board_}
+{}
+
+
 /**
  * Marks or unmarks the given position on the board.
  * @param line

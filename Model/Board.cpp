@@ -1,9 +1,9 @@
 #include "Board.h"
 #include "Case.h"
-#include "stdbool.h"
 #include "Game.h"
-#include <vector>
 #include "Util/Coordinates.h"
+#include <vector>
+#include <cstdlib>
 
 using namespace std;
 
@@ -15,11 +15,7 @@ using namespace std;
  * Default density of bombs wich is 10%
  */
 Board::Board():
-    b_nbLines{10},
-    b_nbColumns{10},
-    b_nbBombs{10}, /* 10% of 100 cases */
-    b_firstClickOnBoard{true},
-    b_cases{Case[b_nbLines][b_nbColumns]}
+    Board(10, 10)
 {}
 
 /**
@@ -31,14 +27,7 @@ Board::Board():
  *
  */
 Board::Board(int nbLines, int nbColumns):
-    b_nbLines{nbLines},
-    b_nbColumns{nbColumns},
-    //TODO try to put 0.1 in defaultBombsPercentage var?
-    b_nbBombs{static_cast<int>((nbLines * nbColumns) * 0.1 )}, /* 10% of 100 cases */
-    //TODO délégation de constructeurs?
-    b_firstClickOnBoard{true},
-    //TODO travailler avec classe array?
-    b_cases{Case[b_nbLines][b_nbColumns]}
+    Board(nbLines, nbColumns, 0.1)
 {}
 
 /**
@@ -51,11 +40,14 @@ Board::Board(int nbLines, int nbColumns):
  *
  */
 Board::Board(int nbLines, int nbColumns, double densityBombs):
+    Board(nbLines, nbColumns, static_cast<int>(nbLines * nbColumns * densityBombs))
+{}
+
+Board::Board(int nbLines, int nbColumns, int nbBombs):
     b_nbLines{nbLines},
     b_nbColumns{nbColumns},
-    b_nbBombs{densityBombs},
-    b_firstClickOnBoard{true},
-    b_cases{Case[b_nbLines][b_nbColumns]}
+    b_nbBombs{nbBombs},
+    b_firstClickOnBoard{true}
 {}
 
 
