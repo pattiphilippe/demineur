@@ -8,7 +8,7 @@ Game game;
  */
 Controller::Controller()
 {
-    game = new Game();
+    game = Game();
 }
 
 /**
@@ -26,7 +26,7 @@ Controller::getGame()
  */
 Controller::newGame()
 {
-    game = new Game();
+    game = Game();
 }
 
 

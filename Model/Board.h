@@ -11,7 +11,6 @@ class Board{
 public:
 
     Board();
-    ~Board();
     Board(int nbLines, int nbColumns);
     Board(int nbLines, int nbColumns, int nbBombs);
     Board(int nbLines, int nbColumns, double densityBombs);
