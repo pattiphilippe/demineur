@@ -2,7 +2,7 @@
 #define BOARD_H
 
 #include "Case.h"
-#include "Coordinates.h"
+#include "Util/Coordinates.h"
 
 class Board{
 public:
@@ -14,8 +14,8 @@ public:
 
     inline Case getCase(Coordinates pos) const;
 
-    bool reveal(int line, int column);
-    void mark(int line, int column);
+    bool reveal(Coordinates);
+    void mark(Coordinates);
 
 private:
 
@@ -25,8 +25,8 @@ private:
     bool m_firstClickOnBoard;
     Case m_cases [m_nbLines][m_nbColumns];
 
-    bool revealRec(int line, int column, bool checked[][]);
-    void generateBombs(int line, int column);
+    bool revealRec(Coordinates, bool checked[][]);
+    void generateBombs(Coordinates);
 };
 
 class BoardPublic{
@@ -35,7 +35,7 @@ private :
 
 public :
     BoardPublic(Board);
-    inline Case getCase(int line, int column) const;
+    inline CasePublic getCase(Coordinates) const;
 };
 
 Case Board::getCase(Coordinates pos) const {

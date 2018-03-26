@@ -1,4 +1,5 @@
 #include "Coordinates.h"
+#include "GameException.h"
 
 using namespace std;
 
@@ -27,42 +28,14 @@ Coordinates::Coordinates(int line, int column)
     m_column = column ;
 }
 
-/**
- * @brief Coordinates::getLine
- * Return an Integer , line of coordinates
- */
 Coordinates::getLine()
 {
     return m_line ;
 }
 
-/**
- * @brief Coordinates::getColumn
- * Return an Integer, column of coordinates
- */
 Coordinates::getColumn()
 {
     return m_column ;
-}
-
-/**
- * @brief Coordinates::setLine
- * Set the line of coordinate
- * @param line, int line of coordinates
- */
-Coordinates::setLine(int line)
-{
-    m_line = line ;
-}
-
-/**
- * @brief Coordinates::setColumn
- * Set column of coordinate
- * @param column int of coordinates
- */
-Coordinates::setColumn(int column)
-{
-    m_column = column ;
 }
 
 /**
@@ -70,46 +43,58 @@ Coordinates::setColumn(int column)
  * Moves the coordinate in a given direction
  * @param dir Enum of direction
  */
-Coordinates::move(Direction dir)
+Coordinates Coordinates::move(Direction dir)
 {
+    //TODO à tester
+    int line{c_line}, column{c_column};
     switch (dir) {
-    case N:
-        m_line -=1 ;
+    case N: case NE: case NO:
+        line--;
         break;
-
+    case S: case SE: case SO:
+        line++;
+        break;
+    case E: case NE: case SE:
+        column++;
+        break;
+    case O: case NO: case SO:
+        column--;
+        break;
+    default:
+        throw GameException("Unknown direction!");
+    }
+        /*
     case NE:
-        m_line -=1 ;
-        m_column +=1 ;
+        newLine -=1 ;
+        newColumn +=1 ;
         break;
 
     case E:
-        m_column +=1 ;
+        newColumn +=1 ;
         break;
 
     case SE:
-        m_line +=1 ;
-        m_column +=1 ;
+        newLine +=1 ;
+        newColumn +=1 ;
         break;
 
     case S:
-        m_line +=1 ;
+        newLine +=1 ;
         break;
 
     case SO:
-        m_line +=1 ;
-        m_column -=1 ;
+        newLine +=1 ;
+        newColumn -=1 ;
         break;
 
     case O:
-        m_column -=1 ;
+        newColumn -=1 ;
         break;
 
     case NO:
-        m_line -=1 ;
-        m_column -=1 ;
+        newLine -=1 ;
+        newColumn -=1 ;
         break;
-
-    default:
-        break;
-    }
+        */
+    return Coordinates(line, column);
 }

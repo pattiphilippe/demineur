@@ -3,7 +3,7 @@
 #include "stdbool.h"
 #include "Game.h"
 #include <vector>
-#include "Coordinates.h"
+#include "Util/Coordinates.h"
 
 using namespace std;
 
@@ -72,9 +72,9 @@ Board::Board(int nbLines, int nbColumns, double densityBombs)
  * @param column column of the clicked case
  *
  */
-void Board::generateBombs(int clickedLine, int clickedColumn)
+void Board::generateBombs(Coordinates pos)
 {
-    int bombLine, bombColumn ;
+    int bombLine, bombColumn, clickedLine = pos.getLine(), clickedColumn = pos.getColumn();
     for(int bomb=0; bomb < m_nbBombs; bomb++){
         do {
             bombLine = rand() % m_nbLines ;
@@ -134,15 +134,16 @@ bool Board::reveal(int clickedLine, int clickedColumn)
 }
 
 
-bool Board::revealRec(int line, int column, bool checked[][]){
+bool Board::revealRec(Coordinates pos, bool checked[][]){
     Case & tile {m_cases[line][column]};
-    checked[line][column] = true ;
+    checked[pos.getLine()][pos.getColumn()] = true ;
     tile.setState(revealed);
     if(tile.getNbNearBombs()==0){
-        Coordinates pos, neighbour ;
+        Coordinates neighbour ;
+        Direction dir;
         pos = Coordinates(line, column);
         for(int dirInt =N ; dirInt != Last; dirInt++ ){
-            Direction dir = static_cast<Direction>(dirInt);
+            dir = static_cast<Direction>(dirInt);
             neighbour = pos.move(dir);
             if(!checked[neighbour.getLine()][neighbour.getColumn()]){
                 this->reveal(neighbour.getLine(), neighbour.getColumn);
