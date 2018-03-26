@@ -11,13 +11,13 @@ enum Direction{
 
 class Coordinates {
 private:
-    int c_line;
-    int c_column;
+    unsigned c_line;
+    unsigned c_column;
 
 public:
-    Coordinates(int line, int column);
-    inline int getColumn() const;
-    inline int getLine() const;
+    Coordinates(unsigned line, unsigned column);
+    inline unsigned getColumn() const;
+    inline unsigned getLine() const;
     Coordinates move(Direction dir) const;
 };
 
@@ -26,7 +26,7 @@ public:
  * @brief Coordinates::getLine
  * Return an Integer , line of coordinates
  */
-int Coordinates::getLine() const{
+unsigned Coordinates::getLine() const{
     return c_line;
 }
 
@@ -34,7 +34,7 @@ int Coordinates::getLine() const{
  * @brief Coordinates::getColumn
  * Return an Integer, column of coordinates
  */
-int Coordinates::getColumn() const{
+unsigned Coordinates::getColumn() const{
     return c_column;
 }
 

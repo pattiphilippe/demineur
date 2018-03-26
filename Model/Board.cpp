@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Util/Coordinates.h"
 #include <vector>
+#include <array>
 #include <cstdlib>
 
 using namespace std;
@@ -26,7 +27,7 @@ Board::Board():
  * @param nbColumns The number of columns of the board
  *
  */
-Board::Board(int nbLines, int nbColumns):
+Board::Board(unsigned nbLines, unsigned nbColumns):
     Board(nbLines, nbColumns, 0.1)
 {}
 
@@ -39,16 +40,20 @@ Board::Board(int nbLines, int nbColumns):
  * @param densityBombs Pourcentage of density of bombs you want in your board
  *
  */
-Board::Board(int nbLines, int nbColumns, double densityBombs):
-    Board(nbLines, nbColumns, static_cast<int>(nbLines * nbColumns * densityBombs))
+Board::Board(unsigned nbLines, unsigned nbColumns, double densityBombs):
+    Board(nbLines, nbColumns, static_cast<unsigned>(nbLines * nbColumns * densityBombs))
 {}
 
-Board::Board(int nbLines, int nbColumns, int nbBombs):
+Board::Board(unsigned nbLines, unsigned nbColumns, unsigned nbBombs):
     b_nbLines{nbLines},
     b_nbColumns{nbColumns},
     b_nbBombs{nbBombs},
-    b_firstClickOnBoard{true}
-{}
+    b_firstClickOnBoard{true},
+    b_cases{}
+{
+    //TODO put initialize b_cases
+
+}
 
 
 /**
@@ -66,7 +71,7 @@ void Board::generateBombs(Coordinates pos, bool canBeBomb)
             bombLine = rand() % b_nbLines ;
             bombColumn = rand() % b_nbColumns ;
         } while (!canBeBomb || (bombLine==line && bombColumn==col));
-        b_cases[bombLine][bombColumn].setBomb();
+        static_cast<Case>(b_cases.at(bombLine).at(bombColumn)).setBomb();
     }
 
     b_firstClickOnBoard = false ;
@@ -83,7 +88,7 @@ void Board::mark(Coordinates pos)
     if(b_firstClickOnBoard){
         this->generateBombs(pos, false); // -1 = Impossible value in the board
     }
-    Case & tile {b_cases[pos.getLine()][pos.getColumn()]};
+    Case tile {static_cast<Case>(b_cases.at(pos.getLine()).at(pos.getColumn()))};
     tile.setState(tile.getState() == marked ? dft : marked);
 }
 
@@ -99,7 +104,7 @@ bool Board::reveal(Coordinates pos)
     if(b_firstClickOnBoard){
         this->generateBombs(pos, true);
     }
-    Case & tile {b_cases[pos.getLine()][pos.getColumn()]};
+    Case tile{b_cases.at(pos.getLine()).at(pos.getColumn())};
     if(tile.isBomb()){
         tile.setState(revealed);
         return false;
@@ -107,10 +112,10 @@ bool Board::reveal(Coordinates pos)
         if(tile.getNbNearBombs() != 0){
             tile.setState(revealed);
         } else {
-            bool checked [b_nbLines][b_nbColumns];
-            for (int i=0; i<b_nbLines; i++){
-                for(int j=0; j<b_nbColumns; j++){
-                    checked[i][j] = false ;
+            vector<vector<bool>> checked;
+            for(unsigned line = 0; line < b_nbLines; line++){
+                for(unsigned col = 0; col < b_nbColumns; col++){
+                    checked.at(line).push_back(false);
                 }
             }
             return revealRec(pos, checked);
@@ -120,8 +125,8 @@ bool Board::reveal(Coordinates pos)
 }
 
 
-bool Board::revealRec(Coordinates pos, bool** checked){
-    Case & tile {b_cases[pos.getLine()][pos.getColumn()]};
+bool Board::revealRec(Coordinates pos, vector<vector<bool>> checked){
+    Case tile {b_cases[pos.getLine()][pos.getColumn()]};
     checked[pos.getLine()][pos.getColumn()] = true ;
     tile.setState(revealed);
     if(tile.getNbNearBombs()==0){

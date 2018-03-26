@@ -3,27 +3,24 @@
 
 using namespace std;
 
-int m_line ;
-int m_column ;
-
 /**
  * @brief Coordinates::Coordinates
  * Coordinates with set value
  * @param line int line of the coordinates
  * @param column int column of the coordinates
  */
-Coordinates::Coordinates(int line, int column)
+Coordinates::Coordinates(unsigned line, unsigned column)
 {
     m_line = line ;
     m_column = column ;
 }
 
-Coordinates::getLine()
+unsigned Coordinates::getLine()
 {
     return m_line ;
 }
 
-Coordinates::getColumn()
+unsigned Coordinates::getColumn()
 {
     return m_column ;
 }

@@ -55,7 +55,7 @@ bool CasePublic::isBomb() const{
  * Returns the number of bombs next to this case
  * @throws GameException if the state is not revealed
  */
-int CasePublic::getNbNearBombs() const{
+unsigned CasePublic::getNbNearBombs() const{
     if(getState() != revealed){
         throw GameException("Wrong state, can't see details of the case!");
     }

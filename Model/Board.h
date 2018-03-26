@@ -11,9 +11,9 @@ class Board{
 public:
 
     Board();
-    Board(int nbLines, int nbColumns);
-    Board(int nbLines, int nbColumns, int nbBombs);
-    Board(int nbLines, int nbColumns, double densityBombs);
+    Board(unsigned nbLines, unsigned nbColumns);
+    Board(unsigned nbLines, unsigned nbColumns, unsigned nbBombs);
+    Board(unsigned nbLines, unsigned nbColumns, double densityBombs);
 
     inline Case getCase(Coordinates) const;
 
@@ -22,13 +22,13 @@ public:
 
 private:
 
-    const int b_nbBombs ;
-    const int b_nbLines ;
-    const int b_nbColumns ;
+    const unsigned b_nbLines ;
+    const unsigned b_nbColumns ;
+    const unsigned b_nbBombs ;
     bool b_firstClickOnBoard;
-    const Case** b_cases;
+    const vector<vector<Case>> b_cases;
 
-    bool revealRec(Coordinates, bool** checked);
+    bool revealRec(Coordinates, vector<vector<bool>> checked);
     void generateBombs(Coordinates, bool canBeBomb);
 };
 

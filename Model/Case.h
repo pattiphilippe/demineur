@@ -20,9 +20,10 @@ enum CaseState{
 class Case{
 private:
     //TODO put const to every possible attribute
-    int line_;
-    int column_;
-    int nbNearBombs_{0};
+    //TODO check if everything unsigned
+    unsigned line_;
+    unsigned column_;
+    unsigned nbNearBombs_{0};
     bool isBomb_{false};
     CaseState state_{dft};
 
@@ -31,7 +32,7 @@ public:
     void init(Coordinates);
     inline bool isBomb() const;
     inline void setBomb();
-    inline int getNbNearBombs() const;
+    inline unsigned getNbNearBombs() const;
     inline void addNearBomb();
     inline CaseState getState() const;
     inline void setState(CaseState);
@@ -50,7 +51,7 @@ private:
 public:
     CasePublic(Case src);
     bool isBomb() const;
-    int getNbNearBombs() const;
+    unsigned getNbNearBombs() const;
     inline CaseState getState() const;
 };
 
@@ -74,7 +75,7 @@ void Case::setBomb(){
  * @brief nbNearBombs getter
  * Returns the nb of bombs in the adjacent cases.
  */
-int Case::getNbNearBombs() const{
+unsigned Case::getNbNearBombs() const{
     return nbNearBombs_;
 }
 

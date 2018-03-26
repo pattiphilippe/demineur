@@ -10,7 +10,7 @@ Game::Game():
     boardPublic_{board_}
 {}
 
-Game::Game(int nbLines, int nbColumns):
+Game::Game(unsigned nbLines, unsigned nbColumns):
     state_{init},
     board_{nbLines, nbColumns},
     boardPublic_{board_}
