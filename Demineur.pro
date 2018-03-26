@@ -10,7 +10,8 @@ SOURCES += \
     Model/Board.cpp \
     Model/Coordinates.cpp \
     Model/Category.cpp \
-    Model/Score.cpp
+    Model/Score.cpp \
+    Model/Controller.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
@@ -23,4 +24,5 @@ HEADERS += \
     Model/Coordinates.h \
     Model/coordinates.h \
     Model/Category.h \
-    Model/Score.h
+    Model/Score.h \
+    Model/Controller.h
