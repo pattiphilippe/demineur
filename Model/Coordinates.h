@@ -1,7 +1,6 @@
 #ifndef COORDINATES_H
 #define COORDINATES_H
 
-#endif // COORDINATES_H
 
 /**
  * @brief Direction enum
@@ -27,3 +26,5 @@ public:
     void move(Direction dir);
 
 }
+
+#endif // COORDINATES_H

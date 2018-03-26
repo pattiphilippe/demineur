@@ -3,10 +3,8 @@
 
 #endif // BOARD_H
 
-#inculde "case.h"
+#include "case.h"
 
-
-#endif // BOARD_H
 
 
 class Board{
@@ -34,5 +32,7 @@ private:
     bool m_firstClickOnBoard;
     Case m_cases [nbLines][nbColumns];
 
-    void RevealRec(int line, int column, bool checked[][]);
+    bool RevealRec(int line, int column, bool checked[][]);
 }
+
+#endif // BOARD_H

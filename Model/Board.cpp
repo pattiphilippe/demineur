@@ -122,15 +122,8 @@ Board::reveal(int clickedLine, int clickedColumn)
         }
     }
     RevealRec(line, column, checked);
-    std::vector<std::Coordinates> changedPos ;
-    for(int i=0; i<m_nbLines ; i++){
-        for(int j=0; j<m_nbColumns ; j++){
-            changedPos.push_back(new Coordinates(i,j));
-        }
-    }
-    return changedPos ;
-
 }
+
 
 Board::RevealRec(int line, int column, bool checked[][]){
     Case tile ;
