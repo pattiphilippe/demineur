@@ -10,7 +10,7 @@ public :
     ~Controller();
 
     void newGame();
-    Game getGame();
+    Game getGame() const ;
 
 
 private :
