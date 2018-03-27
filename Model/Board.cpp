@@ -6,6 +6,8 @@
 #include <array>
 #include <cstdlib>
 
+#include <iostream>
+
 using namespace std;
 
 //TODO use isOnBoard(Coordinates)
@@ -51,12 +53,21 @@ Board::Board(unsigned nbLines, unsigned nbColumns, unsigned nbBombs):
     b_nbColumns{nbColumns},
     b_nbBombs{nbBombs},
     b_firstClickOnBoard{true},
-    b_cases{}
+    b_cases{nbLines}
 {
     //TODO put initialize b_cases
-
+    for(unsigned line = 0; line < b_nbLines; line++){
+        cout << "b_cases.at(line).capacity()" << b_cases.at(line).capacity() <<endl;
+        for(unsigned col = 0; col < b_nbColumns; col++){
+            //b_cases.at(line).push_back(Case{Coordinates{line, col}});
+        }
+    }
 }
 
+//TODO check implementation BoardPublic(board)
+BoardPublic::BoardPublic(Board board):
+    board_{board}
+{}
 
 /**
  * @brief Board::generateBombs
@@ -68,7 +79,7 @@ Board::Board(unsigned nbLines, unsigned nbColumns, unsigned nbBombs):
 void Board::generateBombs(Coordinates pos, bool canBeBomb)
 {
     int bombLine, bombColumn, line = pos.getLine(), col = pos.getColumn();
-    for(int bomb=0; bomb < b_nbBombs; bomb++){
+    for(unsigned bomb=0; bomb < b_nbBombs; bomb++){
         do {
             bombLine = rand() % b_nbLines ;
             bombColumn = rand() % b_nbColumns ;

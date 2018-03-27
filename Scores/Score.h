@@ -2,18 +2,38 @@
 #define SCORE_H
 #include <string>
 
-#endif // SCORE_H
 
 class Score{
 public:
 
-    Score(double time, string player);
+    Score();
+    Score(double time, std::string player);
 
-    double getTime();
-    double getPlayer();
+    inline double getTime() const;
+    inline std::string getPlayer() const ;
 
 private:
 
-    double s_time;
-    string s_player;
+    const double s_time;
+    const std::string s_player;
+};
+
+//INLINE METHODS
+
+/**
+ * @brief Score::getTime
+ * @return the time of this score
+ */
+double Score::getTime() const{
+    return s_time;
 }
+
+/**
+ * @brief Score::getPlayer
+ * @return the username saved with this score
+ */
+std::string Score::getPlayer() const{
+    return s_player;
+}
+
+#endif // SCORE_H

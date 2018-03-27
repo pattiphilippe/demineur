@@ -5,13 +5,13 @@ CONFIG -= qt
 
 SOURCES += \
     Model/Case.cpp \
-    Main.cpp \
     Model/Game.cpp \
     Model/Board.cpp \
     Util/Coordinates.cpp \
     Scores/Category.cpp \
     Scores/Score.cpp \
-    Controller.cpp
+    Controller.cpp \
+    Tests/CoordinatesTest.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
@@ -24,4 +24,4 @@ HEADERS += \
     Util/Coordinates.h \
     Scores/Category.h \
     Scores/Score.h \
-    Controller.h
+    Controller.h \

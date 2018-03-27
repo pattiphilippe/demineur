@@ -9,7 +9,7 @@ using namespace std;
  * @param line int line of the coordinates
  * @param column int column of the coordinates
  */
-Coordinates::Coordinates(unsigned line, unsigned column)
+Coordinates::Coordinates(int line, int column)
 {
     c_line = line ;
     c_column = column ;
@@ -54,6 +54,7 @@ Coordinates Coordinates::move(Direction dir) const
     case NO:
         line++;
         column--;
+        break;
     default:
         throw GameException("Unknown direction!");
     }

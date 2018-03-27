@@ -15,9 +15,9 @@ private:
     int c_column;
 
 public:
-    Coordinates(unsigned line, unsigned column);
-    inline unsigned getColumn() const;
-    inline unsigned getLine() const;
+    Coordinates(int line, int column);
+    inline int getColumn() const;
+    inline int getLine() const;
     Coordinates move(Direction dir) const;
 };
 
@@ -26,7 +26,7 @@ public:
  * @brief Coordinates::getLine
  * Return an Integer , line of coordinates
  */
-unsigned Coordinates::getLine() const{
+int Coordinates::getLine() const{
     return c_line;
 }
 
@@ -34,7 +34,7 @@ unsigned Coordinates::getLine() const{
  * @brief Coordinates::getColumn
  * Return an Integer, column of coordinates
  */
-unsigned Coordinates::getColumn() const{
+int Coordinates::getColumn() const{
     return c_column;
 }
 

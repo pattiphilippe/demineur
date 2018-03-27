@@ -1,33 +1,23 @@
 #include "Controller.h"
 
-Game game;
 
 /**
  * @brief Controller::Controller
  * Init a game with default board
  */
-Controller::Controller()
-{
-    game = Game();
-}
+Controller::Controller():
+    game_{}
 
-/**
- * @brief Controller::getGame
- * Instance of the actual game
- */
-Controller::getGame()
-{
-    return game ;
-}
+{}
+
 
 /**
  * @brief Controller::newGame
  * Replace current game with a new game
  */
-Controller::newGame()
+void Controller::newGame()
 {
-    game = Game();
+    //TODO ask parameters for the game
+
+    //game_ = Game(); FAIT DES EXCEPTIONS DS TOUT LE PROJET (pas comme en java)
 }
-
-
-

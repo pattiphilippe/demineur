@@ -1,28 +1,24 @@
 #include "Category.h"
 
-using namespace std;
 
-int c_BoardSize ;
-int c_nbBombs ;
-string c_id ;
-std::vector<std::Score> c_scores ;
+Category::Category(unsigned boardSize, unsigned nbBombs):
+    c_boardSize {boardSize},
+    c_nbBombs {nbBombs},
+    c_scores {},
+    c_id {to_string(boardSize) + to_string(nbBombs)}
+{}
 
-
-Category::Category(int boardSize, int nbBombs)
+array<Score, 5> Category::getScores() const
 {
-    c_BoardSize = boardSize ;
-    c_nbBombs = nbBombs ;
-    string boardString = to_string(boardSize);
-    string nbBombsString = to_string(nbBombs);
-    c_id = boardString + nbBombsString ;
-}
-
-Category::getScores()
-{
+    //TODO ifnotdone load scores in json for this category
     return c_scores ;
 }
 
-Category::registerScore(Score score)
+bool Category::registerScore(Score score)
 {
-    c_scores.push_back(score);
+    //TODO load scores in json ifnot done yet, compare score to others,
+    //TODO and if better than at least one, put it in sorted
+    //c_scores.push_back(score);
+    bool hasBeenInserted {false};
+    return hasBeenInserted;
 }

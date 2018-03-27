@@ -21,15 +21,13 @@ class Case{
 private:
     //TODO put const to every possible attribute
     //TODO check if everything unsigned
-    unsigned line_;
-    unsigned column_;
     unsigned nbNearBombs_{0};
     bool isBomb_{false};
     CaseState state_{dft};
 
 public:
-    Case(Coordinates pos);
-    void init(Coordinates);
+    Case();
+    void init();
     inline bool isBomb() const;
     inline void setBomb();
     inline unsigned getNbNearBombs() const;
