@@ -8,8 +8,10 @@ public :
 
     Controller();
 
-    void newGame();
+    void newGame(int nbLines, int nbColumns, int nbBombs, double densityBombs);
     inline Game getGame() const ;
+    void reveal(unsigned line, unsigned column);
+    void mark(unsigned line, unsigned column);
 
 
 private :

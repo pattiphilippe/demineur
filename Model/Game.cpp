@@ -10,12 +10,43 @@ Game::Game():
     state_{init}
 {}
 
+/**
+ * @brief Game::Game
+ * Creates a new game with custom sized board
+ * @param nbLines number of lines of the customized board
+ * @param nbColumns number of columns of the customized board
+ */
 Game::Game(unsigned nbLines, unsigned nbColumns):
     state_{init},
     board_{nbLines, nbColumns},
     boardPublic_{board_}
 {}
 
+/**
+ * @brief Game::Game
+ * Creates a new game with custom sized board and a custom amount of bombs
+ * @param nbLines number of lines of the customized board
+ * @param nbColumns number of columns of the customized board
+ * @param nbBombs number of bombs int the customized board
+ */
+Game::Game(unsigned nbLines, unsigned nbColumns, unsigned nbBombs):
+    state_{init},
+    board_{nbLines, nbColumns, nbBombs},
+    boardPublic_{board_}
+{}
+
+/**
+ * @brief Game::Game
+ * Creates a new game with custom sized board and a custom density of bombs
+ * @param nbLines number of lines of the customized board
+ * @param nbColumns number of column of the customized board
+ * @param densityBombs density of bombs in the customized board
+ */
+Game::Game(unsigned nbLines, unsigned nbColumns, double densityBombs):
+    state_{init},
+    board_{nbLines, nbColumns, densityBombs},
+    boardPublic_{board_}
+{}
 
 /**
  * Marks or unmarks the given position on the board.

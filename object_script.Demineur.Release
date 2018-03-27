@@ -1,0 +1,12 @@
+INPUT(
+./release\Case.o
+./release\Game.o
+./release\Board.o
+./release\Coordinates.o
+./release\Category.o
+./release\Score.o
+./release\Controller.o
+./release\CoordinatesTest.o
+./release\CaseTests.o
+./release\BoardTests.o
+);
