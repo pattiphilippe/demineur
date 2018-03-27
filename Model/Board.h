@@ -15,10 +15,13 @@ public:
     Board(unsigned nbLines, unsigned nbColumns, unsigned nbBombs);
     Board(unsigned nbLines, unsigned nbColumns, double densityBombs);
 
+    inline unsigned getNbLines() const;
+    inline unsigned getNbColumns() const;
+    inline unsigned getNbBombs() const;
     inline const Case * getCase(Coordinates) const;
 
-    bool reveal(Coordinates);
     void mark(Coordinates);
+    bool reveal(Coordinates);
 
 private:
 
@@ -26,7 +29,7 @@ private:
     const unsigned b_nbColumns ;
     const unsigned b_nbBombs ;
     bool b_firstClickOnBoard;
-    const vector<vector<Case>> b_cases;
+    vector<vector<Case>> b_cases;
 
     bool revealRec(Coordinates, vector<vector<bool>> checked);
     void generateBombs(Coordinates, bool canBeBomb);
@@ -45,6 +48,32 @@ public :
 
 //Inline methods
 
+/**
+ * @brief Board::getNbLines
+ */
+unsigned Board::getNbLines() const {
+    return b_nbLines;
+}
+
+/**
+ * @brief Board::getNbColumns
+ */
+unsigned Board::getNbColumns() const {
+    return b_nbColumns;
+}
+
+/**
+ * @brief Board::getNbBombs
+ */
+unsigned Board::getNbBombs() const {
+    return b_nbBombs;
+}
+
+/**
+ * @brief Board::getCase
+ * @param pos
+ * @return a pointer to the case
+ */
 const Case * Board::getCase(Coordinates pos) const {
     return &(b_cases.at(pos.getLine()).at(pos.getColumn()));
 }
@@ -55,8 +84,13 @@ CasePublic BoardPublic::getCase(Coordinates pos) const{
 }
 
 bool Board::isOnBoard(Coordinates pos) const{
-    return 0 < pos.getLine() && pos.getLine() < b_nbLines
-            && 0 < pos.getColumn() && pos.getColumn() << b_nbColumns;
+    if(0 > pos.getLine() && 0 > pos.getColumn()){
+        return false;
+    } else {
+        unsigned line = static_cast<unsigned>(pos.getLine()),
+                col = static_cast<unsigned>(pos.getColumn());
+        return line < b_nbLines && col < b_nbColumns;
+    }
 }
 
 #endif // BOARD_H

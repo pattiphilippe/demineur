@@ -90,6 +90,10 @@ TEST_CASE("CasePublic after changes"){
     REQUIRE(cp.getState() == revealed);
     REQUIRE(cp.getNbNearBombs() == 1);
     REQUIRE(cp.isBomb());
+    c.init();
+    REQUIRE(cp.getState() == dft);
+    REQUIRE_THROWS_AS(cp.getNbNearBombs(), GameException);
+    REQUIRE_THROWS_AS(cp.isBomb(), GameException);
 }
 
 

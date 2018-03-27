@@ -1,14 +1,17 @@
 #include "Board.h"
 #include "Case.h"
-#include "Game.h"
 #include "Util/Coordinates.h"
+#include "Util/GameException.h"
 #include <vector>
-#include <array>
-#include <cstdlib>
+#include <cstdlib> // rand() in generateBombs()
+
+#include <iostream>
 
 using namespace std;
 
+//TODO recheck the doc, to be sure its up to date
 //TODO use isOnBoard(Coordinates)
+//TODO retirer iostream et les affichages
 
 /**
  * @brief Board::Board
@@ -27,9 +30,9 @@ Board::Board():
  * The density of bombs is the same than in the normal game.
  * @param nbLines The number of line of the board
  * @param nbColumns The number of columns of the board
- *
  */
 Board::Board(unsigned nbLines, unsigned nbColumns):
+    //TODO min lines and min cols
     Board(nbLines, nbColumns, 0.1)
 {}
 
@@ -43,25 +46,27 @@ Board::Board(unsigned nbLines, unsigned nbColumns):
  *
  */
 Board::Board(unsigned nbLines, unsigned nbColumns, double densityBombs):
+    //TODO min perc
     Board(nbLines, nbColumns, static_cast<unsigned>(nbLines * nbColumns * densityBombs))
 {}
 
 Board::Board(unsigned nbLines, unsigned nbColumns, unsigned nbBombs):
+    //TODO minnbBombs
     b_nbLines{nbLines},
     b_nbColumns{nbColumns},
     b_nbBombs{nbBombs},
     b_firstClickOnBoard{true},
     b_cases{nbLines}
 {
-    //TODO put initialize b_cases
     for(unsigned line = 0; line < b_nbLines; line++){
         for(unsigned col = 0; col < b_nbColumns; col++){
-            //b_cases.at(line).push_back(Case{Coordinates{line, col}});
+            b_cases.at(line).push_back({});
         }
     }
 }
 
 //TODO check implementation BoardPublic(board)
+//TODO * de board ds boardPublic
 BoardPublic::BoardPublic(Board board):
     board_{board}
 {}
@@ -76,14 +81,13 @@ BoardPublic::BoardPublic(Board board):
 void Board::generateBombs(Coordinates pos, bool canBeBomb)
 {
     int bombLine, bombColumn, line = pos.getLine(), col = pos.getColumn();
-    for(unsigned bomb=0; bomb < b_nbBombs; bomb++){
+    for(unsigned nbBombs=0; nbBombs < b_nbBombs; nbBombs++){
         do {
             bombLine = rand() % b_nbLines ;
             bombColumn = rand() % b_nbColumns ;
-        } while (!canBeBomb || (bombLine==line && bombColumn==col));
-        static_cast<Case>(b_cases.at(bombLine).at(bombColumn)).setBomb();
+        } while (!canBeBomb && (bombLine==line && bombColumn==col));
+        b_cases.at(bombLine).at(bombColumn).setBomb();
     }
-
     b_firstClickOnBoard = false ;
 }
 
@@ -95,24 +99,30 @@ void Board::generateBombs(Coordinates pos, bool canBeBomb)
  */
 void Board::mark(Coordinates pos)
 {
-    if(b_firstClickOnBoard){
-        this->generateBombs(pos, false); // -1 = Impossible value in the board
+    if(!isOnBoard(pos)){
+        throw GameException("Coordinates not on board!");
     }
-    Case tile {static_cast<Case>(b_cases.at(pos.getLine()).at(pos.getColumn()))};
+    if(b_firstClickOnBoard){
+        this->generateBombs(pos, true); // -1 = Impossible value in the board
+    }
+    Case & tile {b_cases.at(pos.getLine()).at(pos.getColumn())};
     tile.setState(tile.getState() == marked ? dft : marked);
 }
 
 /**
  * @brief Board::reveal
  * Reveal cases as described in the rules of Démineur.
- * @param clickedLine int, clicked line in the board
- * @param clickedColumn int, clicked column in the board
+ * @param pos the coordinates that should be revealed
  * @return true if it didn't reveal a bomb, false if it exploded
+ * @throws GameException if pos is not on board
  */
 bool Board::reveal(Coordinates pos)
 {
+    if(!isOnBoard(pos)){
+        throw GameException("Coordinates not on board!");
+    }
     if(b_firstClickOnBoard){
-        this->generateBombs(pos, true);
+        this->generateBombs(pos, false);
     }
     Case tile{b_cases.at(pos.getLine()).at(pos.getColumn())};
     if(tile.isBomb()){
