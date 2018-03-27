@@ -1,6 +1,9 @@
 #ifndef CASE_H
 #define CASE_H
 #include "Util/Coordinates.h"
+#include <iostream>
+
+using namespace std;
 
 /**
  * @brief Case state enum
@@ -106,6 +109,7 @@ void Case::setState(CaseState newState){
  * Returns the state of the case.
  */
 CaseState CasePublic::getState() const{
+    cout << "case.getState() : " << case_.getState() << endl;
     return case_.getState();
 }
 

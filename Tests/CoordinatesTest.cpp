@@ -1,6 +1,5 @@
-#define CATCH_CONFIG_MAIN // has to be defined in EXACTLY ONE file
+#define CATCH_CONFIG_MAIN // has to be defined in EXACTLY ONE file : another main for the tests (can bring an error if there's an other main in the project)
 #include "Libraries/catch.hpp" // has to be imported in every test file
-#include <iostream>
 #include "Util/Coordinates.h"
 
 using namespace std;
@@ -8,22 +7,18 @@ using namespace std;
 TEST_CASE("Coordinates creation", "Coord create") {
     int line, column;
     SECTION("origin coord"){
-        cout << "origin coord section" << endl;
         line = 0;
         column = 0;
     }
     SECTION("pos coord"){
-        cout << "pos coord section" << endl;
         line = 1;
         column = 1;
     }
     SECTION("negative coord"){
-        cout << "negative coord section " << endl;
         line = -1;
         column = -1;
     }
     SECTION("great number coord"){
-        cout << "great number coord" << endl;
         line = 1000;
         column = 1000;
     }
@@ -34,7 +29,6 @@ TEST_CASE("Coordinates creation", "Coord create") {
 }
 
 TEST_CASE("Moving a coordinate with a Direction", "[move(Direction)]"){
-    cout << "test moving a coordinate" << endl;
     Direction dir;
     Coordinates src {0, 0};
     SECTION("N"){

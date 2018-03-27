@@ -5,9 +5,9 @@
  * Creates a new game with the default board (see Board() for more infos).
 */
 Game::Game():
-    state_{init},
     board_{},
-    boardPublic_{board_}
+    boardPublic_{board_},
+    state_{init}
 {}
 
 Game::Game(unsigned nbLines, unsigned nbColumns):

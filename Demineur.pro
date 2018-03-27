@@ -11,7 +11,8 @@ SOURCES += \
     Scores/Category.cpp \
     Scores/Score.cpp \
     Controller.cpp \
-    Tests/CoordinatesTest.cpp
+    Tests/CoordinatesTest.cpp \
+    Tests/CaseTests.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
