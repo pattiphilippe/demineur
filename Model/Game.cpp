@@ -17,9 +17,9 @@ Game::Game():
  * @param nbColumns number of columns of the customized board
  */
 Game::Game(unsigned nbLines, unsigned nbColumns):
-    state_{init},
     board_{nbLines, nbColumns},
-    boardPublic_{board_}
+    boardPublic_{board_},
+    state_{init}
 {}
 
 /**
@@ -30,9 +30,9 @@ Game::Game(unsigned nbLines, unsigned nbColumns):
  * @param nbBombs number of bombs int the customized board
  */
 Game::Game(unsigned nbLines, unsigned nbColumns, unsigned nbBombs):
-    state_{init},
     board_{nbLines, nbColumns, nbBombs},
-    boardPublic_{board_}
+    boardPublic_{board_},
+    state_{init}
 {}
 
 /**
@@ -43,9 +43,9 @@ Game::Game(unsigned nbLines, unsigned nbColumns, unsigned nbBombs):
  * @param densityBombs density of bombs in the customized board
  */
 Game::Game(unsigned nbLines, unsigned nbColumns, double densityBombs):
-    state_{init},
     board_{nbLines, nbColumns, densityBombs},
-    boardPublic_{board_}
+    boardPublic_{board_},
+    state_{init}
 {}
 
 /**

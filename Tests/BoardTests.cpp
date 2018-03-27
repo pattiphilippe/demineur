@@ -106,5 +106,9 @@ TEST_CASE("generateBombs right amount "){
     Board b {nbLines, nbCols, nbBombs};
 }
 
+//TODO test restart method
+//TODO test operator = works even if did it in game
+
+
 
 

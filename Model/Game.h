@@ -27,6 +27,7 @@ private:
     Board board_;
     BoardPublic boardPublic_;
     GameState state_ {init};
+    //TODO ajouter attr chrono
 
     inline void setGameState(GameState);
 

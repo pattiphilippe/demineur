@@ -20,14 +20,15 @@ public:
     inline unsigned getNbBombs() const;
     inline const Case * getCase(Coordinates) const;
 
+    //TODO add restart method
     void mark(Coordinates);
     bool reveal(Coordinates);
 
 private:
 
-    const unsigned b_nbLines ;
-    const unsigned b_nbColumns ;
-    const unsigned b_nbBombs ;
+    unsigned b_nbLines ;
+    unsigned b_nbColumns ;
+    unsigned b_nbBombs ;
     bool b_firstClickOnBoard;
     vector<vector<Case>> b_cases;
 

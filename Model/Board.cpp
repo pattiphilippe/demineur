@@ -52,7 +52,7 @@ Board::Board(unsigned nbLines, unsigned nbColumns, double densityBombs):
 
 Board::Board(unsigned nbLines, unsigned nbColumns, unsigned nbBombs):
     //TODO minnbBombs
-    b_nbLines{nbLines},
+    b_nbLines{nbLines < 0 ? 10 : nbLines},
     b_nbColumns{nbColumns},
     b_nbBombs{nbBombs},
     b_firstClickOnBoard{true},
