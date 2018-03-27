@@ -6,8 +6,6 @@
 #include <array>
 #include <cstdlib>
 
-#include <iostream>
-
 using namespace std;
 
 //TODO use isOnBoard(Coordinates)
@@ -57,7 +55,6 @@ Board::Board(unsigned nbLines, unsigned nbColumns, unsigned nbBombs):
 {
     //TODO put initialize b_cases
     for(unsigned line = 0; line < b_nbLines; line++){
-        cout << "b_cases.at(line).capacity()" << b_cases.at(line).capacity() <<endl;
         for(unsigned col = 0; col < b_nbColumns; col++){
             //b_cases.at(line).push_back(Case{Coordinates{line, col}});
         }

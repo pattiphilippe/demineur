@@ -1,7 +1,6 @@
 #ifndef CASE_H
 #define CASE_H
 #include "Util/Coordinates.h"
-#include <iostream>
 
 using namespace std;
 
@@ -10,7 +9,7 @@ using namespace std;
  * Enum that describes the state of a case.
  * Case can be in dft, marked or revealed state.
  */
-enum CaseState{
+enum CaseState {
     dft,
     marked,
     revealed
@@ -23,10 +22,10 @@ enum CaseState{
 class Case{
 private:
     //TODO put const to every possible attribute
-    //TODO check if everything unsigned
+    //TODO check if everything unsigned or int
     unsigned nbNearBombs_{0};
     bool isBomb_{false};
-    CaseState state_{dft};
+    CaseState state_{CaseState::dft};
 
 public:
     Case();
@@ -47,10 +46,10 @@ public:
 */
 class CasePublic{
 private:
-    Case & case_;
+    const Case * src_;
 
 public:
-    CasePublic(Case src);
+    CasePublic(const Case * src);
     bool isBomb() const;
     unsigned getNbNearBombs() const;
     inline CaseState getState() const;
@@ -93,7 +92,7 @@ void Case::addNearBomb(){
  * Returns the state of the case.
  */
 CaseState Case::getState() const{
-    return state_;
+    return static_cast<CaseState>(state_);
 }
 
 /**
@@ -109,8 +108,7 @@ void Case::setState(CaseState newState){
  * Returns the state of the case.
  */
 CaseState CasePublic::getState() const{
-    cout << "case.getState() : " << case_.getState() << endl;
-    return case_.getState();
+    return src_->getState();
 }
 
 #endif // CASE_H

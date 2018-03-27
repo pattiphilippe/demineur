@@ -1,7 +1,6 @@
 #include "Libraries/catch.hpp" // has to be imported in every test file
 #include "Model/Case.h"
 #include "Util/GameException.h"
-#include <iostream>
 
 TEST_CASE("Creation and init state"){
     Case c {};
@@ -13,7 +12,7 @@ TEST_CASE("Creation and init state"){
     SECTION("init after changes"){
         c.addNearBomb();
         c.setBomb();
-        c.setState(CaseState::marked);
+        c.setState(marked);
         c.init();
     }
     REQUIRE(c.getNbNearBombs() == 0);
@@ -61,11 +60,10 @@ TEST_CASE("Modifying nbNearBombs"){
 
 TEST_CASE("CasePublic creation"){
     Case c {};
-    CasePublic cp{c};
+    CasePublic cp{&c};
     SECTION("state dft"){
         REQUIRE(c.getState() == dft);
-        cout << cp.getState() << endl;
-        REQUIRE(cp.getState());
+        REQUIRE(cp.getState() == dft);
         REQUIRE_THROWS_AS(cp.getNbNearBombs(), GameException);
         REQUIRE_THROWS_AS(cp.isBomb(), GameException);
     }
@@ -85,10 +83,10 @@ TEST_CASE("CasePublic creation"){
 
 TEST_CASE("CasePublic after changes"){
     Case c{};
-    CasePublic cp{c};
+    CasePublic cp{&c};
     c.setState(revealed);
     c.addNearBomb();
-    c.isBomb();
+    c.setBomb();
     REQUIRE(cp.getState() == revealed);
     REQUIRE(cp.getNbNearBombs() == 1);
     REQUIRE(cp.isBomb());

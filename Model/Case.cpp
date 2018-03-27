@@ -20,7 +20,7 @@ Case::Case(){} //everything is default (see attributes in case.h)
 void Case::init(){
     isBomb_ = false;
     nbNearBombs_ = 0;
-    state_ = dft;
+    state_ = CaseState::dft;
 }
 
 /**
@@ -28,8 +28,8 @@ void Case::init(){
  * Public Case is linked to the given case
  * @param other the source case
 */
-CasePublic::CasePublic(Case src):
-    case_{src}
+CasePublic::CasePublic(const Case * src):
+    src_{src}
 {}
 
 /**
@@ -38,10 +38,10 @@ CasePublic::CasePublic(Case src):
  * @throws GameException if the state is not revealed
  */
 bool CasePublic::isBomb() const{
-    if(getState() != revealed){
+    if(getState() != CaseState::revealed){
         throw GameException("Wrong state, can't see details of the case!");
     }
-    return case_.isBomb();
+    return src_->isBomb();
 }
 
 
@@ -51,8 +51,8 @@ bool CasePublic::isBomb() const{
  * @throws GameException if the state is not revealed
  */
 unsigned CasePublic::getNbNearBombs() const{
-    if(getState() != revealed){
+    if(getState() != CaseState::revealed){
         throw GameException("Wrong state, can't see details of the case!");
     }
-    return case_.getNbNearBombs();
+    return src_->getNbNearBombs();
 }

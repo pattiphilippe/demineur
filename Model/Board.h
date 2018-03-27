@@ -15,7 +15,7 @@ public:
     Board(unsigned nbLines, unsigned nbColumns, unsigned nbBombs);
     Board(unsigned nbLines, unsigned nbColumns, double densityBombs);
 
-    inline Case getCase(Coordinates) const;
+    inline const Case * getCase(Coordinates) const;
 
     bool reveal(Coordinates);
     void mark(Coordinates);
@@ -45,8 +45,8 @@ public :
 
 //Inline methods
 
-Case Board::getCase(Coordinates pos) const {
-    return b_cases [pos.getLine()][pos.getColumn()];
+const Case * Board::getCase(Coordinates pos) const {
+    return &(b_cases.at(pos.getLine()).at(pos.getColumn()));
 }
 
 CasePublic BoardPublic::getCase(Coordinates pos) const{
