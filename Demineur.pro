@@ -25,3 +25,4 @@ HEADERS += \
     Scores/Category.h \
     Scores/Score.h \
     Controller.h \
+    Libraries/catch.hpp
