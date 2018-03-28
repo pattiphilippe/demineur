@@ -1,5 +1,7 @@
 #include "game.h"
 
+using namespace std::chrono;
+
 /**
  * @brief Game::Game()
  * Creates a new game with the default board (see Board() for more infos).
@@ -7,7 +9,8 @@
 Game::Game():
     board_{},
     boardPublic_{board_},
-    state_{init}
+    state_{init},
+    startTime_{system_clock::now()}
 {}
 
 /**
@@ -19,7 +22,8 @@ Game::Game():
 Game::Game(int nbLines, int nbColumns):
     board_{nbLines, nbColumns},
     boardPublic_{board_},
-    state_{init}
+    state_{init},
+    startTime_{system_clock::now()}
 {}
 
 /**
@@ -32,7 +36,8 @@ Game::Game(int nbLines, int nbColumns):
 Game::Game(int nbLines, int nbColumns, unsigned nbBombs):
     board_{nbLines, nbColumns, nbBombs},
     boardPublic_{board_},
-    state_{init}
+    state_{init},
+    startTime_{system_clock::now()}
 {}
 
 /**
@@ -45,7 +50,8 @@ Game::Game(int nbLines, int nbColumns, unsigned nbBombs):
 Game::Game(int nbLines, int nbColumns, double densityBombs):
     board_{nbLines, nbColumns, densityBombs},
     boardPublic_{board_},
-    state_{init}
+    state_{init},
+    startTime_{system_clock::now()}
 {}
 
 /**

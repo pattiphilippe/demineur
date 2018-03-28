@@ -4,8 +4,9 @@
 #include "Case.h"
 #include "Board.h"
 #include "vector"
+#include <chrono>
 
-using namespace std;
+using namespace std::chrono;
 
 /**
  * Possibles state of the game.
@@ -27,7 +28,8 @@ private:
     Board board_;
     BoardPublic boardPublic_;
     GameState state_ {init};
-    //TODO ajouter attr chrono
+    time_point<system_clock> startTime_;
+    //TODO tester chrono
 
     void hasWon();
 
@@ -40,15 +42,9 @@ public:
     void mark(Coordinates);
     inline BoardPublic getBoard() const;
     inline GameState getGameState() const;
+    inline duration<double> getScore() const;
 };
 
-/**
- * @brief gameState setter
- * Sets the game to the given state.
-*/
-void Game::setGameState(GameState state){
-    state_ = state;
-}
 
 /**
  * @brief gameState getter
@@ -67,6 +63,15 @@ GameState Game::getGameState() const{
 */
 BoardPublic Game::getBoard() const{
     return boardPublic_;
+}
+
+/**
+ * @brief Game::getScore
+ * Returns the current time duration elapsed since the start of the game.
+ * @return
+ */
+inline duration<double> Game::getScore() const{
+    return system_clock::now() - startTime_;
 }
 
 #endif // GAME_H
