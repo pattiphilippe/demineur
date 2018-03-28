@@ -13,7 +13,28 @@ SOURCES += \
     Controller.cpp \
     Tests/CoordinatesTest.cpp \
     Tests/CaseTests.cpp \
-    Tests/BoardTests.cpp
+    Tests/BoardTests.cpp \
+    Model/Board.cpp \
+    Model/Case.cpp \
+    Model/Game.cpp \
+    Scores/Category.cpp \
+    Scores/Score.cpp \
+    Tests/BoardTests.cpp \
+    Tests/CaseTests.cpp \
+    Tests/CoordinatesTest.cpp \
+    Util/Coordinates.cpp \
+    Controller.cpp \
+    Model/Board.cpp \
+    Model/Case.cpp \
+    Model/Game.cpp \
+    Scores/Category.cpp \
+    Scores/Score.cpp \
+    Tests/BoardTests.cpp \
+    Tests/CaseTests.cpp \
+    Tests/CoordinatesTest.cpp \
+    Util/Coordinates.cpp \
+    Controller.cpp \
+    View/ConsoleView.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
@@ -27,4 +48,24 @@ HEADERS += \
     Scores/Category.h \
     Scores/Score.h \
     Controller.h \
-    Libraries/catch.hpp
+    Libraries/catch.hpp \
+    Libraries/catch.hpp \
+    Model/Board.h \
+    Model/Case.h \
+    Model/Game.h \
+    Scores/Category.h \
+    Scores/Score.h \
+    Util/Coordinates.h \
+    Util/GameException.h \
+    Controller.h \
+    Libraries/catch.hpp \
+    Model/Board.h \
+    Model/Case.h \
+    Model/Game.h \
+    Scores/Category.h \
+    Scores/Score.h \
+    Util/Coordinates.h \
+    Util/GameException.h \
+    Controller.h \
+    View/Consoleview.h \
+    View/ConsoleView.h

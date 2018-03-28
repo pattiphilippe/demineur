@@ -25,7 +25,7 @@ void Controller::newGame(int nbLines, int nbColumns, int nbBombs, double density
 
     if(nbLines<0 && nbColumns<0){
         game_ = Game();
-    }else if(u_nbBombs<0){
+    }else if(nbBombs<0){
         game_ = Game(u_nbLines, u_nbColumns);
     }else if(densityBombs<0){
         game_ = Game(u_nbLines, u_nbColumns, u_nbBombs);
