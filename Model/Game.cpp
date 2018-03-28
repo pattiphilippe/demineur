@@ -66,8 +66,21 @@ void Game::mark(Coordinates pos){
 */
 void Game::reveal(Coordinates pos){
     if(!board_.reveal(pos)){
-        setGameState(lose);
+        state_ = lose;
     }
-    //TODO checker si game gagné
+}
+
+void Game::hasWon() {
+    unsigned nbRevealed{};
+    for(int line = 0; line < board_.getNbLines(); line++){
+        for(int col = 0; col < board_.getNbColumns(); col++){
+            if(board_.getCase({line, col})->getState() == revealed){
+                nbRevealed++;
+            }
+        }
+    }
+    if(nbRevealed == board_.getNbBombs()){
+        state_ = win;
+    }
 }
 

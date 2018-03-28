@@ -29,7 +29,7 @@ private:
     GameState state_ {init};
     //TODO ajouter attr chrono
 
-    inline void setGameState(GameState);
+    void hasWon();
 
 public:
     Game();
