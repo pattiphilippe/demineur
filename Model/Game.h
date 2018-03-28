@@ -40,7 +40,7 @@ public:
     Game(int nbLines, int nbColumns, double densityBombs);
     void reveal(Coordinates);
     void mark(Coordinates);
-    inline BoardPublic getBoard() const;
+    inline const BoardPublic & getBoard() const;
     inline GameState getGameState() const;
     inline duration<double> getScore() const;
 };
@@ -61,7 +61,7 @@ GameState Game::getGameState() const{
  * but can't modify the data.
  * @return the public version of the board
 */
-BoardPublic Game::getBoard() const{
+const BoardPublic & Game::getBoard() const{
     return boardPublic_;
 }
 

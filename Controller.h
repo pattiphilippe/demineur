@@ -1,6 +1,7 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 #include "Model/Game.h"
+#include <string>
 
 class Controller{
 
@@ -12,6 +13,7 @@ public :
     inline Game getGame() const ;
     void reveal(unsigned line, unsigned column);
     void mark(unsigned line, unsigned column);
+    void saveScore(std::string player) const;
 
     inline BoardPublic getBoard() const;
     inline GameState getGameState() const;

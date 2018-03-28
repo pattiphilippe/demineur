@@ -1,7 +1,7 @@
 #include "Category.h"
 
 
-Category::Category(unsigned boardSize, unsigned nbBombs):
+Category::Category(int boardSize, unsigned nbBombs):
     c_boardSize {boardSize},
     c_nbBombs {nbBombs},
     c_scores {},

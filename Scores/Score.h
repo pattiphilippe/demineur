@@ -11,6 +11,7 @@ public:
 
     inline double getTime() const;
     inline std::string getPlayer() const ;
+    inline bool operator< (const Score & other) const;
 
 private:
 
@@ -34,6 +35,10 @@ double Score::getTime() const{
  */
 std::string Score::getPlayer() const{
     return s_player;
+}
+
+bool Score::operator< (const Score & other) const{
+    return s_time < other.s_time;
 }
 
 #endif // SCORE_H

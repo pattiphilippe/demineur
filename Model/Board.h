@@ -22,6 +22,7 @@ public:
     inline const Case * getCase(Coordinates) const;
 
     //TODO add restart method
+    //TODO add setFirstClickOnBoard()
     void mark(Coordinates);
     bool reveal(Coordinates);
 

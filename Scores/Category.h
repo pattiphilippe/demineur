@@ -11,7 +11,8 @@ class Category{
 
 public:
 
-    Category(unsigned boardSize, unsigned nbBombs);
+    Category(int boardSize, unsigned nbBombs);
+    Category(int boardSize, unsigned nbBombs, array<Score, 5> scores);
 
     array<Score, 5> getScores() const;
     bool registerScore(Score score);
@@ -21,7 +22,7 @@ private:
     //TODO put a maximum of attributes const
 
     const string c_id ;
-    const unsigned c_boardSize ;
+    const int c_boardSize ;
     const unsigned c_nbBombs ;
     const array<Score, 5> c_scores ;
 };

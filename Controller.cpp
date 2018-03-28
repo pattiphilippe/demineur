@@ -1,4 +1,8 @@
 #include "Controller.h"
+#include "Scores/Category.h"
+#include <fstream>
+#include "Libraries/rapidjson/include/rapidjson/document.h"
+#include "Libraries/rapidjson/include/rapidjson/istreamwrapper.h"
 
 
 /**
@@ -57,6 +61,57 @@ void Controller::reveal(unsigned line, unsigned column)
 void Controller::mark(unsigned line, unsigned column)
 {
     game_.mark(Coordinates(line,column));
+}
+
+void Controller::saveScore(string player) const{
+    //Opening json file
+    using namespace rapidjson;
+    ifstream ifs("Scores.json");
+    IStreamWrapper isw(ifs);
+    Document document;
+    document.ParseStream(isw);
+
+    //searching category
+    const BoardPublic & board {game_.getBoard()};
+    int boardSize = board.getNbColumns()*board.getNbLines();
+    const char* catId = (to_string(boardSize) + to_string(board.getNbBombs())).c_str();
+
+    if(document.HasMember(catId)){
+        //READ SCORES IN JSON
+        double scoreCur;
+        string playerCur;
+        vector<Score> scores{};
+        for(Value & scoreJson : document[catId].GetArray()){
+            scoreCur = scoreJson["score"].GetDouble();
+            playerCur = scoreJson["player"].GetString();
+            scores.push_back({scoreCur, playerCur});
+        }
+
+        //CLEAR SCORES IN JSON
+        document[catId].Clear();
+
+        //REFILL SCORES IN JSON
+        Score newScore {game_.getScore().count(), player};
+        bool addedNewScore {false};
+        Document::AllocatorType& alc = document.GetAllocator();
+        for(int nbScoresAdded = 0; nbScoresAdded < 5; nbScoresAdded++){
+            if(!addedNewScore && scores.at(nbScoresAdded) < newScore){
+                Value o (kObjectType); //VALUE IS NEW SCORE
+                o.AddMember("score", newScore.getTime(), alc);
+                o.AddMember("player", newScore.getPlayer(), alc);
+                document[catId].PushBack(o, alc);
+                addedNewScore = true;
+            } else {
+                Value o (kObjectType); //VALUE IS IN PREVIOUS SCORES
+                Score & scPtr = scores.at(addedNewScore? nbScoresAdded-1 : nbScoresAdded);
+                o.AddMember("score", scPtr.getTime(), alc);
+                o.AddMember("player", scPtr.getPlayer(), alc);
+                document[catId].PushBack(o, alc);
+            }
+        }
+    } else {
+        //add category to doc
+    }
 }
 
 
