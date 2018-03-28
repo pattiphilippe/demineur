@@ -4,7 +4,6 @@
 
 /**
  * @brief Case::Case
- * Creates a new case with the given coordinates.
  * Is not a bomb by default,
  * has no near bombs by default,
  * is set in dft state.
@@ -13,7 +12,6 @@ Case::Case(){} //everything is default (see attributes in case.h)
 
 /**
  * @brief Case initializer
- * Sets the case to the given coordinates
  * Default values are set to its attributes
  * (see Case::Case for further description)
  */

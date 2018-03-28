@@ -2,6 +2,10 @@
 #include "Model/Board.h"
 #include "Util/GameException.h"
 
+#include <iostream>
+
+using namespace std;
+
 void checkBoardCstr(Board & b, unsigned nbLines, unsigned nbCols, unsigned nbBombs){
     REQUIRE(nbLines == b.getNbLines());
     REQUIRE(nbCols == b.getNbColumns());
@@ -18,19 +22,6 @@ void checkBoardCstr(Board & b, unsigned nbLines, unsigned nbCols, unsigned nbBom
     }
 }
 
-void checkNbBombs(Board & b){
-    const Case * c;
-    unsigned nbBombs {0};
-    for(unsigned line = 0; line < b.getNbLines() ; line++){
-        for(unsigned col = 0; col < b.getNbColumns(); col++){
-            c = b.getCase(Coordinates(line, col));
-            if(c->isBomb()){
-                nbBombs++;
-            }
-        }
-    }
-    REQUIRE(nbBombs == b.getNbBombs());
-}
 
 TEST_CASE("Creation board"){
     unsigned nbLines , nbColumns, nbBombs;
@@ -92,6 +83,7 @@ TEST_CASE("isOnBoard"){
 
 TEST_CASE("generateBombs right amount "){
     unsigned nbLines, nbCols, nbBombs;
+    double perc {0};
     SECTION("default values"){
         nbLines = 5;
         nbCols = 5;
@@ -102,10 +94,49 @@ TEST_CASE("generateBombs right amount "){
         nbCols = 5;
         nbBombs = 10;
     }
-    //TODO with percentage (how many at end?)
-    Board b {nbLines, nbCols, nbBombs};
+    SECTION("with perc"){
+        nbLines = 5;
+        nbCols = 5;
+        perc = 0.5;
+        nbBombs = static_cast<int>(nbLines * nbCols * perc);
+    }
+    Board b;
+    if(perc == 0){
+        b = Board (nbLines, nbCols, nbBombs);
+    } else {
+        b = Board (nbLines, nbCols, perc);
+    }
+    const Case * c;
+    unsigned nbBombsOnBoard {0};
+    for(unsigned line = 0; line < b.getNbLines() ; line++){
+        for(unsigned col = 0; col < b.getNbColumns(); col++){
+            c = b.getCase(Coordinates(line, col));
+            if(c->isBomb()){
+                nbBombsOnBoard++;
+            }
+        }
+    }
+    REQUIRE(nbBombs == b.getNbBombs());
 }
 
+TEST_CASE("reveal"){
+    Board b {};
+    //soucis, doit être tjs la même chose pour pouvoir débugger
+
+}
+
+TEST_CASE("Board Public"){
+    Board b{};
+    BoardPublic bp{b};
+
+    REQUIRE(b.getNbBombs() == bp.getNbBombs());
+    REQUIRE(b.getNbColumns() == bp.getNbColumns());
+    REQUIRE(b.getNbLines() == bp.getNbLines());
+}
+
+
+
+//TODO test Board Public
 //TODO test restart method
 //TODO test operator = works even if did it in game
 

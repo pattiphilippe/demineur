@@ -23,8 +23,6 @@ Coordinates::Coordinates(int line, int column)
  */
 Coordinates Coordinates::move(Direction dir) const
 {
-    //TODO à tester
-    //TODO mettre attributs aux directions et faire en sorte de pouvoir faire un foreach sur les directions
     int line{c_line}, column{c_column};
     switch (dir) {
     case N:

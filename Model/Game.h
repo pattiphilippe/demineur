@@ -33,10 +33,9 @@ private:
 
 public:
     Game();
-    Game(unsigned nbLines, unsigned nbColumns);
-    Game(unsigned nbLines, unsigned nbColumns, unsigned nbBombs);
-    Game(unsigned nbLines, unsigned nbColumns, double densityBombs);
-    //TODO rajouter constr pour taille de board
+    Game(int nbLines, int nbColumns);
+    Game(int nbLines, int nbColumns, unsigned nbBombs);
+    Game(int nbLines, int nbColumns, double densityBombs);
     void reveal(Coordinates);
     void mark(Coordinates);
     inline BoardPublic getBoard() const;

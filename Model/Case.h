@@ -1,6 +1,5 @@
 #ifndef CASE_H
 #define CASE_H
-#include "Util/Coordinates.h"
 
 using namespace std;
 
@@ -21,7 +20,6 @@ enum CaseState {
 */
 class Case{
 private:
-    //TODO put const to every possible attribute
     //TODO check if everything unsigned or int
     unsigned nbNearBombs_{0};
     bool isBomb_{false};
@@ -92,7 +90,7 @@ void Case::addNearBomb(){
  * Returns the state of the case.
  */
 CaseState Case::getState() const{
-    return static_cast<CaseState>(state_);
+    return state_;
 }
 
 /**

@@ -5,18 +5,19 @@
 #include "Util/Coordinates.h"
 #include <vector>
 
+//TODO retirer les using namespace si non nécessaire
 using namespace std;
 
 class Board{
 public:
 
     Board();
-    Board(unsigned nbLines, unsigned nbColumns);
-    Board(unsigned nbLines, unsigned nbColumns, unsigned nbBombs);
-    Board(unsigned nbLines, unsigned nbColumns, double densityBombs);
+    Board(int nbLines, int nbColumns);
+    Board(int nbLines, int nbColumns, unsigned nbBombs);
+    Board(int nbLines, int nbColumns, double densityBombs);
 
-    inline unsigned getNbLines() const;
-    inline unsigned getNbColumns() const;
+    inline int getNbLines() const;
+    inline int getNbColumns() const;
     inline unsigned getNbBombs() const;
     inline const Case * getCase(Coordinates) const;
 
@@ -26,12 +27,13 @@ public:
 
 private:
 
-    unsigned b_nbLines ;
-    unsigned b_nbColumns ;
+    int b_nbLines ;
+    int b_nbColumns ;
     unsigned b_nbBombs ;
     bool b_firstClickOnBoard;
     vector<vector<Case>> b_cases;
 
+    unsigned validNbBombs(unsigned) const;
     bool revealRec(Coordinates, vector<vector<bool>> checked);
     void generateBombs(Coordinates, bool canBeBomb);
     inline bool isOnBoard(Coordinates) const;
@@ -39,28 +41,47 @@ private:
 
 class BoardPublic{
 private :
-    Board board_;
+    Board * board_;
+    vector<vector<CasePublic>> cases_;
 
 public :
-    BoardPublic(Board);
-    inline CasePublic getCase(Coordinates) const;
+    BoardPublic(Board &);
+    inline int getNbLines() const;
+    inline int getNbColumns() const;
+    inline unsigned getNbBombs() const;
+    inline const CasePublic & getCase(Coordinates) const;
 };
 
 
-//Inline methods
+/////////////////////////Inline methods/////////////////////////////////
 
 /**
  * @brief Board::getNbLines
  */
-unsigned Board::getNbLines() const {
+int Board::getNbLines() const {
     return b_nbLines;
+}
+
+/**
+ * @brief BoardPublic::getNbLines
+ */
+int BoardPublic::getNbLines() const {
+    return board_->getNbLines();
 }
 
 /**
  * @brief Board::getNbColumns
  */
-unsigned Board::getNbColumns() const {
+int Board::getNbColumns() const {
     return b_nbColumns;
+}
+
+
+/**
+ * @brief BoardPublic::getNbColumns
+ */
+int BoardPublic::getNbColumns() const {
+    return board_->getNbColumns();
 }
 
 /**
@@ -68,6 +89,13 @@ unsigned Board::getNbColumns() const {
  */
 unsigned Board::getNbBombs() const {
     return b_nbBombs;
+}
+
+/**
+ * @brief BoardPublic::getNbBombs
+ */
+unsigned BoardPublic::getNbBombs() const {
+    return board_->getNbBombs();
 }
 
 /**
@@ -79,19 +107,26 @@ const Case * Board::getCase(Coordinates pos) const {
     return &(b_cases.at(pos.getLine()).at(pos.getColumn()));
 }
 
-CasePublic BoardPublic::getCase(Coordinates pos) const{
+/**
+ * @brief BoardPublic::getCase
+ * Returns a Case Public linked to the case in the given pos.
+ * @param pos
+ * @return
+ */
+const CasePublic & BoardPublic::getCase(Coordinates pos) const{
     //TODO optimiser
-    return CasePublic(board_.getCase(pos));
+    return cases_.at(pos.getLine()).at(pos.getColumn());
 }
 
+/**
+ * @brief Board::isOnBoard
+ * Checks if the given pos is on the board.
+ * @param pos
+ * @return
+ */
 bool Board::isOnBoard(Coordinates pos) const{
-    if(0 > pos.getLine() && 0 > pos.getColumn()){
-        return false;
-    } else {
-        unsigned line = static_cast<unsigned>(pos.getLine()),
-                col = static_cast<unsigned>(pos.getColumn());
-        return line < b_nbLines && col < b_nbColumns;
-    }
+    int line {pos.getLine()}, col {pos.getColumn()};
+    return line >= 0 && col >= 0 && line < b_nbLines && col < b_nbColumns;
 }
 
 #endif // BOARD_H

@@ -10,7 +10,6 @@
 using namespace std;
 
 //TODO recheck the doc, to be sure its up to date
-//TODO use isOnBoard(Coordinates)
 //TODO retirer iostream et les affichages
 
 /**
@@ -31,8 +30,7 @@ Board::Board():
  * @param nbLines The number of line of the board
  * @param nbColumns The number of columns of the board
  */
-Board::Board(unsigned nbLines, unsigned nbColumns):
-    //TODO min lines and min cols
+Board::Board(int nbLines, int nbColumns):
     Board(nbLines, nbColumns, 0.1)
 {}
 
@@ -45,41 +43,76 @@ Board::Board(unsigned nbLines, unsigned nbColumns):
  * @param densityBombs Pourcentage of density of bombs you want in your board
  *
  */
-Board::Board(unsigned nbLines, unsigned nbColumns, double densityBombs):
-    //TODO min perc
+Board::Board(int nbLines, int nbColumns, double densityBombs):
     Board(nbLines, nbColumns, static_cast<unsigned>(nbLines * nbColumns * densityBombs))
 {}
 
-Board::Board(unsigned nbLines, unsigned nbColumns, unsigned nbBombs):
-    //TODO minnbBombs
-    b_nbLines{nbLines < 0 ? 10 : nbLines},
-    b_nbColumns{nbColumns},
-    b_nbBombs{nbBombs},
+/**
+ * @brief Board::Board
+ * Creates a new board with the given parameters.
+ * @param nbLines or 5 if it's inferior to 5
+ * @param nbColumns or 5 if it's inferior to 5
+ * @param nbBombs or validNbBombs (see private method validNbBombs)
+ */
+Board::Board(int nbLines, int nbColumns, unsigned nbBombs):
+    b_nbLines{nbLines < 5 ? 5 : nbLines},
+    b_nbColumns{nbColumns < 5 ? 5 : nbColumns},
+    b_nbBombs{validNbBombs(nbBombs)},
     b_firstClickOnBoard{true},
-    b_cases{nbLines}
+    b_cases{static_cast<unsigned>(b_nbLines)}
 {
-    for(unsigned line = 0; line < b_nbLines; line++){
-        for(unsigned col = 0; col < b_nbColumns; col++){
+    for(int line = 0; line < b_nbLines; line++){
+        for(int col = 0; col < b_nbColumns; col++){
             b_cases.at(line).push_back({});
         }
     }
 }
 
-//TODO check implementation BoardPublic(board)
-//TODO * de board ds boardPublic
-BoardPublic::BoardPublic(Board board):
-    board_{board}
-{}
+/**
+ * @brief Board::validNbBombs
+ * Returns a valid nb of bombs related to the nbLines and columns.
+ * Min amount is 5% of nbCases, and max amount is 95% of nbCases.
+ * @param nbBombs
+ */
+unsigned Board::validNbBombs(unsigned nbBombs) const{
+    unsigned minBombs = static_cast<unsigned>(b_nbLines * b_nbColumns * 0.05);
+    unsigned maxBombs = static_cast<unsigned>(b_nbLines * b_nbColumns * 0.95);
+    if(nbBombs < minBombs){
+        nbBombs = minBombs;
+    } else if (maxBombs < nbBombs){
+        nbBombs = maxBombs;
+    }
+    return nbBombs;
+}
+/**
+ * @brief BoardPublic::BoardPublic
+ * Creates a new board public that englobes a board. Only gives access to the getters.
+ * @param board the source board
+ */
+BoardPublic::BoardPublic(Board & board):
+    board_{&board},
+    cases_{static_cast<unsigned>(board_->getNbLines())}
+{
+    for(int line = 0; line < board_->getNbLines(); line++){
+        for(int col = 0; col < board_->getNbColumns(); col++){
+            cases_.at(line).push_back({board_->getCase({line, col})});
+        }
+    }
+}
 
 /**
  * @brief Board::generateBombs
  * Generate Bombs on the board, it does not generate a bomb on a clicked case
- * @param line line of the clicked case
- * @param column column of the clicked case
+ * @param pos the coordinates where the first action is done
+ * @param canBeBomb to true if the pos can be a bomb
+ * @throws GameException if pos is not on board
  *
  */
 void Board::generateBombs(Coordinates pos, bool canBeBomb)
 {
+    if(!isOnBoard(pos)){
+        throw GameException("Coordinates not on board!");
+    }
     int bombLine, bombColumn, line = pos.getLine(), col = pos.getColumn();
     for(unsigned nbBombs=0; nbBombs < b_nbBombs; nbBombs++){
         do {
@@ -94,8 +127,8 @@ void Board::generateBombs(Coordinates pos, bool canBeBomb)
 /**
  * @brief Board::mark
  * Mark a case in the board. If the case is already marked, this function unmark it.
- * @param clickedLine int, line of the clicked case
- * @param clickedColumn int, column of the clicked case
+ * @param pos the coordinates that should be marked
+ * @throws GameException if pos is not on board
  */
 void Board::mark(Coordinates pos)
 {
@@ -133,8 +166,8 @@ bool Board::reveal(Coordinates pos)
             tile.setState(revealed);
         } else {
             vector<vector<bool>> checked;
-            for(unsigned line = 0; line < b_nbLines; line++){
-                for(unsigned col = 0; col < b_nbColumns; col++){
+            for(int line = 0; line < b_nbLines; line++){
+                for(int col = 0; col < b_nbColumns; col++){
                     checked.at(line).push_back(false);
                 }
             }
@@ -144,7 +177,7 @@ bool Board::reveal(Coordinates pos)
     return true;
 }
 
-
+//TODO retirer les static_cast inutiles
 bool Board::revealRec(Coordinates pos, vector<vector<bool>> checked){
     Case tile {b_cases[pos.getLine()][pos.getColumn()]};
     checked[pos.getLine()][pos.getColumn()] = true ;
