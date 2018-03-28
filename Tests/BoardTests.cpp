@@ -22,39 +22,38 @@ void checkBoardCstr(Board & b, unsigned nbLines, unsigned nbCols, unsigned nbBom
     }
 }
 
-
+//TODO add constr with check for default params
 TEST_CASE("Creation board"){
-    unsigned nbLines , nbColumns, nbBombs;
+    int nbLines , nbColumns;
+    unsigned nbBombs;
+    Board b;
 
     SECTION("Dft constr"){
-        Board b {};
+        b = Board();
         nbLines = 10;
         nbColumns = 10;
         nbBombs = 10;
-        checkBoardCstr(b, nbLines, nbColumns, nbBombs);
     }
     SECTION("Constr with nbLines and nbCols"){
         nbLines = 5;
         nbColumns = 5;
         nbBombs = nbLines*nbColumns*0.1;
-        Board b = Board(nbLines, nbColumns);
-        checkBoardCstr(b, nbLines, nbColumns, nbBombs);
+        b = Board(nbLines, nbColumns);
     }
     SECTION("Constr with nbLines, nbCols and perc"){
         nbLines = 5;
         nbColumns = 5;
         double perc = 0.2;
-        nbBombs = nbLines*nbColumns*perc;
-        Board b = Board(nbLines, nbColumns, perc);
-        checkBoardCstr(b, nbLines, nbColumns, nbBombs);
+        nbBombs = static_cast<unsigned>(nbLines*nbColumns*perc);
+        b = Board(nbLines, nbColumns, perc);
     }
     SECTION("Constr with nbLines, nbCols and nbBombs"){
         nbLines = 5;
         nbColumns = 5;
         nbBombs = 10;
-        Board b = Board(nbLines, nbColumns, nbBombs);
-        checkBoardCstr(b, nbLines, nbColumns, nbBombs);
+        b = Board(nbLines, nbColumns, nbBombs);
     }
+    checkBoardCstr(b, nbLines, nbColumns, nbBombs);
 }
 
 TEST_CASE("Mark and unmark coord"){
@@ -76,7 +75,7 @@ TEST_CASE("isOnBoard"){
     REQUIRE_THROWS_AS(b.mark({-1, 0}), GameException);
     REQUIRE_NOTHROW(b.mark({0, 0}));
     //TODO check if can put nbLines and nbCols as int over unsigned
-    int line {static_cast<int>(b.getNbLines())}, col {static_cast<int>(b.getNbColumns())};
+    int line {b.getNbLines()}, col {b.getNbColumns()};
     REQUIRE_THROWS_AS(b.mark({line, col}), GameException);
     REQUIRE_NOTHROW(b.mark({line-1, col-1}));
 }
@@ -98,7 +97,7 @@ TEST_CASE("generateBombs right amount "){
         nbLines = 5;
         nbCols = 5;
         perc = 0.5;
-        nbBombs = static_cast<int>(nbLines * nbCols * perc);
+        nbBombs = static_cast<unsigned>(nbLines * nbCols * perc);
     }
     Board b;
     if(perc == 0){
@@ -108,8 +107,8 @@ TEST_CASE("generateBombs right amount "){
     }
     const Case * c;
     unsigned nbBombsOnBoard {0};
-    for(unsigned line = 0; line < b.getNbLines() ; line++){
-        for(unsigned col = 0; col < b.getNbColumns(); col++){
+    for(int line = 0; line < b.getNbLines() ; line++){
+        for(int col = 0; col < b.getNbColumns(); col++){
             c = b.getCase(Coordinates(line, col));
             if(c->isBomb()){
                 nbBombsOnBoard++;
@@ -132,11 +131,25 @@ TEST_CASE("Board Public"){
     REQUIRE(b.getNbBombs() == bp.getNbBombs());
     REQUIRE(b.getNbColumns() == bp.getNbColumns());
     REQUIRE(b.getNbLines() == bp.getNbLines());
+
+    const Case * c;
+    const CasePublic * cp;
+    for(int line = 0; line < bp.getNbLines(); line ++){
+        for(int col = 0; col < bp.getNbColumns(); col++){
+            c = b.getCase({line, col});
+            cp = bp.getCase({line, col});
+            REQUIRE(c->getState() == cp->getState());
+        }
+    }
+
+    b.mark({0, 0});
+    c = b.getCase({0, 0});
+    cp = bp.getCase({0, 0});
+    REQUIRE(c->getState() == marked);
+    REQUIRE(cp->getState() == marked);
+
 }
 
-
-
-//TODO test Board Public
 //TODO test restart method
 //TODO test operator = works even if did it in game
 

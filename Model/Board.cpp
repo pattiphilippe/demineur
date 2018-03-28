@@ -177,7 +177,7 @@ bool Board::reveal(Coordinates pos)
     return true;
 }
 
-//TODO retirer les static_cast inutiles
+
 bool Board::revealRec(Coordinates pos, vector<vector<bool>> checked){
     Case tile {b_cases[pos.getLine()][pos.getColumn()]};
     checked[pos.getLine()][pos.getColumn()] = true ;

@@ -49,7 +49,7 @@ public :
     inline int getNbLines() const;
     inline int getNbColumns() const;
     inline unsigned getNbBombs() const;
-    inline const CasePublic & getCase(Coordinates) const;
+    inline const CasePublic * getCase(Coordinates) const;
 };
 
 
@@ -113,9 +113,9 @@ const Case * Board::getCase(Coordinates pos) const {
  * @param pos
  * @return
  */
-const CasePublic & BoardPublic::getCase(Coordinates pos) const{
+const CasePublic * BoardPublic::getCase(Coordinates pos) const{
     //TODO optimiser
-    return cases_.at(pos.getLine()).at(pos.getColumn());
+    return &cases_.at(pos.getLine()).at(pos.getColumn());
 }
 
 /**
