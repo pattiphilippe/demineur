@@ -2,6 +2,8 @@
 #define CONSOLEVIEW_H
 
 #include <Controller.h>
+#include "Model/Board.h"
+#include "Model/Case.h"
 
 using namespace std;
 
@@ -13,12 +15,12 @@ public:
     bool displayStart();
     bool displayCustom();
     void displayChoices();
-    void displayHelp();
     void displayBoard();
     void displayScores();
     void displayChrono();
 
     inline Controller getController() const;
+
 
 private:
 
