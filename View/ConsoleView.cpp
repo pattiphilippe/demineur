@@ -28,7 +28,22 @@ bool ConsoleView::displayStart()
           << "Type 'startCustom' to start a custom game" << endl
           << "Type 'score' to see the best scores" << endl ;
 
-    cin >> choice ;
+
+
+    bool menuChoiced = false ;
+    while(!menuChoiced) {
+            try {
+                cin >> choice ;
+                if (cin.fail())
+                    throw "This is not a number.";
+                if (typeOfCustom < 0 || typeOfCustom>3 )
+                    throw "This is not a valid option in the menu.";
+                cin.clear();
+            }
+            catch (char* error) {
+                cout << error;
+            }
+    }
 
     unsigned int choice_int ;
 
@@ -62,6 +77,11 @@ bool ConsoleView::displayStart()
     return choiceMade ;
 }
 
+/**
+ * @brief ConsoleView::displayCustom
+ * Display a menu where the user can custom the game.
+ * @return Boolean , true if the choice is the user didn't make input errors
+ */
 bool ConsoleView::displayCustom()
 {
     int typeOfCustom ;
@@ -127,11 +147,20 @@ bool ConsoleView::displayCustom()
     return customMade;
 }
 
+
+/**
+ * @brief ConsoleView::displayChrono
+ * Displays the chrono of the current game.
+ */
 void ConsoleView::displayChrono()
 {
     // Not any chrono yet
 }
 
+/**
+ * @brief ConsoleView::displayChoices
+ * Display different choices during the game.
+ */
 void ConsoleView::displayChoices()
 {
     cout << "To mark a case type 'mark'" <<endl
@@ -146,6 +175,12 @@ void ConsoleView::displayChoices()
 
 }
 
+
+/**
+ * @brief ConsoleView::action
+ * Interact with the user to reveal and mark cases
+ * @param action mark or reveal , set the mode to mark or reveal a case.
+ */
 void ConsoleView::action(String action){
     unsigned line,column;
     cout << "Type the line of the case you want to mark :";
@@ -191,7 +226,10 @@ void ConsoleView::action(String action){
 }
 
 
-
+/**
+ * @brief ConsoleView::displayBoard
+ * Display the board of Demineur
+ */
 void ConsoleView::displayBoard()
 {
 
