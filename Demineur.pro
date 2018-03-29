@@ -15,18 +15,6 @@ SOURCES += \
     Tests/CaseTests.cpp \
     Tests/BoardTests.cpp \
     ConsoleDemineur.cpp \
-    Model/Board.cpp \
-    Model/Case.cpp \
-    Model/Game.cpp \
-    Scores/Category.cpp \
-    Scores/Score.cpp \
-    Tests/BoardTests.cpp \
-    Tests/CaseTests.cpp \
-    Tests/CoordinatesTest.cpp \
-    Util/Coordinates.cpp \
-    View/ConsoleView.cpp \
-    ConsoleDemineur.cpp \
-    Controller.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
@@ -77,14 +65,136 @@ HEADERS += \
     Libraries/rapidjson/include/rapidjson/stream.h \
     Libraries/rapidjson/include/rapidjson/stringbuffer.h \
     Libraries/rapidjson/include/rapidjson/writer.h \
-    Libraries/catch.hpp \
-    Model/Board.h \
-    Model/Case.h \
-    Model/Game.h \
-    Scores/Category.h \
-    Scores/Score.h \
-    Util/Coordinates.h \
-    Util/GameException.h \
-    View/consoleview.h \
-    Controller.h
+
+DISTFILES += \
+    Libraries/rapidjson/bin/data/glossary.json \
+    Libraries/rapidjson/bin/data/menu.json \
+    Libraries/rapidjson/bin/data/sample.json \
+    Libraries/rapidjson/bin/data/webapp.json \
+    Libraries/rapidjson/bin/data/widget.json \
+    Libraries/rapidjson/bin/encodings/utf16be.json \
+    Libraries/rapidjson/bin/encodings/utf16bebom.json \
+    Libraries/rapidjson/bin/encodings/utf16le.json \
+    Libraries/rapidjson/bin/encodings/utf16lebom.json \
+    Libraries/rapidjson/bin/encodings/utf32be.json \
+    Libraries/rapidjson/bin/encodings/utf32bebom.json \
+    Libraries/rapidjson/bin/encodings/utf32le.json \
+    Libraries/rapidjson/bin/encodings/utf32lebom.json \
+    Libraries/rapidjson/bin/encodings/utf8.json \
+    Libraries/rapidjson/bin/encodings/utf8bom.json \
+    Libraries/rapidjson/bin/jsonchecker/fail1.json \
+    Libraries/rapidjson/bin/jsonchecker/fail10.json \
+    Libraries/rapidjson/bin/jsonchecker/fail11.json \
+    Libraries/rapidjson/bin/jsonchecker/fail12.json \
+    Libraries/rapidjson/bin/jsonchecker/fail13.json \
+    Libraries/rapidjson/bin/jsonchecker/fail14.json \
+    Libraries/rapidjson/bin/jsonchecker/fail15.json \
+    Libraries/rapidjson/bin/jsonchecker/fail16.json \
+    Libraries/rapidjson/bin/jsonchecker/fail17.json \
+    Libraries/rapidjson/bin/jsonchecker/fail18.json \
+    Libraries/rapidjson/bin/jsonchecker/fail19.json \
+    Libraries/rapidjson/bin/jsonchecker/fail2.json \
+    Libraries/rapidjson/bin/jsonchecker/fail20.json \
+    Libraries/rapidjson/bin/jsonchecker/fail21.json \
+    Libraries/rapidjson/bin/jsonchecker/fail22.json \
+    Libraries/rapidjson/bin/jsonchecker/fail23.json \
+    Libraries/rapidjson/bin/jsonchecker/fail24.json \
+    Libraries/rapidjson/bin/jsonchecker/fail25.json \
+    Libraries/rapidjson/bin/jsonchecker/fail26.json \
+    Libraries/rapidjson/bin/jsonchecker/fail27.json \
+    Libraries/rapidjson/bin/jsonchecker/fail28.json \
+    Libraries/rapidjson/bin/jsonchecker/fail29.json \
+    Libraries/rapidjson/bin/jsonchecker/fail3.json \
+    Libraries/rapidjson/bin/jsonchecker/fail30.json \
+    Libraries/rapidjson/bin/jsonchecker/fail31.json \
+    Libraries/rapidjson/bin/jsonchecker/fail32.json \
+    Libraries/rapidjson/bin/jsonchecker/fail33.json \
+    Libraries/rapidjson/bin/jsonchecker/fail4.json \
+    Libraries/rapidjson/bin/jsonchecker/fail5.json \
+    Libraries/rapidjson/bin/jsonchecker/fail6.json \
+    Libraries/rapidjson/bin/jsonchecker/fail7.json \
+    Libraries/rapidjson/bin/jsonchecker/fail8.json \
+    Libraries/rapidjson/bin/jsonchecker/fail9.json \
+    Libraries/rapidjson/bin/jsonchecker/pass1.json \
+    Libraries/rapidjson/bin/jsonchecker/pass2.json \
+    Libraries/rapidjson/bin/jsonchecker/pass3.json \
+    Libraries/rapidjson/bin/jsonschema/remotes/folder/folderInteger.json \
+    Libraries/rapidjson/bin/jsonschema/remotes/integer.json \
+    Libraries/rapidjson/bin/jsonschema/remotes/subSchemas.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/optional/bignum.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/optional/format.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/optional/jsregex.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/optional/zeroTerminatedFloats.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/additionalItems.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/additionalProperties.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/default.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/dependencies.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/disallow.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/divisibleBy.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/enum.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/extends.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/items.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/maximum.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/maxItems.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/maxLength.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/minimum.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/minItems.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/minLength.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/pattern.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/patternProperties.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/properties.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/ref.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/refRemote.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/required.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/type.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft3/uniqueItems.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/optional/bignum.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/optional/format.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/optional/zeroTerminatedFloats.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/additionalItems.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/additionalProperties.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/allOf.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/anyOf.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/default.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/definitions.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/dependencies.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/enum.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/items.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/maximum.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/maxItems.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/maxLength.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/maxProperties.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/minimum.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/minItems.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/minLength.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/minProperties.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/multipleOf.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/not.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/oneOf.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/pattern.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/patternProperties.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/properties.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/ref.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/refRemote.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/required.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/type.json \
+    Libraries/rapidjson/bin/jsonschema/tests/draft4/uniqueItems.json \
+    Libraries/rapidjson/bin/types/booleans.json \
+    Libraries/rapidjson/bin/types/floats.json \
+    Libraries/rapidjson/bin/types/guids.json \
+    Libraries/rapidjson/bin/types/integers.json \
+    Libraries/rapidjson/bin/types/mixed.json \
+    Libraries/rapidjson/bin/types/nulls.json \
+    Libraries/rapidjson/bin/types/paragraphs.json \
+    Libraries/rapidjson/bin/jsonschema/.travis.yml \
+    Libraries/rapidjson/bin/jsonschema/README.md \
+    Libraries/rapidjson/bin/data/readme.txt \
+    Libraries/rapidjson/bin/draft-04/schema \
+    Libraries/rapidjson/bin/jsonchecker/readme.txt \
+    Libraries/rapidjson/bin/jsonschema/.gitignore \
+    Libraries/rapidjson/bin/jsonschema/LICENSE \
+    Libraries/rapidjson/bin/jsonschema/tox.ini \
+    Libraries/rapidjson/bin/types/readme.txt \
+    Libraries/rapidjson/bin/jsonschema/bin/jsonschema_suite
+
 
