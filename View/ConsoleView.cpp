@@ -134,6 +134,8 @@ void ConsoleView::displayChrono()
 
 void ConsoleView::displayChoices()
 {
+     //TODO Documentation et demande des prochains coups au joueurs (avec le renvoi d'un booléen.
+
     cout << "To mark a case type 'mark nline ncolumn'" <<endl
          << "To reveal a case type 'reveal nline ncolumn'" << endl ;
 }
@@ -142,6 +144,8 @@ void ConsoleView::displayChoices()
 
 void ConsoleView::displayBoard()
 {
+
+
     BoardPublic bp = v_controller.getBoard() ;
 
     const Case * c;
