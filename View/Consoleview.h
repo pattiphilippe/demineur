@@ -4,6 +4,7 @@
 #include <Controller.h>
 #include "Model/Board.h"
 #include "Model/Case.h"
+#include <string>
 
 using namespace std;
 
@@ -18,6 +19,7 @@ public:
     void displayBoard();
     void displayScores();
     void displayChrono();
+    void action(String action);
 
     inline Controller getController() const;
 

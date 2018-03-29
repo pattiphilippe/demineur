@@ -86,7 +86,7 @@ bool ConsoleView::displayCustom()
             catch (char* error) {
                 cout << error;
             }
-        }
+    }
 
     int nbLines ;
     int nbColumns ;
@@ -134,10 +134,60 @@ void ConsoleView::displayChrono()
 
 void ConsoleView::displayChoices()
 {
-     //TODO Documentation et demande des prochains coups au joueurs (avec le renvoi d'un booléen.
+    cout << "To mark a case type 'mark'" <<endl
+         << "To reveal a case type 'reveal'" << endl ;
+    String choice ;
+    cin >> choice ;
+    if(choice == "mark" || choice == "reveal"){
+        this->action(choice);
+    }else{
+        cout << "Wrong choice" << endl ;
+    }
 
-    cout << "To mark a case type 'mark nline ncolumn'" <<endl
-         << "To reveal a case type 'reveal nline ncolumn'" << endl ;
+}
+
+void ConsoleView::action(String action){
+    unsigned line,column;
+    cout << "Type the line of the case you want to mark :";
+    bool correctLine = false ;
+    bool correctColumn = false ;
+    try {
+        cin >> line;
+        if (line <= v_controller.getBoard().getNbLines() || line >= 0)
+             correctLine = true;
+        if (cin.fail())
+            throw "This is not a number.";
+        if (line < 0 || line > v_controller.getBoard().getNbLines() )
+            throw "Out of the game";
+        cin.clear();
+     }
+     catch (char* error) {
+       cout << error;
+     }
+
+    cout <<endl << "Type the column of the case you want to mark:";
+
+    try {
+        cin >> column;
+        if (column <= v_controller.getBoard.getNbColumns())
+             correctColumn = true;
+        if (cin.fail())
+            throw "This is not a number.";
+        if (column > v_controller.getBoard().getNbColumns() )
+            throw "Out of the game";
+        cin.clear();
+     }
+     catch (char* error) {
+       cout << error;
+     }
+
+    if(correctColumn && correctLine){
+        if(action == "mark"){
+            v_controller.mark(line,column);
+        }else{
+            v_controller.reveal(line, column);
+        }
+    }
 }
 
 
