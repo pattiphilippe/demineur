@@ -1,6 +1,7 @@
 #include "Controller.h"
 #include "Scores/Category.h"
 #include <fstream>
+#include <algorithm>
 #include "Libraries/rapidjson/include/rapidjson/document.h"
 #include "Libraries/rapidjson/include/rapidjson/istreamwrapper.h"
 
@@ -86,10 +87,17 @@ void Controller::saveScore(string player) const{
             playerCur = scoreJson["player"].GetString();
             scores.push_back({scoreCur, playerCur});
         }
+        scores.push_back({game_.getScore().count(), player});
+        vector<Score *> vpsc {};
+        transform(scores.begin(), scores.end(), back_inserter(vpsc), [](Score & s){return &s;});
+        sort(begin(vpsc), end(vpsc), [](const Score * s1, const Score * s2){
+            return *s1 < *s2;
+        });
 
         //CLEAR SCORES IN JSON
         document[catId].Clear();
 
+        /*
         //REFILL SCORES IN JSON
         Score newScore {game_.getScore().count(), player};
         bool addedNewScore {false};
@@ -109,6 +117,7 @@ void Controller::saveScore(string player) const{
                 document[catId].PushBack(o, alc);
             }
         }
+        */
     } else {
         //add category to doc
     }

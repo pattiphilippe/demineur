@@ -1,6 +1,9 @@
-#include <iostream>
-#include <View/ConsoleView.h>
 
+#include "Tests/maintests.h"
+#include <iostream>
+
+#if !RUN_TESTS
+#include "View/ConsoleView.h"
 using namespace std;
 
 int main()
@@ -28,3 +31,5 @@ int main()
 
     return 0;
 }
+
+#endif

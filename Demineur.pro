@@ -15,6 +15,7 @@ SOURCES += \
     Tests/CaseTests.cpp \
     Tests/BoardTests.cpp \
     ConsoleDemineur.cpp \
+    View/ConsoleView.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
@@ -65,6 +66,8 @@ HEADERS += \
     Libraries/rapidjson/include/rapidjson/stream.h \
     Libraries/rapidjson/include/rapidjson/stringbuffer.h \
     Libraries/rapidjson/include/rapidjson/writer.h \
+    Tests/maintests.h \
+    View/Consoleview.h
 
 DISTFILES += \
     Libraries/rapidjson/bin/data/glossary.json \

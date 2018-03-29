@@ -1,4 +1,7 @@
-#define CATCH_CONFIG_MAIN // has to be defined in EXACTLY ONE file : another main for the tests (can bring an error if there's an other main in the project)
+#include "Tests/maintests.h"
+
+#if RUN_TESTS
+
 #include "Libraries/catch.hpp" // has to be imported in every test file
 #include "Util/Coordinates.h"
 
@@ -73,3 +76,5 @@ TEST_CASE("Moving a coordinate with a Direction", "[move(Direction)]"){
     }
 
 }
+
+#endif

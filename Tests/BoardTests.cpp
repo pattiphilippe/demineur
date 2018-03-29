@@ -1,3 +1,6 @@
+#include "Tests/maintests.h"
+
+#if RUN_TESTS
 #include "Libraries/catch.hpp" // has to be imported in every test file
 #include "Model/Board.h"
 #include "Util/GameException.h"
@@ -153,6 +156,6 @@ TEST_CASE("Board Public"){
 //TODO test restart method
 //TODO test operator = works even if did it in game
 
-
+#endif
 
 

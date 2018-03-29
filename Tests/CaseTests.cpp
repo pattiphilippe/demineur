@@ -1,3 +1,7 @@
+#include "Tests/maintests.h"
+
+#if RUN_TESTS
+
 #include "Libraries/catch.hpp" // has to be imported in every test file
 #include "Model/Case.h"
 #include "Util/GameException.h"
@@ -97,9 +101,4 @@ TEST_CASE("CasePublic after changes"){
 }
 
 
-
-
-
-
-
-
+#endif
