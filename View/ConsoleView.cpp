@@ -232,11 +232,8 @@ void ConsoleView::displayBoard()
 
     const CasePublic * cp;
 
-    cout << "bp.getNbColumns() : " << bp.getNbColumns() << endl;;
-    cout << "bp.getNbLines() : " << bp.getNbLines() << endl ;
-
     // COUT COL NBS
-    cout << "  ";
+    cout << endl << endl << "  ";
     for(int col = 0; col < bp.getNbColumns(); col ++){
         cout << "   " << col;
     }
@@ -256,9 +253,9 @@ void ConsoleView::displayBoard()
             cp = bp.getCase({line, col});
             if (cp->getState() == dft){
                 cout << " ";
-            }else if(cp->getState()== marked){
+            } else if (cp->getState()== marked){
                 cout << "X";
-            }else if(cp->getState() == revealed){
+            } else if (cp->getState() == revealed){
                 cout <<  cp->getNbNearBombs();
             }
         }

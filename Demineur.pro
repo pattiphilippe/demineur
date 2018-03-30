@@ -16,6 +16,18 @@ SOURCES += \
     Tests/BoardTests.cpp \
     ConsoleDemineur.cpp \
     View/ConsoleView.cpp \
+    Model/Board.cpp \
+    Model/Case.cpp \
+    Model/Game.cpp \
+    Scores/Category.cpp \
+    Scores/Score.cpp \
+    Tests/BoardTests.cpp \
+    Tests/CaseTests.cpp \
+    Tests/CoordinatesTest.cpp \
+    Util/Coordinates.cpp \
+    View/ConsoleView.cpp \
+    ConsoleDemineur.cpp \
+    Controller.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
@@ -68,6 +80,53 @@ HEADERS += \
     Libraries/rapidjson/include/rapidjson/writer.h \
     Tests/maintests.h \
     View/Consoleview.h \
+    Libraries/rapidjson/include/rapidjson/error/en.h \
+    Libraries/rapidjson/include/rapidjson/error/error.h \
+    Libraries/rapidjson/include/rapidjson/internal/biginteger.h \
+    Libraries/rapidjson/include/rapidjson/internal/diyfp.h \
+    Libraries/rapidjson/include/rapidjson/internal/dtoa.h \
+    Libraries/rapidjson/include/rapidjson/internal/ieee754.h \
+    Libraries/rapidjson/include/rapidjson/internal/itoa.h \
+    Libraries/rapidjson/include/rapidjson/internal/meta.h \
+    Libraries/rapidjson/include/rapidjson/internal/pow10.h \
+    Libraries/rapidjson/include/rapidjson/internal/regex.h \
+    Libraries/rapidjson/include/rapidjson/internal/stack.h \
+    Libraries/rapidjson/include/rapidjson/internal/strfunc.h \
+    Libraries/rapidjson/include/rapidjson/internal/strtod.h \
+    Libraries/rapidjson/include/rapidjson/internal/swap.h \
+    Libraries/rapidjson/include/rapidjson/msinttypes/inttypes.h \
+    Libraries/rapidjson/include/rapidjson/msinttypes/stdint.h \
+    Libraries/rapidjson/include/rapidjson/allocators.h \
+    Libraries/rapidjson/include/rapidjson/cursorstreamwrapper.h \
+    Libraries/rapidjson/include/rapidjson/document.h \
+    Libraries/rapidjson/include/rapidjson/encodedstream.h \
+    Libraries/rapidjson/include/rapidjson/encodings.h \
+    Libraries/rapidjson/include/rapidjson/filereadstream.h \
+    Libraries/rapidjson/include/rapidjson/filewritestream.h \
+    Libraries/rapidjson/include/rapidjson/fwd.h \
+    Libraries/rapidjson/include/rapidjson/istreamwrapper.h \
+    Libraries/rapidjson/include/rapidjson/memorybuffer.h \
+    Libraries/rapidjson/include/rapidjson/memorystream.h \
+    Libraries/rapidjson/include/rapidjson/ostreamwrapper.h \
+    Libraries/rapidjson/include/rapidjson/pointer.h \
+    Libraries/rapidjson/include/rapidjson/prettywriter.h \
+    Libraries/rapidjson/include/rapidjson/rapidjson.h \
+    Libraries/rapidjson/include/rapidjson/reader.h \
+    Libraries/rapidjson/include/rapidjson/schema.h \
+    Libraries/rapidjson/include/rapidjson/stream.h \
+    Libraries/rapidjson/include/rapidjson/stringbuffer.h \
+    Libraries/rapidjson/include/rapidjson/writer.h \
+    Libraries/catch.hpp \
+    Model/Board.h \
+    Model/Case.h \
+    Model/Game.h \
+    Scores/Category.h \
+    Scores/Score.h \
+    Tests/maintests.h \
+    Util/Coordinates.h \
+    Util/GameException.h \
+    View/Consoleview.h \
+    Controller.h
 
 DISTFILES += \
     Libraries/rapidjson/bin/data/glossary.json \
@@ -198,7 +257,142 @@ DISTFILES += \
     Libraries/rapidjson/bin/jsonschema/LICENSE \
     Libraries/rapidjson/bin/jsonschema/tox.ini \
     Libraries/rapidjson/bin/types/readme.txt \
-    Libraries/rapidjson/bin/jsonschema/bin/jsonschema_suite
+    Libraries/rapidjson/bin/jsonschema/bin/jsonschema_suite \
+    html/search/all_0.js \
+    html/search/all_1.js \
+    html/search/all_2.js \
+    html/search/all_3.js \
+    html/search/all_4.js \
+    html/search/all_5.js \
+    html/search/all_6.js \
+    html/search/all_7.js \
+    html/search/all_8.js \
+    html/search/all_9.js \
+    html/search/all_a.js \
+    html/search/all_b.js \
+    html/search/classes_0.js \
+    html/search/classes_1.js \
+    html/search/classes_2.js \
+    html/search/classes_3.js \
+    html/search/functions_0.js \
+    html/search/functions_1.js \
+    html/search/functions_2.js \
+    html/search/functions_3.js \
+    html/search/functions_4.js \
+    html/search/functions_5.js \
+    html/search/functions_6.js \
+    html/search/functions_7.js \
+    html/search/functions_8.js \
+    html/search/functions_9.js \
+    html/search/functions_a.js \
+    html/search/functions_b.js \
+    html/search/search.js \
+    html/search/searchdata.js \
+    html/dynsections.js \
+    html/jquery.js \
+    html/menu.js \
+    html/menudata.js \
+    Scores.json \
+    html/search/close.png \
+    html/search/mag_sel.png \
+    html/search/search_l.png \
+    html/search/search_m.png \
+    html/search/search_r.png \
+    html/bc_s.png \
+    html/bdwn.png \
+    html/class_game_exception.png \
+    html/closed.png \
+    html/doc.png \
+    html/doxygen.png \
+    html/folderclosed.png \
+    html/folderopen.png \
+    html/nav_f.png \
+    html/nav_g.png \
+    html/nav_h.png \
+    html/open.png \
+    html/splitbar.png \
+    html/sync_off.png \
+    html/sync_on.png \
+    html/tab_a.png \
+    html/tab_b.png \
+    html/tab_h.png \
+    html/tab_s.png \
+    html/search/search.css \
+    html/doxygen.css \
+    html/tabs.css \
+    html/search/all_0.html \
+    html/search/all_1.html \
+    html/search/all_2.html \
+    html/search/all_3.html \
+    html/search/all_4.html \
+    html/search/all_5.html \
+    html/search/all_6.html \
+    html/search/all_7.html \
+    html/search/all_8.html \
+    html/search/all_9.html \
+    html/search/all_a.html \
+    html/search/all_b.html \
+    html/search/classes_0.html \
+    html/search/classes_1.html \
+    html/search/classes_2.html \
+    html/search/classes_3.html \
+    html/search/functions_0.html \
+    html/search/functions_1.html \
+    html/search/functions_2.html \
+    html/search/functions_3.html \
+    html/search/functions_4.html \
+    html/search/functions_5.html \
+    html/search/functions_6.html \
+    html/search/functions_7.html \
+    html/search/functions_8.html \
+    html/search/functions_9.html \
+    html/search/functions_a.html \
+    html/search/functions_b.html \
+    html/search/nomatches.html \
+    html/_board_8h_source.html \
+    html/_case_8h_source.html \
+    html/_category_8h_source.html \
+    html/_consoleview_8h_source.html \
+    html/_controller_8h_source.html \
+    html/_coordinates_8h_source.html \
+    html/_game_8h_source.html \
+    html/_game_exception_8h_source.html \
+    html/_score_8h_source.html \
+    html/annotated.html \
+    html/class_board-members.html \
+    html/class_board.html \
+    html/class_board_public-members.html \
+    html/class_board_public.html \
+    html/class_case-members.html \
+    html/class_case.html \
+    html/class_case_public-members.html \
+    html/class_case_public.html \
+    html/class_category-members.html \
+    html/class_category.html \
+    html/class_console_view-members.html \
+    html/class_console_view.html \
+    html/class_controller-members.html \
+    html/class_controller.html \
+    html/class_coordinates-members.html \
+    html/class_coordinates.html \
+    html/class_game-members.html \
+    html/class_game.html \
+    html/class_game_exception-members.html \
+    html/class_game_exception.html \
+    html/class_score-members.html \
+    html/class_score.html \
+    html/classes.html \
+    html/dir_312950da3f243a51cc00f4a947545131.html \
+    html/dir_33c78a012c8d08979f57a54a07694c46.html \
+    html/dir_a74f5c11d993936efe832c80e3919182.html \
+    html/dir_d4f7a754e06480f800a6fab4b04999ce.html \
+    html/dir_f2ee84e8e3a17eaa7015d788fa443c27.html \
+    html/files.html \
+    html/functions.html \
+    html/functions_func.html \
+    html/hierarchy.html \
+    html/index.html \
+    html/maintests_8h_source.html
 
 
 

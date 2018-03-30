@@ -5,12 +5,7 @@
 #include <vector>
 #include <cstdlib> // rand() in generateBombs()
 
-#include <iostream>
-
 using namespace std;
-
-//TODO recheck the doc, to be sure its up to date
-//TODO retirer iostream et les affichages
 
 /**
  * @brief Board::Board
@@ -101,7 +96,6 @@ BoardPublic::BoardPublic(Board & board):
 }
 
 Board& Board::operator= (const Board& other){
-    std::cout << "operator = board" <<std::endl;
     this->b_nbLines = other.b_nbLines;
     this->b_nbColumns = other.b_nbColumns;
     this->b_nbBombs = other.b_nbBombs;
@@ -195,10 +189,9 @@ bool Board::reveal(Coordinates& pos)
         tile.setState(revealed);
         return false;
     } else if(tile.getState() != revealed){
+        tile.setState(revealed);
         if(tile.getNbNearBombs() != 0){
-            tile.setState(revealed);
-        } else {
-            vector<vector<bool>> checked;
+            vector<vector<bool>> checked{static_cast<unsigned>(b_nbLines)};
             for(int line = 0; line < b_nbLines; line++){
                 for(int col = 0; col < b_nbColumns; col++){
                     checked.at(line).push_back(false);

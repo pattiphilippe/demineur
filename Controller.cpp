@@ -1,5 +1,6 @@
 #include "Controller.h"
 #include "Model/Game.h"
+#include "Util/GameException.h"
 #include <fstream>
 #include <algorithm>
 #include "Libraries/rapidjson/include/rapidjson/document.h"
@@ -47,7 +48,11 @@ void Controller::newGame(int nbLines, int nbColumns, int nbBombs, double density
  */
 void Controller::reveal(unsigned line, unsigned column)
 {
-    game_.reveal(Coordinates(line,column));
+    try{
+        game_.reveal(Coordinates(line,column));
+    } catch(GameException e){
+        cout << "error revealing" << endl;
+    }
 }
 
 /**
@@ -58,7 +63,11 @@ void Controller::reveal(unsigned line, unsigned column)
  */
 void Controller::mark(unsigned line, unsigned column)
 {
-    game_.mark(Coordinates(line,column));
+    try{
+        game_.mark(Coordinates(line,column));
+    } catch (GameException e){
+        cout << "error marking : " << e.what() << endl;
+    }
 }
 
 
