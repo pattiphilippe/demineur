@@ -100,6 +100,21 @@ BoardPublic::BoardPublic(Board & board):
     }
 }
 
+Board& Board::operator= (const Board& other){
+    std::cout << "operator = board" <<std::endl;
+    this->b_nbLines = other.b_nbLines;
+    this->b_nbColumns = other.b_nbColumns;
+    this->b_nbBombs = other.b_nbBombs;
+    this->b_firstAction = other.b_firstAction;
+    this->b_cases = other.b_cases;
+    return *this;
+}
+
+BoardPublic& BoardPublic::operator =(const BoardPublic & other){
+    this->board_ = other.board_;
+    return *this;
+}
+
 /**
  * @brief Board::generateBombs
  * Generate Bombs on the board, it does not generate a bomb on a clicked case

@@ -1,4 +1,7 @@
 #include "game.h"
+#include <iostream>
+
+using namespace std;
 
 using namespace std::chrono;
 
@@ -53,6 +56,14 @@ Game::Game(int nbLines, int nbColumns, double densityBombs):
     state_{init},
     startTime_{system_clock::now()}
 {}
+
+Game & Game::operator=(const Game& other){
+    this->board_ = other.board_;
+    this->boardPublic_ = BoardPublic(board_);
+    this->startTime_ = other.startTime_;
+    this->state_ = other.state_;
+    return *this;
+}
 
 /**
  * Marks or unmarks the given position on the board.

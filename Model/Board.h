@@ -26,6 +26,7 @@ public:
     bool reveal(Coordinates&);
     inline void setFirstAction(bool);
     void setBomb(Coordinates&&);
+    Board& operator= (const Board& other);
 
 private:
 
@@ -52,6 +53,7 @@ public :
     inline int getNbColumns() const;
     inline unsigned getNbBombs() const;
     inline const CasePublic * getCase(Coordinates) const;
+    BoardPublic& operator = (const BoardPublic& other);
 };
 
 

@@ -50,10 +50,10 @@ bool ConsoleView::displayStart()
 
     switch(choice_int){
         case 1:
-            //v_controller.newGame(-1, -1, -1, -1); //Controller take negative parameters as normal game
+            //Controller take negative parameters as normal game
+            v_controller.newGame(-1, -1, -1, -1);
             choiceMade = true ;
             break;
-
        case 2:
             choiceMade = this->displayCustom();
             break;
