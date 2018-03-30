@@ -1,5 +1,6 @@
 #include "Controller.h"
 #include "Scores/Category.h"
+#include "Model/Game.h"
 #include <fstream>
 #include <algorithm>
 #include "Libraries/rapidjson/include/rapidjson/document.h"
@@ -48,7 +49,7 @@ void Controller::newGame(int nbLines, int nbColumns, int nbBombs, double density
  * @param line Line of the case you want to reveal
  * @param column Column of the case you want to reveal
  */
-void Controller::reveal(unsigned line, unsigned column)
+void Controller::reveal(int line, int column)
 {
     game_.reveal(Coordinates(line,column));
 }
@@ -59,7 +60,7 @@ void Controller::reveal(unsigned line, unsigned column)
  * @param line Line of the case you want to reveal
  * @param column Column of the case you want to reveal
  */
-void Controller::mark(unsigned line, unsigned column)
+void Controller::mark(int line, int column)
 {
     game_.mark(Coordinates(line,column));
 }

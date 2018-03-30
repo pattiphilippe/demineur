@@ -179,7 +179,7 @@ void ConsoleView::displayChoices()
  * @param action mark or reveal , set the mode to mark or reveal a case.
  */
 void ConsoleView::action(string action){
-    unsigned line,column;
+    int line,column;
     cout << "Type the line of the case you want to "<<action<<":" << endl ;
     bool correctLine = false ;
     bool correctColumn = false ;
