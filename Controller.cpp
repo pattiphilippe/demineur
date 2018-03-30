@@ -4,6 +4,9 @@
 #include <algorithm>
 #include "Libraries/rapidjson/include/rapidjson/document.h"
 #include "Libraries/rapidjson/include/rapidjson/istreamwrapper.h"
+#include "Libraries/rapidjson/include/rapidjson/ostreamwrapper.h"
+#include "Libraries/rapidjson/include/rapidjson/writer.h"
+#include <iostream>
 
 
 /**
@@ -64,63 +67,78 @@ void Controller::mark(unsigned line, unsigned column)
     game_.mark(Coordinates(line,column));
 }
 
+
 void Controller::saveScore(string player) const{
     //Opening json file
     using namespace rapidjson;
+    using namespace std;
     ifstream ifs("Scores.json");
     IStreamWrapper isw(ifs);
     Document document;
     document.ParseStream(isw);
+    Document::AllocatorType& allocator = document.GetAllocator();
 
-    //searching category
+    //SEARCH CATEGORY FOR SCORE
     const BoardPublic & board {game_.getBoard()};
     int boardSize = board.getNbColumns()*board.getNbLines();
     const char* catId = (to_string(boardSize) + to_string(board.getNbBombs())).c_str();
 
-    if(document.HasMember(catId)){
-        //READ SCORES IN JSON
-        double scoreCur;
-        string playerCur;
-        vector<Score> scores{};
-        for(Value & scoreJson : document[catId].GetArray()){
-            scoreCur = scoreJson["score"].GetDouble();
-            playerCur = scoreJson["player"].GetString();
-            scores.push_back({scoreCur, playerCur});
-        }
-        scores.push_back({game_.getScore().count(), player});
-        vector<Score *> vpsc {};
-        transform(scores.begin(), scores.end(), back_inserter(vpsc), [](Score & s){return &s;});
-        sort(begin(vpsc), end(vpsc), [](const Score * s1, const Score * s2){
-            return *s1 < *s2;
-        });
-
-        //CLEAR SCORES IN JSON
-        document[catId].Clear();
-
-        /*
-        //REFILL SCORES IN JSON
-        Score newScore {game_.getScore().count(), player};
-        bool addedNewScore {false};
-        Document::AllocatorType& alc = document.GetAllocator();
-        for(int nbScoresAdded = 0; nbScoresAdded < 5; nbScoresAdded++){
-            if(!addedNewScore && scores.at(nbScoresAdded) < newScore){
-                Value o (kObjectType); //VALUE IS NEW SCORE
-                o.AddMember("score", newScore.getTime(), alc);
-                o.AddMember("player", newScore.getPlayer(), alc);
-                document[catId].PushBack(o, alc);
-                addedNewScore = true;
-            } else {
-                Value o (kObjectType); //VALUE IS IN PREVIOUS SCORES
-                Score & scPtr = scores.at(addedNewScore? nbScoresAdded-1 : nbScoresAdded);
-                o.AddMember("score", scPtr.getTime(), alc);
-                o.AddMember("player", scPtr.getPlayer(), alc);
-                document[catId].PushBack(o, alc);
-            }
-        }
-        */
-    } else {
-        //add category to doc
+    //CREATE CAT IF NOT THERE YET
+    if(!document.HasMember(catId)){
+        char buffer[10];
+        Value id;
+        int len = sprintf(buffer, "%s", catId);
+        id.SetString(buffer, len, allocator);
+        memset(buffer, 0, sizeof(buffer));
+        Value scoresArray(kArrayType);
+        Value cat(kObjectType);
+        cat.AddMember(id, scoresArray, allocator);
+        document.PushBack(cat, allocator);
     }
+
+    //READ SCORES IN JSON
+    double scoreCur;
+    string playerCur;
+    vector<Score> scores{};
+    for(Value & scoreJson : document[catId].GetArray()){
+        scoreCur = scoreJson["score"].GetDouble();
+        playerCur = scoreJson["player"].GetString();
+        scores.push_back({scoreCur, playerCur});
+    }
+
+    //SORT WITH NEW SCORES : AT LEAST 5 SCORES
+    scores.push_back({game_.getScore().count(), player});
+    for(unsigned i = scores.size(); i < 5; i++){
+        scores.push_back({});
+    }
+
+    vector<Score *> vpsc {};
+    transform(scores.begin(), scores.end(), back_inserter(vpsc), [](Score & s){return &s;});
+    sort(begin(vpsc), end(vpsc), [](const Score * s1, const Score * s2){
+        return *s2 < *s1;
+    });
+
+
+    //WRITE SCORES IN JSON
+    document[catId].GetArray().Clear();
+    for(unsigned i = 0; i < 5; i++){
+        Value score(kObjectType);
+        score.AddMember("score", vpsc.at(i)->getTime(), allocator);
+        char buffer[10];
+        Value playerName;
+        int len = sprintf(buffer, "%s", vpsc.at(i)->getPlayer().c_str());
+        playerName.SetString(buffer, len, allocator);
+        memset(buffer, 0, sizeof(buffer));
+        score.AddMember("player", playerName, allocator);
+        document[catId].GetArray().PushBack(score, allocator);
+    }
+
+    //WRITE TO FILE
+    ofstream ofs("Scores.json");
+    OStreamWrapper osw(ofs);
+
+    Writer<OStreamWrapper> writer(osw);
+    document.Accept(writer);
 }
 
 
