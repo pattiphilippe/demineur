@@ -1,6 +1,7 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 #include "Model/Game.h"
+#include "Scores/Score.h"
 #include <string>
 
 class Controller{
@@ -11,19 +12,17 @@ public :
 
     void newGame(int nbLines, int nbColumns, int nbBombs, double densityBombs);
     inline Game getGame() const ;
-    void reveal(int line, int column);
-    void mark(int line, int column);
-    void saveScore(std::string player) const;
+    void reveal(unsigned line, unsigned column);
+    void mark(unsigned line, unsigned column);
+    void saveScore(string player) const;
 
     inline const BoardPublic& getBoard() const;
     inline GameState getGameState() const;
     inline duration<double> getScore() const;
-
+    vector<Score> getScores(int nbLines, int nbCols, unsigned nbBombs) const;
 
 private :
-
     Game game_ ;
-
 };
 
 
@@ -63,6 +62,7 @@ const BoardPublic & Controller::getBoard() const{
 inline duration<double> Controller::getScore() const{
     return game_.getScore();
 }
+
 
 
 #endif // CONTROLLER_H
