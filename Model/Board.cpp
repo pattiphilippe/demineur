@@ -58,7 +58,7 @@ Board::Board(int nbLines, int nbColumns, unsigned nbBombs):
     b_nbLines{nbLines < 5 ? 5 : nbLines},
     b_nbColumns{nbColumns < 5 ? 5 : nbColumns},
     b_nbBombs{validNbBombs(nbBombs)},
-    b_firstClickOnBoard{true},
+    b_firstAction{true},
     b_cases{static_cast<unsigned>(b_nbLines)}
 {
     for(int line = 0; line < b_nbLines; line++){
@@ -108,7 +108,7 @@ BoardPublic::BoardPublic(Board & board):
  * @throws GameException if pos is not on board
  *
  */
-void Board::generateBombs(Coordinates pos, bool canBeBomb)
+void Board::generateBombs(Coordinates& pos, bool canBeBomb)
 {
     if(!isOnBoard(pos)){
         throw GameException("Coordinates not on board!");
@@ -119,9 +119,25 @@ void Board::generateBombs(Coordinates pos, bool canBeBomb)
             bombLine = rand() % b_nbLines ;
             bombColumn = rand() % b_nbColumns ;
         } while (!canBeBomb && (bombLine==line && bombColumn==col));
-        b_cases.at(bombLine).at(bombColumn).setBomb();
+        setBomb({bombLine, bombColumn});
     }
-    b_firstClickOnBoard = false ;
+    b_firstAction = false ;
+}
+
+/**
+ * @brief Board::setBomb
+ * Setter of bomb from board to keep the integrity of the nbNearBombs
+ * @param pos where to plant the bomb
+ */
+void Board::setBomb(Coordinates && pos){
+    Case & c = b_cases.at(pos.getLine()).at(pos.getColumn());
+    c.setBomb();
+    Direction dir;
+    for(int dirInt =N ; dirInt != Last; dirInt++ ){
+        dir = static_cast<Direction>(dirInt);
+        Coordinates neighbour = pos.move(dir);
+        b_cases.at(neighbour.getLine()).at(neighbour.getColumn()).addNearBomb();
+    }
 }
 
 /**
@@ -135,7 +151,7 @@ void Board::mark(Coordinates pos)
     if(!isOnBoard(pos)){
         throw GameException("Coordinates not on board!");
     }
-    if(b_firstClickOnBoard){
+    if(b_firstAction){
         this->generateBombs(pos, true); // -1 = Impossible value in the board
     }
     Case & tile {b_cases.at(pos.getLine()).at(pos.getColumn())};
@@ -149,12 +165,12 @@ void Board::mark(Coordinates pos)
  * @return true if it didn't reveal a bomb, false if it exploded
  * @throws GameException if pos is not on board
  */
-bool Board::reveal(Coordinates pos)
+bool Board::reveal(Coordinates& pos)
 {
     if(!isOnBoard(pos)){
         throw GameException("Coordinates not on board!");
     }
-    if(b_firstClickOnBoard){
+    if(b_firstAction){
         this->generateBombs(pos, false);
     }
     Case tile{b_cases.at(pos.getLine()).at(pos.getColumn())};
@@ -178,7 +194,7 @@ bool Board::reveal(Coordinates pos)
 }
 
 
-bool Board::revealRec(Coordinates pos, vector<vector<bool>> checked){
+bool Board::revealRec(Coordinates& pos, vector<vector<bool>> checked){
     Case tile {b_cases[pos.getLine()][pos.getColumn()]};
     checked[pos.getLine()][pos.getColumn()] = true ;
     tile.setState(revealed);

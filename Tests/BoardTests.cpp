@@ -121,10 +121,11 @@ TEST_CASE("generateBombs right amount "){
     REQUIRE(nbBombs == b.getNbBombs());
 }
 
-TEST_CASE("reveal"){
+TEST_CASE("nbNearBombs"){
     Board b {};
-    //soucis, doit être tjs la même chose pour pouvoir débugger
-
+    b.setFirstAction(false);
+    b.setBomb({1, 1});
+    REQUIRE(b.getCase({0, 0})->getNbNearBombs() == 1);
 }
 
 TEST_CASE("Board Public"){
@@ -150,8 +151,8 @@ TEST_CASE("Board Public"){
     cp = bp.getCase({0, 0});
     REQUIRE(c->getState() == marked);
     REQUIRE(cp->getState() == marked);
-
 }
+
 
 //TODO test restart method
 //TODO test operator = works even if did it in game

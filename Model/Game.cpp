@@ -77,6 +77,7 @@ void Game::reveal(Coordinates pos){
 }
 
 void Game::hasWon() {
+    //TODO optimiser
     unsigned nbRevealed{};
     for(int line = 0; line < board_.getNbLines(); line++){
         for(int col = 0; col < board_.getNbColumns(); col++){

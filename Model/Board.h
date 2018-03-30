@@ -22,22 +22,23 @@ public:
     inline const Case * getCase(Coordinates) const;
 
     //TODO add restart method
-    //TODO add setFirstClickOnBoard()
     void mark(Coordinates);
-    bool reveal(Coordinates);
+    bool reveal(Coordinates&);
+    inline void setFirstAction(bool);
+    void setBomb(Coordinates&&);
 
 private:
 
     int b_nbLines ;
     int b_nbColumns ;
     unsigned b_nbBombs ;
-    bool b_firstClickOnBoard;
+    bool b_firstAction;
     vector<vector<Case>> b_cases;
 
     unsigned validNbBombs(unsigned) const;
-    bool revealRec(Coordinates, vector<vector<bool>> checked);
-    void generateBombs(Coordinates, bool canBeBomb);
-    inline bool isOnBoard(Coordinates) const;
+    bool revealRec(Coordinates&, vector<vector<bool>> checked);
+    void generateBombs(Coordinates&, bool canBeBomb);
+    inline bool isOnBoard(Coordinates&) const;
 };
 
 class BoardPublic{
@@ -125,9 +126,18 @@ const CasePublic * BoardPublic::getCase(Coordinates pos) const{
  * @param pos
  * @return
  */
-bool Board::isOnBoard(Coordinates pos) const{
+bool Board::isOnBoard(Coordinates& pos) const{
     int line {pos.getLine()}, col {pos.getColumn()};
     return line >= 0 && col >= 0 && line < b_nbLines && col < b_nbColumns;
+}
+
+/**
+ * @brief Board::setFirstAction
+ * Setter of First Action. Should be used only for testing.
+ * @param isFirstAction
+ */
+void Board::setFirstAction(bool isFirstAction){
+    b_firstAction = isFirstAction;
 }
 
 #endif // BOARD_H
