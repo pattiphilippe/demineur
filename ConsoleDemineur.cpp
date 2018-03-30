@@ -8,9 +8,6 @@ using namespace std;
 
 int main()
 {
-    Controller ctrl {};
-    ctrl.saveScore("philippe");
-
     //TODO ==> Main bidon, à bien refaire lorsque les scores fonctionneront et que le projet compilera
 
     ConsoleView view = ConsoleView();
@@ -21,7 +18,7 @@ int main()
     }
 
 
-    while(view.getController().getGameState() == inProgress){
+    while(view.getController().getGameState() == inProgress ||view.getController().getGameState() == init  ){
         view.displayBoard();
         view.displayChoices();
     }

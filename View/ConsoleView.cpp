@@ -28,25 +28,18 @@ bool ConsoleView::displayStart()
           << "Type 'startCustom' to start a custom game" << endl
           << "Type 'score' to see the best scores" << endl ;
 
-
-
-    bool menuChoiced = false ;
-    while(!menuChoiced) {
-            try {
-                cin >> choice ;
-                if (cin.fail())
-                    throw "This is not a number.";
-                //TODO CORRECT ERROR
-                //if (typeOfCustom < 0 || typeOfCustom>3 )
-                    throw "This is not a valid option in the menu.";
-                cin.clear();
-            }
-            catch (char* error) {
-                cout << error;
-            }
-    }
-
     unsigned int choice_int ;
+
+
+    try {
+        cin >> choice ;
+        if (cin.fail())
+            throw "Error typing";
+            cin.clear();
+        }
+        catch (char* error) {
+            cout << error;
+        }
 
     if (choice=="start"){   //Conversion of string to int to make it usable in switch
         choice_int = 1 ;
@@ -186,7 +179,7 @@ void ConsoleView::displayChoices()
  * @param action mark or reveal , set the mode to mark or reveal a case.
  */
 void ConsoleView::action(string action){
-    unsigned line,column;
+    int line,column;
     cout << "Type the line of the case you want to mark :";
     bool correctLine = false ;
     bool correctColumn = false ;
@@ -236,17 +229,17 @@ void ConsoleView::action(string action){
  */
 void ConsoleView::displayBoard()
 {
-
-
     BoardPublic bp = v_controller.getBoard() ;
 
-    const Case * c;
     const CasePublic * cp;
     int columnNumber = 0 ;
 
-    cout << "   %d", columnNumber ;
+    int const nOfColumn = bp.getNbColumns() ;
+
+    cout << nOfColumn << "Nombre de colonne ici avant";
+
     for(int col = 0; col < bp.getNbColumns(); col ++){
-        cout << "  %d", columnNumber ;
+        cout << columnNumber  ;
         columnNumber ++ ;
     }
     cout << endl ;
@@ -260,7 +253,7 @@ void ConsoleView::displayBoard()
         }
         cout << "+" << endl;
 
-        cout << "%d", lineNumber;
+        cout << "%d" << lineNumber;
         for(int col = 0; col < bp.getNbColumns(); col++){
             cout << "  |" ;
             cp = bp.getCase({line, col});
@@ -269,7 +262,7 @@ void ConsoleView::displayBoard()
             }else if(cp->getState()== marked){
                 cout << "X";
             }else if(cp->getState() == revealed){
-                cout << "%u", cp->getNbNearBombs();
+                cout <<  cp->getNbNearBombs();
             }
         }
     }
