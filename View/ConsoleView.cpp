@@ -179,8 +179,8 @@ void ConsoleView::displayChoices()
  * @param action mark or reveal , set the mode to mark or reveal a case.
  */
 void ConsoleView::action(string action){
-    int line,column;
-    cout << "Type the line of the case you want to mark :";
+    unsigned line,column;
+    cout << "Type the line of the case you want to "<<action<<":" << endl ;
     bool correctLine = false ;
     bool correctColumn = false ;
     try {
@@ -197,7 +197,7 @@ void ConsoleView::action(string action){
        cout << error;
      }
 
-    cout <<endl << "Type the column of the case you want to mark:";
+    cout <<endl << "Type the column of the case you want to "<<action<<":" << endl ;
 
     try {
         cin >> column;
@@ -229,7 +229,7 @@ void ConsoleView::action(string action){
  */
 void ConsoleView::displayBoard()
 {
-    const BoardPublic & bp = v_controller.getBoard() ;
+    const BoardPublic bp = v_controller.getBoard() ;
 
     const CasePublic * cp;
 
@@ -237,20 +237,20 @@ void ConsoleView::displayBoard()
     cout << "bp.getNbLines() : " << bp.getNbLines() << endl ;
 
     // COUT COL NBS
-    cout << "     ";
+    cout << "  ";
     for(int col = 0; col < bp.getNbColumns(); col ++){
-        cout << col;
+        cout << "   " << col;
     }
     cout << endl;
 
     //COUT PLATE + LINE NBS
-    for(int line = 0; line < bp.getNbLines(); line ++){
-        cout << "+";
-        for(int col = 0; col < bp.getNbColumns(); col++){
-            cout << "-----";
-        }
-        cout << "+" << endl;
+    cout << "   +";
+    for(int col = 0; col < bp.getNbColumns(); col++){
+        cout << "----";
+    }
+    cout << "+" << endl;
 
+    for(int line = 0; line < bp.getNbLines(); line ++){
         cout << line;
         for(int col = 0; col < bp.getNbColumns(); col++){
             cout << "  |" ;
@@ -263,6 +263,14 @@ void ConsoleView::displayBoard()
                 cout <<  cp->getNbNearBombs();
             }
         }
+        cout << "   |" ;
+
+        cout << endl << "   +";
+        for(int col = 0; col < bp.getNbColumns(); col++){
+            cout << "----";
+        }
+        cout << "+" << endl;
+
     }
 }
 
