@@ -27,8 +27,6 @@ public:
 private:
 
     Controller v_controller ;
-
-
 };
 
 /**

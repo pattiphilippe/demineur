@@ -11,10 +11,6 @@ int main()
     //TODO ==> Main bidon, à bien refaire lorsque les scores fonctionneront et que le projet compilera
 
     ConsoleView view = ConsoleView();
-    const BoardPublic & bp = view.getController().getBoard();
-    cout << "bp.getNbColumns() : " << bp.getNbColumns() << endl;;
-    cout << "bp.getNbLines() : " << bp.getNbLines() << endl ;
-
     bool canStart = false ;
 
     while(!canStart){

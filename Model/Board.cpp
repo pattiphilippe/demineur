@@ -151,7 +151,9 @@ void Board::setBomb(Coordinates && pos){
     for(int dirInt =N ; dirInt != Last; dirInt++ ){
         dir = static_cast<Direction>(dirInt);
         Coordinates neighbour = pos.move(dir);
-        b_cases.at(neighbour.getLine()).at(neighbour.getColumn()).addNearBomb();
+        if(isOnBoard(neighbour)){
+            b_cases.at(neighbour.getLine()).at(neighbour.getColumn()).addNearBomb();
+        }
     }
 }
 
