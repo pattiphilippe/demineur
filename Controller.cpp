@@ -45,7 +45,7 @@ void Controller::newGame(int nbLines, int nbColumns, int nbBombs, double density
  * @param line Line of the case you want to reveal
  * @param column Column of the case you want to reveal
  */
-void Controller::reveal(int line, int column)
+void Controller::reveal(unsigned line, unsigned column)
 {
     game_.reveal(Coordinates(line,column));
 }
@@ -56,7 +56,7 @@ void Controller::reveal(int line, int column)
  * @param line Line of the case you want to reveal
  * @param column Column of the case you want to reveal
  */
-void Controller::mark(int line, int column)
+void Controller::mark(unsigned line, unsigned column)
 {
     game_.mark(Coordinates(line,column));
 }

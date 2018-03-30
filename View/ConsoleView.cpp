@@ -60,8 +60,7 @@ bool ConsoleView::displayStart()
 
        case 3:
         //TODO CORRECT ERROR
-            //this->displayScores();
-            choiceMade = true ;
+            this->displayScores();
             break;
 
        default:
@@ -270,10 +269,22 @@ void ConsoleView::displayBoard()
             cout << "----";
         }
         cout << "+" << endl;
-
     }
 }
 
+void ConsoleView::displayScores(){
+    const BoardPublic & b = v_controller.getBoard();
+    int lines = b.getNbLines(), cols = b.getNbColumns();
+    unsigned nbBombs = b.getNbBombs();
+    cout << "Scores for "
+         << lines << " lines, "
+         << cols<< " columns and "
+         << nbBombs << " bombs : " << endl;
+    for(auto & s : v_controller.getScores(lines, cols, nbBombs)){
+        cout << " " << s.getPlayer() << " :  " << s.getTime() << " seconds" << endl;
+    }
+    cout << endl;
+}
 
 
 
