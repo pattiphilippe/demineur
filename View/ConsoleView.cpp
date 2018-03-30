@@ -10,10 +10,9 @@ using namespace std;
  * Default constructor of ConsoleView
  * Initialize a view for the game Demineur
  */
-ConsoleView::ConsoleView()
-{
-    v_controller=Controller();
-}
+ConsoleView::ConsoleView():
+    v_controller{}
+{}
 
 /**
  * @brief ConsoleView::displayStart
@@ -51,7 +50,7 @@ bool ConsoleView::displayStart()
 
     switch(choice_int){
         case 1:
-            v_controller.newGame(-1, -1, -1, -1); //Controller take negative parameters as normal game
+            //v_controller.newGame(-1, -1, -1, -1); //Controller take negative parameters as normal game
             choiceMade = true ;
             break;
 
@@ -90,12 +89,13 @@ bool ConsoleView::displayCustom()
     while(!menuChoiced) {
             try {
                 cin >> typeOfCustom;
-                if (typeOfCustom < 0 || typeOfCustom>3)
-                    menuChoiced = true;
-                if (cin.fail())
+                if (cin.fail()){
                     throw "This is not a number.";
-                if (typeOfCustom < 0 || typeOfCustom>3 )
+                } else if (typeOfCustom < 0 || typeOfCustom>3 ){
                     throw "This is not a valid option in the menu.";
+                } else {
+                    menuChoiced = true;
+                }
                 cin.clear();
             }
             catch (char* error) {
@@ -229,23 +229,21 @@ void ConsoleView::action(string action){
  */
 void ConsoleView::displayBoard()
 {
-    BoardPublic bp = v_controller.getBoard() ;
+    const BoardPublic & bp = v_controller.getBoard() ;
 
     const CasePublic * cp;
-    int columnNumber = 0 ;
 
-    int const nOfColumn = bp.getNbColumns() ;
+    cout << "bp.getNbColumns() : " << bp.getNbColumns() << endl;;
+    cout << "bp.getNbLines() : " << bp.getNbLines() << endl ;
 
-    cout << nOfColumn << "Nombre de colonne ici avant";
-
+    // COUT COL NBS
+    cout << "     ";
     for(int col = 0; col < bp.getNbColumns(); col ++){
-        cout << columnNumber  ;
-        columnNumber ++ ;
+        cout << col;
     }
-    cout << endl ;
+    cout << endl;
 
-    int lineNumber = 0 ;
-
+    //COUT PLATE + LINE NBS
     for(int line = 0; line < bp.getNbLines(); line ++){
         cout << "+";
         for(int col = 0; col < bp.getNbColumns(); col++){
@@ -253,7 +251,7 @@ void ConsoleView::displayBoard()
         }
         cout << "+" << endl;
 
-        cout << "%d" << lineNumber;
+        cout << line;
         for(int col = 0; col < bp.getNbColumns(); col++){
             cout << "  |" ;
             cp = bp.getCase({line, col});

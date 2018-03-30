@@ -15,7 +15,7 @@ public :
     void mark(unsigned line, unsigned column);
     void saveScore(std::string player) const;
 
-    inline BoardPublic getBoard() const;
+    inline const BoardPublic& getBoard() const;
     inline GameState getGameState() const;
     inline duration<double> getScore() const;
 
@@ -51,7 +51,7 @@ GameState Controller::getGameState() const{
  * but can't modify the data.
  * @return the public version of the board
 */
-BoardPublic Controller::getBoard() const{
+const BoardPublic & Controller::getBoard() const{
     return game_.getBoard() ;
 }
 

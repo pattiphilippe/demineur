@@ -43,6 +43,7 @@ public:
     inline const BoardPublic & getBoard() const;
     inline GameState getGameState() const;
     inline duration<double> getScore() const;
+
 };
 
 
