@@ -2,7 +2,7 @@
 #define MAINTESTS_H
 
 namespace Tests {
-#define RUN_TESTS 1
+#define RUN_TESTS 0
 }
 
 #if RUN_TESTS

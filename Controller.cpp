@@ -6,6 +6,7 @@
 #include "Libraries/rapidjson/include/rapidjson/istreamwrapper.h"
 #include "Libraries/rapidjson/include/rapidjson/ostreamwrapper.h"
 #include "Libraries/rapidjson/include/rapidjson/writer.h"
+#include "Libraries/rapidjson/include/rapidjson/error/en.h"
 #include <iostream>
 
 
@@ -75,7 +76,11 @@ void Controller::saveScore(string player) const{
     ifstream ifs("Scores.json");
     IStreamWrapper isw(ifs);
     Document document;
-    document.ParseStream(isw);
+    ParseResult parseR = document.ParseStream(isw);
+    if(parseR.IsError()){
+        cout << GetParseError_En(parseR.Code())<<endl;
+        document.SetObject();
+    }
     Document::AllocatorType& allocator = document.GetAllocator();
 
     //SEARCH CATEGORY FOR SCORE
@@ -83,6 +88,7 @@ void Controller::saveScore(string player) const{
     int boardSize = board.getNbColumns()*board.getNbLines();
     const char* catId = (to_string(boardSize) + to_string(board.getNbBombs())).c_str();
 
+    assert(document.IsObject());
     //CREATE CAT IF NOT THERE YET
     if(!document.HasMember(catId)){
         char buffer[10];
@@ -91,9 +97,7 @@ void Controller::saveScore(string player) const{
         id.SetString(buffer, len, allocator);
         memset(buffer, 0, sizeof(buffer));
         Value scoresArray(kArrayType);
-        Value cat(kObjectType);
-        cat.AddMember(id, scoresArray, allocator);
-        document.PushBack(cat, allocator);
+        document.AddMember(id, scoresArray, allocator);
     }
 
     //READ SCORES IN JSON
@@ -106,12 +110,14 @@ void Controller::saveScore(string player) const{
         scores.push_back({scoreCur, playerCur});
     }
 
-    //SORT WITH NEW SCORES : AT LEAST 5 SCORES
-    scores.push_back({game_.getScore().count(), player});
+    //AT LEAST 5 SCORES
+    //TODO change to game_.getScore().count()
+    scores.push_back({20.1, player});
     for(unsigned i = scores.size(); i < 5; i++){
         scores.push_back({});
     }
 
+    //SORT
     vector<Score *> vpsc {};
     transform(scores.begin(), scores.end(), back_inserter(vpsc), [](Score & s){return &s;});
     sort(begin(vpsc), end(vpsc), [](const Score * s1, const Score * s2){

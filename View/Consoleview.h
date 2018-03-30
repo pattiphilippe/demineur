@@ -19,7 +19,7 @@ public:
     void displayBoard();
     void displayScores();
     void displayChrono();
-    void action(String action);
+    void action(string action);
 
     inline Controller getController() const;
 

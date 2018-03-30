@@ -198,8 +198,7 @@ DISTFILES += \
     Libraries/rapidjson/bin/jsonschema/LICENSE \
     Libraries/rapidjson/bin/jsonschema/tox.ini \
     Libraries/rapidjson/bin/types/readme.txt \
-    Libraries/rapidjson/bin/jsonschema/bin/jsonschema_suite \
-    scores.json
+    Libraries/rapidjson/bin/jsonschema/bin/jsonschema_suite
 
 
 

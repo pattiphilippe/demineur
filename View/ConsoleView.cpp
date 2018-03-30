@@ -36,7 +36,8 @@ bool ConsoleView::displayStart()
                 cin >> choice ;
                 if (cin.fail())
                     throw "This is not a number.";
-                if (typeOfCustom < 0 || typeOfCustom>3 )
+                //TODO CORRECT ERROR
+                //if (typeOfCustom < 0 || typeOfCustom>3 )
                     throw "This is not a valid option in the menu.";
                 cin.clear();
             }
@@ -66,7 +67,8 @@ bool ConsoleView::displayStart()
             break;
 
        case 3:
-            this->displayScores();
+        //TODO CORRECT ERROR
+            //this->displayScores();
             choiceMade = true ;
             break;
 
@@ -165,7 +167,9 @@ void ConsoleView::displayChoices()
 {
     cout << "To mark a case type 'mark'" <<endl
          << "To reveal a case type 'reveal'" << endl ;
-    String choice ;
+    string choice ;
+
+    //TODO CORRECT ERROR
     cin >> choice ;
     if(choice == "mark" || choice == "reveal"){
         this->action(choice);
@@ -181,7 +185,7 @@ void ConsoleView::displayChoices()
  * Interact with the user to reveal and mark cases
  * @param action mark or reveal , set the mode to mark or reveal a case.
  */
-void ConsoleView::action(String action){
+void ConsoleView::action(string action){
     unsigned line,column;
     cout << "Type the line of the case you want to mark :";
     bool correctLine = false ;
@@ -204,7 +208,7 @@ void ConsoleView::action(String action){
 
     try {
         cin >> column;
-        if (column <= v_controller.getBoard.getNbColumns())
+        if (column <= v_controller.getBoard().getNbColumns())
              correctColumn = true;
         if (cin.fail())
             throw "This is not a number.";
