@@ -1,5 +1,4 @@
 #include "Controller.h"
-#include "Scores/Category.h"
 #include "Model/Game.h"
 #include <fstream>
 #include <algorithm>
@@ -10,6 +9,8 @@
 #include "Libraries/rapidjson/include/rapidjson/error/en.h"
 #include <iostream>
 
+using namespace rapidjson;
+using namespace std;
 
 /**
  * @brief Controller::Controller
@@ -17,12 +18,7 @@
  */
 Controller::Controller():
     game_{}
-{
-    cout << "in controller constructor" << endl;
-    const BoardPublic & bp = game_.getBoard();
-    cout << "bp.getNbColumns() : " << bp.getNbColumns() << endl;;
-    cout << "bp.getNbLines() : " << bp.getNbLines() << endl << endl ;
-}
+{}
 
 
 /**
@@ -68,8 +64,6 @@ void Controller::mark(int line, int column)
 
 void Controller::saveScore(string player) const{
     //Opening json file
-    using namespace rapidjson;
-    using namespace std;
     ifstream ifs("Scores.json");
     IStreamWrapper isw(ifs);
     Document document;
@@ -108,8 +102,7 @@ void Controller::saveScore(string player) const{
     }
 
     //AT LEAST 5 SCORES
-    //TODO change to game_.getScore().count()
-    scores.push_back({20.1, player});
+    scores.push_back({game_.getScore().count(), player});
     for(unsigned i = scores.size(); i < 5; i++){
         scores.push_back({});
     }
@@ -142,6 +135,40 @@ void Controller::saveScore(string player) const{
 
     Writer<OStreamWrapper> writer(osw);
     document.Accept(writer);
+}
+
+
+vector<Score> Controller::getScores(int nbLines, int nbCols, unsigned nbBombs) const{
+    //Opening json file
+    ifstream ifs("Scores.json");
+    IStreamWrapper isw(ifs);
+    Document document;
+    ParseResult parseR = document.ParseStream(isw);
+    if(parseR.IsError()){
+        document.SetObject();
+    }
+
+    //SEARCH CATEGORY FOR SCORE
+    vector<Score> scores{};
+    int boardSize =nbLines*nbCols;
+    const char* catId = (to_string(boardSize) + to_string(nbBombs)).c_str();
+
+    //READ SCORES IN JSON
+    double scoreCur;
+    string playerCur;
+    if(document.HasMember(catId)){
+        for(Value & scoreJson : document[catId].GetArray()){
+            scoreCur = scoreJson["score"].GetDouble();
+            playerCur = scoreJson["player"].GetString();
+            scores.push_back({scoreCur, playerCur});
+        }
+    }
+
+    //AT LEAST 5 SCORES
+    for(unsigned i = scores.size(); i < 5; i++){
+        scores.push_back({});
+    }
+    return scores;
 }
 
 
