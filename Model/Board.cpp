@@ -4,6 +4,7 @@
 #include "Util/GameException.h"
 #include <vector>
 #include <cstdlib> // rand() in generateBombs()
+#include <ctime> // for rand seed in generateBombs()
 
 using namespace std;
 
@@ -122,6 +123,7 @@ void Board::generateBombs(Coordinates& pos, bool canBeBomb)
     if(!isOnBoard(pos)){
         throw GameException("Coordinates not on board!");
     }
+    srand(time(NULL));
     int bombLine, bombColumn, line = pos.getLine(), col = pos.getColumn();
     for(unsigned nbBombs=0; nbBombs < b_nbBombs; nbBombs++){
         do {
