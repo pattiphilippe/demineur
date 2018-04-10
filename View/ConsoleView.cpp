@@ -238,18 +238,18 @@ void ConsoleView::displayBoard()
         cout << "   " << col;
     }
     cout << endl;
-
-    //COUT PLATE + LINE NBS
     cout << "   +";
-    for(int col = 0; col < bp.getNbColumns(); col++){
+    for(int col = 0; col < bp.getNbColumns() -1; col++){
         cout << "----";
     }
-    cout << "+" << endl;
+    cout << "---+" << endl;
 
+    // COUT LINES
     for(int line = 0; line < bp.getNbLines(); line ++){
-        cout << line;
+
+        // COUT LINE WITH TILES
+        cout << line << "  | ";
         for(int col = 0; col < bp.getNbColumns(); col++){
-            cout << "  |" ;
             cp = bp.getCase({line, col});
             if (cp->getState() == dft){
                 cout << " ";
@@ -258,15 +258,17 @@ void ConsoleView::displayBoard()
             } else if (cp->getState() == revealed){
                 cout <<  cp->getNbNearBombs();
             }
+            cout << " | ";
         }
-        cout << "   |" ;
 
+        // COUT SEPARATION LINE
         cout << endl << "   +";
-        for(int col = 0; col < bp.getNbColumns(); col++){
+        for(int col = 0; col < bp.getNbColumns() -1; col++){
             cout << "----";
         }
-        cout << "+" << endl;
+        cout << "---+" << endl;
     }
+    cout << endl << endl;
 }
 
 void ConsoleView::displayScores(){
