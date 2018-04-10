@@ -8,10 +8,12 @@
 
 using namespace std;
 
+
 class ConsoleView{
 public:
 
     ConsoleView();
+
 
     bool displayStart();
     bool displayCustom();

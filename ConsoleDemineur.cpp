@@ -18,8 +18,6 @@ using namespace std;
 
 int main()
 {
-    //TODO ==> Main bidon, à bien refaire lorsque les scores fonctionneront et que le projet compilera
-
     ConsoleView view = ConsoleView();
     bool canStart = false ;
 

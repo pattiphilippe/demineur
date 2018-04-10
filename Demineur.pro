@@ -14,7 +14,8 @@ SOURCES += \
     Tests/BoardTests.cpp \
     ConsoleDemineur.cpp \
     View/ConsoleView.cpp \
-    Controller.cpp
+    Controller.cpp \
+    View/ConsoleRead.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
@@ -63,7 +64,10 @@ HEADERS += \
     Libraries/rapidjson/include/rapidjson/schema.h \
     Libraries/rapidjson/include/rapidjson/stream.h \
     Libraries/rapidjson/include/rapidjson/stringbuffer.h \
-    Libraries/rapidjson/include/rapidjson/writer.h
+    Libraries/rapidjson/include/rapidjson/writer.h \
+    Libraries/keyboardAndStringConvert/keyboard.hpp \
+    Libraries/keyboardAndStringConvert/stringConvert.hpp \
+    View/ConsoleRead.h
 
 DISTFILES += \
     Libraries/rapidjson/bin/data/glossary.json \
