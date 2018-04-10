@@ -37,7 +37,7 @@ private:
     vector<vector<Case>> b_cases;
 
     unsigned validNbBombs(unsigned) const;
-    bool revealRec(Coordinates&, vector<vector<bool>> checked);
+    bool revealRec(Coordinates&, vector<vector<bool>> & checked);
     void generateBombs(Coordinates&, bool canBeBomb);
     inline bool isOnBoard(Coordinates&) const;
 };

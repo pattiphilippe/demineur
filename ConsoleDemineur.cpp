@@ -1,8 +1,18 @@
-
-#include "Tests/maintests.h"
 #include <iostream>
 
-#if !RUN_TESTS
+#define CATCH_CONFIG_RUNNER
+#include "Libraries/catch.hpp"
+#define RUN_TEST 0 //change this value
+
+
+#if RUN_TEST
+int main(int argc, char* const argv [])
+{
+    Catch::Session().run(argc, argv);
+}
+
+#else
+
 #include "View/ConsoleView.h"
 using namespace std;
 

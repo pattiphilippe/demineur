@@ -1,9 +1,8 @@
-#include "Tests/maintests.h"
 
-#if RUN_TESTS
-#include "Libraries/catch.hpp" // has to be imported in every test file
+#include "Libraries/catch.hpp"
 #include "Model/Board.h"
 #include "Util/GameException.h"
+
 
 #include <iostream>
 
@@ -153,10 +152,109 @@ TEST_CASE("Board Public"){
     REQUIRE(cp->getState() == marked);
 }
 
+TEST_CASE("Reveal"){
+    Board b{};
+    b.setFirstAction(false); // no bombs generated, can do it manually
+    b.setBomb({0, 0});
+    REQUIRE(b.getCase({0, 0})->isBomb());
+    REQUIRE(b.getCase({0, 1})->getNbNearBombs() == 1);
+    REQUIRE(b.getCase({1, 0})->getNbNearBombs() == 1);
+    REQUIRE(b.getCase({1, 1})->getNbNearBombs() == 1);
+    const Case * c;
+    unsigned nbBombs;
+    for(int line = 0; line < b.getNbLines(); line++){
+        for(int col = 0; col < b.getNbLines(); col++){
+            c = b.getCase({line, col});
+            nbBombs = 0;
+            if((line == 0 && col == 1) || (line == 1 && col == 0) || (line == 1 && col == 1)){
+                nbBombs = 1;
+            }
+            REQUIRE(c->getNbNearBombs() == nbBombs);
+            REQUIRE(c->getState() == dft);
+            if(line == 0 && col == 0){
+                REQUIRE(c->isBomb());
+            } else {
+                REQUIRE(!c->isBomb());
+            }
+        }
+    }
+    SECTION("reveal bomb"){
+        cout << "reveal bomb" << endl;
+        Coordinates src {0,0};
+        REQUIRE(b.getCase(src)->isBomb());
+        REQUIRE(!b.reveal(src));
+        for(int line = 0; line < b.getNbLines(); line++){
+            for(int col = 0; col < b.getNbLines(); col++){
+                c = b.getCase({line, col});
+                nbBombs = 0;
+                if((line == 0 && col == 1) || (line == 1 && col == 0) || (line == 1 && col == 1)){
+                    nbBombs = 1;
+                }
+                REQUIRE(c->getNbNearBombs() == nbBombs);
+                if(line == 0 && col == 0){
+                    REQUIRE(c->isBomb());
+                    REQUIRE(c->getState() == revealed);
+                } else {
+                    REQUIRE_FALSE(c->isBomb());
+                    REQUIRE(c->getState() == dft);
+                }
+            }
+        }
+    }
+    SECTION("reveal bomb neighbour"){
+        cout << "reveal bomb neighbour" << endl;
+        Coordinates t {0, 1};
+        REQUIRE(b.reveal(t));
+        for(int line = 0; line < b.getNbLines(); line++){
+            for(int col = 0; col < b.getNbLines(); col++){
+                c = b.getCase({line, col});
+                nbBombs = 0;
+                if((line == 0 && col == 1) || (line == 1 && col == 0) || (line == 1 && col == 1)){
+                    nbBombs = 1;
+                }
+                REQUIRE(c->getNbNearBombs() == nbBombs);
+                if(line == 0 && col == 0){
+                    REQUIRE(c->isBomb());
+                } else {
+                    REQUIRE_FALSE(c->isBomb());
+                }
+                if(line == 0 && col == 1){
+                    REQUIRE(c->getState() == revealed);
+                } else {
+                    REQUIRE(c->getState() == dft);
+                }
+            }
+        }
+    }
+    SECTION("reveal other"){
+        cout << "reveal other" << endl;
+        Coordinates t {5, 5};
+        REQUIRE(b.reveal(t));
+        for(int line = 0; line < b.getNbLines(); line++){
+            for(int col = 0; col < b.getNbLines(); col++){
+                c = b.getCase({line, col});
+                cout << "{" << line << ", " << col << "}" << endl;
+                nbBombs = 0;
+                if((line == 0 && col == 1) || (line == 1 && col == 0) || (line == 1 && col == 1)){
+                    nbBombs = 1;
+                }
+                REQUIRE(c->getNbNearBombs() == nbBombs);
+                if(line == 0 && col == 0){
+                    REQUIRE(c->isBomb());
+                    REQUIRE(c->getState() == dft);
+                } else {
+                    REQUIRE_FALSE(c->isBomb());
+                    REQUIRE(c->getState() == revealed);
+                }
+            }
+        }
+    }
+}
 
+//TODO Coordinates::equals(Coordinates && other)
+//TODO pls entêtes pour reveal, ... (possibilité de mettre rvalue)
 //TODO test restart method
 //TODO test operator = works even if did it in game
 
-#endif
 
 

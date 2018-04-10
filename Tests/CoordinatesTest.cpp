@@ -1,9 +1,7 @@
-#include "Tests/maintests.h"
 
-#if RUN_TESTS
-
-#include "Libraries/catch.hpp" // has to be imported in every test file
+#include "Libraries/catch.hpp"
 #include "Util/Coordinates.h"
+
 
 using namespace std;
 
@@ -77,4 +75,3 @@ TEST_CASE("Moving a coordinate with a Direction", "[move(Direction)]"){
 
 }
 
-#endif

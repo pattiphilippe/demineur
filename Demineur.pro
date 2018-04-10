@@ -26,7 +26,6 @@ HEADERS += \
     Util/Coordinates.h \
     Scores/Score.h \
     Controller.h \
-    Tests/maintests.h \
     View/Consoleview.h \
     Libraries/catch.hpp \
     Libraries/rapidjson/include/rapidjson/error/en.h \

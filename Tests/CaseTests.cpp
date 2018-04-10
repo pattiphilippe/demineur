@@ -1,10 +1,6 @@
-#include "Tests/maintests.h"
-
-#if RUN_TESTS
-
-#include "Libraries/catch.hpp" // has to be imported in every test file
 #include "Model/Case.h"
 #include "Util/GameException.h"
+#include "Libraries/catch.hpp"
 
 TEST_CASE("Creation and init state"){
     Case c {};
@@ -100,5 +96,3 @@ TEST_CASE("CasePublic after changes"){
     REQUIRE_THROWS_AS(cp.isBomb(), GameException);
 }
 
-
-#endif
