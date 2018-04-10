@@ -13,12 +13,25 @@ int main(int argc, char* const argv [])
 
 #else
 
+#include "View/consoleread.h"
 #include "View/ConsoleView.h"
 using namespace std;
 
 int main()
 {
     ConsoleView view = ConsoleView();
+
+    Command cmd {HELP};
+    while(cmd != EXIT){
+        cmd = readCommand();
+        switch(cmd){
+        case START:
+            cout << "start a new game" << endl;
+            view.displayStart();
+        }
+    }
+
+    /*
     bool canStart = false ;
 
     while(!canStart){
@@ -36,6 +49,7 @@ int main()
     }else{
         cout << "Boom !!! You exploded :/ " << endl;
     }
+    */
 
     return 0;
 }

@@ -14,7 +14,6 @@ public:
 
     ConsoleView();
 
-
     bool displayStart();
     bool displayCustom();
     void displayChoices();

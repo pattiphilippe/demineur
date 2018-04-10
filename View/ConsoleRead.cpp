@@ -47,9 +47,13 @@ Command readCommand(){
             return MARK;
         } else if(s == "reveal" || s == "r"){
             return REVEAL;
+        } else if(s == "help" || s == "h"){
+            return HELP;
+        } else if(s == "exit" || s == "x"){
+            return EXIT;
         } else {
             cout << "Wrong command! Enter one of the following : "<< endl;
-            cout << "start (s), custom (c), scores (sc), mark (m), reveal (r)." << endl;
+            cout << "start (s), custom (c), scores (sc), mark (m), reveal (r), help (h), exit (x)." << endl;
         }
     } while (true); //No value returned
 }

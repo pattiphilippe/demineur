@@ -9,7 +9,9 @@ enum Command{
     CUSTOM,
     SCORES,
     MARK,
-    REVEAL
+    REVEAL,
+    HELP,
+    EXIT
 };
 
 Command readCommand();
