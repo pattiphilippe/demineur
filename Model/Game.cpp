@@ -72,6 +72,7 @@ Game & Game::operator=(const Game& other){
 */
 void Game::mark(Coordinates pos){
     board_.mark(pos);
+    notifyObservers();
 }
 
 /**
@@ -85,6 +86,7 @@ void Game::reveal(Coordinates pos){
     if(!board_.reveal(pos)){
         state_ = lose;
     }
+    notifyObservers();
 }
 
 void Game::hasWon() {
@@ -99,6 +101,7 @@ void Game::hasWon() {
     }
     if(nbRevealed == board_.getNbBombs()){
         state_ = win;
+        notifyObservers();
     }
 }
 

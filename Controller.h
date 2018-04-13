@@ -2,34 +2,43 @@
 #define CONTROLLER_H
 #include "Model/Game.h"
 #include "Scores/Score.h"
+#include "View/Consoleview.h"
 #include <string>
+
 
 class Controller{
 
 public :
 
-    Controller();
-
-    void newGame(int nbLines, int nbColumns, int nbBombs, double densityBombs);
-    inline Game getGame() const ;
-    void reveal(unsigned line, unsigned column);
-    void mark(unsigned line, unsigned column);
-    void saveScore(string player) const;
-
-    inline const BoardPublic& getBoard() const;
-    inline GameState getGameState() const;
-    inline duration<double> getScore() const;
-    vector<Score> getScores(int nbLines, int nbCols, unsigned nbBombs) const;
+    Controller(Game & game, ConsoleView & view);
+    void run();
 
 private :
+    ConsoleView view_;
     Game game_ ;
+
+    //COMMANDS METHODS
+    void start();
+    void custom();
+    //inline Game getGame() const ;
+    void reveal();
+    void mark();
+    void scores();
+
+    //inline const BoardPublic& getBoard() const;
+    //inline GameState getGameState() const;
+    void saveScore() const;
+    inline duration<double> getScore() const;
+    vector<Score> getScores(int nbLines, int nbCols, unsigned nbBombs) const;
 };
+
 
 
 /**
  * @brief Controller::getGame
  * Instance of the actual game
  */
+/*
 Game Controller::getGame() const
 {
     return game_ ;
@@ -39,6 +48,7 @@ Game Controller::getGame() const
  * @brief gameState getter
  * Returns the game state.
 */
+/*
 GameState Controller::getGameState() const{
     return game_.getGameState();
 }
@@ -50,6 +60,7 @@ GameState Controller::getGameState() const{
  * but can't modify the data.
  * @return the public version of the board
 */
+/*
 const BoardPublic & Controller::getBoard() const{
     return game_.getBoard() ;
 }
@@ -62,7 +73,6 @@ const BoardPublic & Controller::getBoard() const{
 inline duration<double> Controller::getScore() const{
     return game_.getScore();
 }
-
 
 
 #endif // CONTROLLER_H

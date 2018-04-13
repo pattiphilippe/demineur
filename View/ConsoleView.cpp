@@ -1,5 +1,6 @@
 #include "ConsoleView.h"
 #include "ConsoleRead.h"
+#include "Libraries/observer/subject.h"
 
 #include <iostream>
 #include <vector>
@@ -11,14 +12,27 @@ using namespace std;
  * Default constructor of ConsoleView
  * Initialize a view for the game Demineur
  */
-ConsoleView::ConsoleView():
-    v_controller{}
-{}
+ConsoleView::ConsoleView(Game & game):
+    game_{game}
+{
+    game_.registerObserver(this);
+    //update(game_);
+}
+
+void ConsoleView::update(const nvs::Subject *subject){
+    //TODO add verif if(subject!=game_) return;
+    this->displayBoard();
+}
+
+ConsoleView::~ConsoleView(){
+    game_.unregisterObserver(this);
+}
 
 /**
  * @brief ConsoleView::displayStart
  * Display message at the start of the game.
  */
+/*
 void ConsoleView::start()
 {
     v_controller.newGame(-1, -1, -1, -1);
@@ -29,6 +43,7 @@ void ConsoleView::start()
  * @brief ConsoleView::displayCustom
  * Display a menu where the user can custom the game.
  */
+/*
 bool ConsoleView::custom()
 {
     int typeOfCustom ;
@@ -100,6 +115,7 @@ bool ConsoleView::custom()
  * @brief ConsoleView::displayChrono
  * Displays the chrono of the current game.
  */
+/*
 void ConsoleView::displayChrono()
 {
     // Not any chrono yet
@@ -109,6 +125,7 @@ void ConsoleView::displayChrono()
  * @brief ConsoleView::displayChoices
  * Display different choices during the game.
  */
+/*
 void ConsoleView::displayChoices()
 {
     cout << "To mark a case type 'mark'" <<endl
@@ -131,6 +148,7 @@ void ConsoleView::displayChoices()
  * Interact with the user to reveal and mark cases
  * @param action mark or reveal , set the mode to mark or reveal a case.
  */
+/*
 void ConsoleView::action(string action){
     int line,column;
     cout << "Type the line of the case you want to "<<action<<":" << endl ;
@@ -173,6 +191,16 @@ void ConsoleView::action(string action){
             v_controller.reveal(line, column);
         }
     }
+}*/
+
+
+void ConsoleView::displayStart(){
+    //TODO display game starting
+    cout<< "Game started " << endl;
+    displayBoard();
+}
+void ConsoleView::displayCustom(){
+    //TODO display custom game starting
 }
 
 
@@ -182,7 +210,7 @@ void ConsoleView::action(string action){
  */
 void ConsoleView::displayBoard()
 {
-    const BoardPublic bp = v_controller.getBoard() ;
+    const BoardPublic bp = game_.getBoard() ;
 
     const CasePublic * cp;
 
@@ -225,34 +253,42 @@ void ConsoleView::displayBoard()
     cout << endl << endl;
 }
 
-void ConsoleView::displayScores(){
-    const BoardPublic & b = v_controller.getBoard();
+void ConsoleView::displayScores(int lines, int cols, unsigned nbBombs, vector<Score> scores){
+    //TODO show scores of asked category
+    /*
+    const BoardPublic & b = game_.getBoard();
     int lines = b.getNbLines(), cols = b.getNbColumns();
     unsigned nbBombs = b.getNbBombs();
+    */
     cout << "Scores for "
          << lines << " lines, "
          << cols<< " columns and "
          << nbBombs << " bombs : " << endl;
-    for(auto & s : v_controller.getScores(lines, cols, nbBombs)){
+    for(auto & s : scores){
         cout << " " << s.getPlayer() << " :  " << s.getTime() << " seconds" << endl;
     }
     cout << endl;
 }
 
-void ConsoleView::help()
+void ConsoleView::displayCommands()
 {
-    cout  << "Type 'reveal' to reveal a case" << endl
+    cout  << "Type 'start' to start a normal game (10x10 Board with 10 bombs)" << endl
+          << "Type 'custom' to start a custom game" << endl
+          << "Type 'scores' to see the best scores" << endl
+          << "Type 'reveal' to reveal a case" << endl
           << "Type 'mark' to mark a case" << endl
-          << "Type 'exit' to exit the game" << endl ;
+          << "Type 'help' to see the available commands" << endl
+          << "Type 'exit' to exit the game" << endl
+          << endl;
 }
-
+/*
 void ConsoleView::helpMenu()
 {
     cout  << "Type 'start' to start a normal game (10x10 Board with 10 bombs)" << endl
           << "Type 'custom' to start a custom game" << endl
           << "Type 'scores' to see the best scores" << endl
           << "Type 'exit' to exit the game" << endl ;
-}
+}*/
 
 void ConsoleView::displayError(){
     cout << "Wrong input, try again" << endl ;
@@ -262,7 +298,7 @@ void ConsoleView::displayExit()
 {
     cout << "You exited the game, bye !" << endl;
 }
-
+/*
 bool ConsoleView::commandCheck(Command cmd)
 {
     bool isCorrect = false ;
@@ -276,7 +312,7 @@ bool ConsoleView::commandCheck(Command cmd)
                 isCorrect = this->custom();
                 break;
             case SCORES:
-                this->displayScores();
+                this->scores();
                 isCorrect = true ;
                 break;
             default:
@@ -287,6 +323,7 @@ bool ConsoleView::commandCheck(Command cmd)
         }
     return isCorrect ;
 }
+*/
 
 
 

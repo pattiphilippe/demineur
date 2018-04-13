@@ -15,13 +15,19 @@ int main(int argc, char* const argv [])
 
 #include "View/consoleread.h"
 #include "View/ConsoleView.h"
+#include "Controller.h"
 using namespace std;
 
 int main()
 {
 
-    ConsoleView view = ConsoleView();
+    Game game{};
 
+    ConsoleView view {game};
+    Controller ctrl{game, view};
+    ctrl.run();
+
+/*
     Command cmd {HELP};
 
     view.helpMenu();
@@ -31,7 +37,7 @@ int main()
     while(!canStart){
 
         view.commandCheck(cmd);
-        if(view.getController().getGameState() == init){
+        if(game.getGameState() == init){
             canStart = true ;
         }
     }
@@ -41,10 +47,10 @@ int main()
     while(cmd != EXIT){
 
         view.displayBoard();
-        if(view.getController().getGame().getGameState() == win){
+        if(game.getGameState() == win){
             cout << "Congratualation you won !" << endl;
             break;
-        }else if(view.getController().getGame().getGameState() == lose){
+        }else if(ctrl.getGame().getGameState() == lose){
             cout << "Boom !!! You exploded :/ " << endl;
             break;
         }
@@ -69,7 +75,7 @@ int main()
                 view.help();
                 break;
         }
-    }
+    }*/
     return 0;
 }
 

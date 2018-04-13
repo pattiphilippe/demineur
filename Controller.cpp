@@ -1,14 +1,17 @@
 #include "Controller.h"
 #include "Model/Game.h"
 #include "Util/GameException.h"
+#include "View/ConsoleRead.h"
+
 #include <fstream>
 #include <algorithm>
+#include <iostream>
+
 #include "Libraries/rapidjson/include/rapidjson/document.h"
 #include "Libraries/rapidjson/include/rapidjson/istreamwrapper.h"
 #include "Libraries/rapidjson/include/rapidjson/ostreamwrapper.h"
 #include "Libraries/rapidjson/include/rapidjson/writer.h"
 #include "Libraries/rapidjson/include/rapidjson/error/en.h"
-#include <iostream>
 
 using namespace rapidjson;
 using namespace std;
@@ -17,17 +20,116 @@ using namespace std;
  * @brief Controller::Controller
  * Init a game with default board
  */
-Controller::Controller():
-    game_{}
+Controller::Controller(Game & game, ConsoleView & view):
+    game_{game},
+    view_{view}
 {}
 
+
+void Controller::run(){
+    view_.displayStart();
+    view_.displayCommands();
+    Command cmd;
+    do {
+        //TODO gestion de commandes au mauvais moment : reveal et mark si pas de jeu ou jeu fini
+        cmd = readCommand();
+        switch(cmd){
+            case START:
+                start();
+                break;
+            case CUSTOM:
+                custom();
+                break;
+            case SCORES:
+                scores();
+                break;
+            case MARK:
+                mark();
+                break;
+            case REVEAL:
+                reveal();
+                break;
+            case EXIT:
+                view_.displayExit();
+                break;
+            case HELP:
+                view_.displayCommands();
+                break;
+            default:
+            //TODO CHANGE DISPLAY ERROR TO DISPLAY_EXCEPTION(EXCEPTION)
+                view_.displayError();
+                view_.displayCommands();
+                break;
+        }
+    } while(cmd != EXIT);
+}
+
+void Controller::start(){
+    view_.displayStart();
+    //TODO ajouter vérif s'il y a déja un jeu en cours : faire readBoolean(msg)
+    game_ = Game(); //TODO ATTENTION, N'EST PLUS OBSERVE PAR VUE, FAIRE GAME::NEW_GAME()
+}
+
+void Controller::custom(){
+    view_.displayCustom();
+    string linesMsg = "The number of lines you want :";
+    string colsMsg = "The number of columns you want :";
+    int nbLines = readInt(linesMsg);
+    int nbCols = readInt(colsMsg);
+    //TODO  read type of custom
+    game_ = Game(nbLines, nbCols);
+
+}
+
+void Controller::scores(){
+    //TODO read category and not by default
+    int nbLines = 10, nbCols = 10;
+    unsigned nbBombs = 10;
+    view_.displayScores(nbLines, nbCols, nbBombs, getScores(nbLines, nbCols, nbBombs));
+}
+
+
+/**
+ * @brief Controller::reveal
+ * Reads and reveals a case in the game
+ */
+void Controller::reveal(){
+    string lineMsg = "Type the line of the case you want to reveal";
+    string colMsg = "Type the column of the case you want to reveal";
+    int line = readIntBetween(0, game_.getBoard().getNbLines()-1, lineMsg);
+    int col = readIntBetween(0, game_.getBoard().getNbColumns()-1, colMsg);
+    try{
+        game_.reveal(Coordinates(line, col));
+    } catch(GameException e){
+        //TODO add view.displayError(GameException)
+        view_.displayError();
+    }
+}
+/**
+ * @brief Controller::mark
+ * Reads and marks a case in the game
+ */
+void Controller::mark(){
+    string lineMsg = "Type the line of the case you want to mark";
+    string colMsg = "Type the column of the case you want to mark";
+    int line = readIntBetween(0, game_.getBoard().getNbLines()-1, lineMsg);
+    int col = readIntBetween(0, game_.getBoard().getNbColumns()-1, colMsg);
+    try{
+        game_.mark(Coordinates(line, col));
+    } catch(GameException e){
+        //TODO add view.displayError(GameException)
+        view_.displayError();
+    }
+}
 
 /**
  * @brief Controller::newGame
  * Replace current game with a new game
  */
-void Controller::newGame(int nbLines, int nbColumns, int nbBombs, double densityBombs)
+/*
+void Controller::newGame (int nbLines, int nbColumns, int nbBombs, double densityBombs)
 {
+    //TODO read param for game start
     unsigned u_nbBombs = static_cast<unsigned>(nbBombs);
     if(nbLines<0 || nbColumns<0){
         game_ = Game();
@@ -39,6 +141,9 @@ void Controller::newGame(int nbLines, int nbColumns, int nbBombs, double density
         game_ = Game(nbLines, nbColumns, densityBombs);
     }
 }
+*/
+
+
 
 /**
  * @brief Controller::reveal
@@ -46,21 +151,7 @@ void Controller::newGame(int nbLines, int nbColumns, int nbBombs, double density
  * @param line Line of the case you want to reveal
  * @param column Column of the case you want to reveal
  */
-void Controller::reveal(unsigned line, unsigned column)
-{
-    try{
-        game_.reveal(Coordinates(line,column));
-    } catch(GameException e){
-        cout << "error revealing" << endl;
-    }
-}
-
-/**
- * @brief Controller::reveal
- * Reveal case in the game
- * @param line Line of the case you want to reveal
- * @param column Column of the case you want to reveal
- */
+/*
 void Controller::mark(unsigned line, unsigned column)
 {
     try{
@@ -69,9 +160,13 @@ void Controller::mark(unsigned line, unsigned column)
         cout << "error marking : " << e.what() << endl;
     }
 }
+*/
 
 
-void Controller::saveScore(string player) const{
+void Controller::saveScore() const{
+    string nameMsg = "Enter your username";
+    string player = readString(nameMsg);
+
     //Opening json file
     ifstream ifs("Scores.json");
     IStreamWrapper isw(ifs);

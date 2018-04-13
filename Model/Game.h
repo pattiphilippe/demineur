@@ -5,6 +5,7 @@
 #include "Board.h"
 #include "vector"
 #include <chrono>
+#include "Libraries/observer/subject.h"
 
 using namespace std::chrono;
 
@@ -23,7 +24,7 @@ enum GameState{
  * Class that englobes the model and all the rules for a demineur game.
  * Englobes the board and the score.
 */
-class Game {
+class Game : public nvs::Subject{
 private:
     Board board_;
     BoardPublic boardPublic_;

@@ -15,7 +15,8 @@ enum Command{
 };
 
 Command readCommand();
-int readInt(string const & msg, string const & errorMsg);
-int readIntBetween(int, int, string const & msg, string const & errorMsg) ;
+int readInt(string const & msg);
+int readIntBetween(int, int, string const & msg) ;
+string readString(string const & msg);
 
 #endif // CONSOLEREAD_H
