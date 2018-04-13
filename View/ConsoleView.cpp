@@ -1,4 +1,5 @@
 #include "ConsoleView.h"
+#include "ConsoleRead.h"
 
 #include <iostream>
 #include <vector>
@@ -17,65 +18,18 @@ ConsoleView::ConsoleView():
 /**
  * @brief ConsoleView::displayStart
  * Display message at the start of the game.
- * @return boolean, true if the user typed a correct choice
  */
-bool ConsoleView::displayStart()
+void ConsoleView::start()
 {
-    bool choiceMade = false ;
-    string choice ;
-    cout  << "Type 'start' to start a normal game (10x10 Board with 10 bombs)" << endl
-          << "Type 'startCustom' to start a custom game" << endl
-          << "Type 'score' to see the best scores" << endl ;
-
-    unsigned int choice_int ;
-
-
-    try {
-        cin >> choice ;
-        if (cin.fail())
-            throw "Error typing";
-            cin.clear();
-        }
-        catch (char* error) {
-            cout << error;
-        }
-
-    if (choice=="start"){   //Conversion of string to int to make it usable in switch
-        choice_int = 1 ;
-    }else if(choice=="startCustom"){
-        choice_int = 2 ;
-    }else if(choice=="score"){
-        choice_int = 3 ;
-    }
-
-    switch(choice_int){
-        case 1:
-            //Controller take negative parameters as normal game
-            v_controller.newGame(-1, -1, -1, -1);
-            choiceMade = true ;
-            break;
-       case 2:
-            choiceMade = this->displayCustom();
-            break;
-
-       case 3:
-        //TODO CORRECT ERROR
-            this->displayScores();
-            break;
-
-       default:
-            cout << "Invalid input" << endl ;
-    }
-
-    return choiceMade ;
+    v_controller.newGame(-1, -1, -1, -1);
+    cout << "Normal game created, Good Luck & Have Fun !" << endl ;
 }
 
 /**
  * @brief ConsoleView::displayCustom
  * Display a menu where the user can custom the game.
- * @return Boolean , true if the choice is the user didn't make input errors
  */
-bool ConsoleView::displayCustom()
+bool ConsoleView::custom()
 {
     int typeOfCustom ;
     bool customMade = false;
@@ -283,6 +237,55 @@ void ConsoleView::displayScores(){
         cout << " " << s.getPlayer() << " :  " << s.getTime() << " seconds" << endl;
     }
     cout << endl;
+}
+
+void ConsoleView::help()
+{
+    cout  << "Type 'reveal' to reveal a case" << endl
+          << "Type 'mark' to mark a case" << endl
+          << "Type 'exit' to exit the game" << endl ;
+}
+
+void ConsoleView::helpMenu()
+{
+    cout  << "Type 'start' to start a normal game (10x10 Board with 10 bombs)" << endl
+          << "Type 'custom' to start a custom game" << endl
+          << "Type 'scores' to see the best scores" << endl
+          << "Type 'exit' to exit the game" << endl ;
+}
+
+void ConsoleView::displayError(){
+    cout << "Wrong input, try again" << endl ;
+}
+
+void ConsoleView::displayExit()
+{
+    cout << "You exited the game, bye !" << endl;
+}
+
+bool ConsoleView::commandCheck(Command cmd)
+{
+    bool isCorrect = false ;
+        cmd = readCommand();
+        switch(cmd){
+            case START:
+                this->start();
+                isCorrect = true ;
+                break;
+            case CUSTOM:
+                isCorrect = this->custom();
+                break;
+            case SCORES:
+                this->displayScores();
+                isCorrect = true ;
+                break;
+            default:
+                this->displayError();
+                this->help();
+                isCorrect = true ;
+                break;
+        }
+    return isCorrect ;
 }
 
 

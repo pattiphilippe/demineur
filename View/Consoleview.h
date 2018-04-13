@@ -5,6 +5,7 @@
 #include "Model/Board.h"
 #include "Model/Case.h"
 #include <string>
+#include "View/ConsoleRead.h"
 
 using namespace std;
 
@@ -14,13 +15,18 @@ public:
 
     ConsoleView();
 
-    bool displayStart();
-    bool displayCustom();
+    void start();
+    bool custom();
     void displayChoices();
     void displayBoard();
     void displayScores();
     void displayChrono();
+    void displayError();
+    void displayExit();
+    void helpMenu();
+    void help();
     void action(string action);
+    bool commandCheck(Command cmd);
 
     inline Controller getController() const;
 

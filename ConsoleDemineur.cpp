@@ -19,38 +19,57 @@ using namespace std;
 
 int main()
 {
+
     ConsoleView view = ConsoleView();
 
     Command cmd {HELP};
-    while(cmd != EXIT){
-        cmd = readCommand();
-        switch(cmd){
-        case START:
-            cout << "start a new game" << endl;
-            view.displayStart();
-        }
-    }
 
-    /*
+    view.helpMenu();
+
     bool canStart = false ;
 
     while(!canStart){
-        canStart = view.displayStart();
+
+        view.commandCheck(cmd);
+        if(view.getController().getGameState() == init){
+            canStart = true ;
+        }
     }
 
+    view.help();
 
-    while(view.getController().getGameState() == inProgress ||view.getController().getGameState() == init  ){
+    while(cmd != EXIT){
+
         view.displayBoard();
-        view.displayChoices();
-    }
+        if(view.getController().getGame().getGameState() == win){
+            cout << "Congratualation you won !" << endl;
+            break;
+        }else if(view.getController().getGame().getGameState() == lose){
+            cout << "Boom !!! You exploded :/ " << endl;
+            break;
+        }
 
-    if(view.getController().getGame().getGameState() == win){
-        cout << "Congratualation you won !" << endl;
-    }else{
-        cout << "Boom !!! You exploded :/ " << endl;
-    }
-    */
+        cmd = readCommand();
 
+        switch(cmd){
+            case MARK:
+                view.action("mark");
+                break;
+            case REVEAL:
+                view.action("reveal");
+                break;
+            case EXIT:
+                view.displayExit();
+                break;
+            case HELP:
+                view.help();
+                break;
+            default:
+                view.displayError();
+                view.help();
+                break;
+        }
+    }
     return 0;
 }
 
