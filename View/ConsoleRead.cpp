@@ -25,6 +25,25 @@ int readInt(string const & msg){
     return nb;
 }
 
+double readDouble(string const & msg){
+    cout << msg << endl;
+    int nb;
+    bool error {true};
+    do{
+        try
+        {
+            nb = nvs::lineFromKbd<double>();
+            error = false;
+        }
+        catch (const exception & e)
+        {
+            cout << "Error : " << e.what() << endl;
+            cout << "Enter a double number!" << endl;
+        }
+    } while (error);
+    return nb;
+}
+
 int readIntBetween(int nb1, int nb2, string const & msg) {
     int nb, min = nb1 < nb2 ? nb1 : nb2, max = min == nb1 ? nb2 : nb1;
     do{
@@ -64,6 +83,31 @@ Command readCommand(){
         } else {
             cout << "Wrong command! Enter one of the following : "<< endl;
             cout << "start (s), custom (c), scores (sc), mark (m), reveal (r), help (h), exit (x)." << endl;
+        }
+    } while (true); //No value returned
+}
+
+TypeOfCustom readCustom(){
+    do{
+        cout << "# Enter Type of custom between (linesAndColumns, nbBombs or densityBombs) : ";
+        string s;
+        try{
+            s= nvs::lineFromKbd<string>();
+            std::transform(s.begin(), s.end(), s.begin(),
+                           [](unsigned char c){ return std::tolower(c); });
+        } catch(nvs::bad_string_convert e){
+            s = "error";
+        }
+
+        if(s == "linesandcolumns"){
+            return LINESANDCOLUMNS;
+        } else if(s == "nbbombs"){
+            return NBBOMBS;
+        } else if(s == "densitybombs"){
+            return DENSITYBOMBS;
+        } else {
+            cout << "Wrong command! Enter one of the following : "<< endl;
+            cout << "linesAndColumns, nbBombs or densityBombs." << endl;
         }
     } while (true); //No value returned
 }

@@ -47,8 +47,9 @@ void ConsoleView::displayStart(){
          << "                                             | |              " << endl
          << "                                             |_|              " << endl <<endl <<endl;
     displayCommands();
-    displayChrono();
-    displayBoard();
+    //Commandes suivantes mises en commentaire. La partie n'a pas commencé donc afficher un board et un chrono à ce moment n'a pas de sens.
+    //displayChrono();
+    //displayBoard();
 }
 
 void ConsoleView::displayError(){

@@ -44,10 +44,18 @@ void Controller::run(){
                 scores();
                 break;
             case MARK:
-                mark();
+                if(game_.getGameState()== init || game_.getGameState() == inProgress){
+                    mark();
+                }else{
+                    view_.displayError();
+                }
                 break;
             case REVEAL:
-                reveal();
+                if(game_.getGameState()== init || game_.getGameState() == inProgress){
+                    reveal();
+                }else{
+                    view_.displayError();
+                }
                 break;
             case EXIT:
                 view_.displayExit();
@@ -71,12 +79,43 @@ void Controller::start(){
 }
 
 void Controller::custom(){
+    TypeOfCustom customType ;
+    customType = readCustom();
+
     string linesMsg = "The number of lines you want :";
     string colsMsg = "The number of columns you want :";
     int nbLines = readInt(linesMsg);
     int nbCols = readInt(colsMsg);
-    //TODO  read type of custom
-    game_ = Game(nbLines, nbCols);
+
+    switch(customType){
+
+        case LINESANDCOLUMNS:
+            {
+                game_ = Game(nbLines, nbCols);
+                break;
+            }
+
+        case NBBOMBS:
+            {
+                string bombsMsg = "The number of bombs you want :";
+                unsigned nbBombs = readInt(bombsMsg);
+                game_ = Game(nbLines, nbCols, nbBombs);
+                break;
+            }
+
+        case DENSITYBOMBS:
+            {
+            string densityMsg = "The density of bombs you want :";
+            double densityBombs = readDouble(densityMsg);
+            game_ = Game(nbLines, nbCols, densityBombs);
+            break;
+            }
+
+        default:
+            view_.displayError();
+        break;
+    }
+
     view_.setModel(game_);
 
 }

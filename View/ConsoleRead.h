@@ -14,8 +14,16 @@ enum Command{
     EXIT
 };
 
+enum TypeOfCustom{
+    LINESANDCOLUMNS,
+    NBBOMBS,
+    DENSITYBOMBS,
+};
+
 Command readCommand();
+TypeOfCustom readCustom();
 int readInt(string const & msg);
+double readDouble(string const & msg);
 int readIntBetween(int, int, string const & msg) ;
 string readString(string const & msg);
 
