@@ -21,39 +21,42 @@ public:
     virtual ~ConsoleView();
     virtual void update(const nvs::Subject *subject) override;
 
-    //void start();
-    //bool custom();
+    void setModel(Game & game);
+
     void displayStart();
     void displayCustom();
-    //void displayChoices();
     void displayBoard();
     void displayScores(int, int, unsigned, vector<Score>);
     void displayChrono();
     void displayError();
     void displayExit();
-    //void helpMenu();
     void displayCommands();
-    //void action(string action);
-    //bool commandCheck(Command cmd);
 
+    //void start();
+    //bool custom();
+    //void displayChoices();
+    //void action(string action);
+    //void helpMenu();
+    //bool commandCheck(Command cmd);
     //inline Controller getController() const;
 
 
 private:
-    Game game_;
+    Game * game_;
 
 };
 
 
-/**
- * @brief ConsoleView::getController
- * Getter for the controller
- * @return controller of the game
- */
+
 /*
 Controller ConsoleView::getController() const{
     return ctrl_ ;
 }
 */
+/**
+ * @brief ConsoleView::getController
+ * Getter for the controller
+ * @return controller of the game
+ */
 
 #endif // CONSOLEVIEW_H

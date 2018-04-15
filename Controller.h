@@ -14,23 +14,30 @@ public :
     void run();
 
 private :
+    Game & game_ ;
     ConsoleView view_;
-    Game game_ ;
 
     //COMMANDS METHODS
     void start();
     void custom();
-    //inline Game getGame() const ;
     void reveal();
     void mark();
     void scores();
 
-    //inline const BoardPublic& getBoard() const;
-    //inline GameState getGameState() const;
     void saveScore() const;
     inline duration<double> getScore() const;
     vector<Score> getScores(int nbLines, int nbCols, unsigned nbBombs) const;
 };
+
+
+/**
+ * @brief Game::getScore
+ * Returns the current time duration elapsed since the start of the game.
+ * @return
+ */
+inline duration<double> Controller::getScore() const{
+    return game_.getScore();
+}
 
 
 
@@ -64,15 +71,8 @@ GameState Controller::getGameState() const{
 const BoardPublic & Controller::getBoard() const{
     return game_.getBoard() ;
 }
+*/
 
-/**
- * @brief Game::getScore
- * Returns the current time duration elapsed since the start of the game.
- * @return
- */
-inline duration<double> Controller::getScore() const{
-    return game_.getScore();
-}
 
 
 #endif // CONTROLLER_H

@@ -91,15 +91,16 @@ void Game::reveal(Coordinates pos){
 
 void Game::hasWon() {
     //TODO optimiser
-    unsigned nbRevealed{};
+    int lines {board_.getNbLines()}, cols {board_.getNbColumns()};
+    unsigned toReveal{lines * cols - board_.getNbBombs()};
     for(int line = 0; line < board_.getNbLines(); line++){
         for(int col = 0; col < board_.getNbColumns(); col++){
             if(board_.getCase({line, col})->getState() == revealed){
-                nbRevealed++;
+                toReveal--;
             }
         }
     }
-    if(nbRevealed == board_.getNbBombs()){
+    if(toReveal == 0){
         state_ = win;
         notifyObservers();
     }

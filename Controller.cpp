@@ -28,7 +28,6 @@ Controller::Controller(Game & game, ConsoleView & view):
 
 void Controller::run(){
     view_.displayStart();
-    view_.displayCommands();
     Command cmd;
     do {
         //TODO gestion de commandes au mauvais moment : reveal et mark si pas de jeu ou jeu fini
@@ -41,6 +40,7 @@ void Controller::run(){
                 custom();
                 break;
             case SCORES:
+            //TODO ajouter cmd display? (après afficher score, board pas affiché => display) (nom peut être modifié)
                 scores();
                 break;
             case MARK:
@@ -65,9 +65,9 @@ void Controller::run(){
 }
 
 void Controller::start(){
-    view_.displayStart();
     //TODO ajouter vérif s'il y a déja un jeu en cours : faire readBoolean(msg)
     game_ = Game(); //TODO ATTENTION, N'EST PLUS OBSERVE PAR VUE, FAIRE GAME::NEW_GAME()
+    view_.setModel(game_);
 }
 
 void Controller::custom(){
@@ -78,6 +78,7 @@ void Controller::custom(){
     int nbCols = readInt(colsMsg);
     //TODO  read type of custom
     game_ = Game(nbLines, nbCols);
+    view_.setModel(game_);
 
 }
 
