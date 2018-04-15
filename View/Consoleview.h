@@ -24,7 +24,6 @@ public:
     void setModel(Game & game);
 
     void displayStart();
-    void displayCustom();
     void displayBoard();
     void displayScores(int, int, unsigned, vector<Score>);
     void displayChrono();
@@ -32,31 +31,10 @@ public:
     void displayExit();
     void displayCommands();
 
-    //void start();
-    //bool custom();
-    //void displayChoices();
-    //void action(string action);
-    //void helpMenu();
-    //bool commandCheck(Command cmd);
-    //inline Controller getController() const;
-
-
 private:
     Game * game_;
 
 };
 
-
-
-/*
-Controller ConsoleView::getController() const{
-    return ctrl_ ;
-}
-*/
-/**
- * @brief ConsoleView::getController
- * Getter for the controller
- * @return controller of the game
- */
 
 #endif // CONSOLEVIEW_H

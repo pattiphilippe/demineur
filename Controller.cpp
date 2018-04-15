@@ -71,7 +71,6 @@ void Controller::start(){
 }
 
 void Controller::custom(){
-    view_.displayCustom();
     string linesMsg = "The number of lines you want :";
     string colsMsg = "The number of columns you want :";
     int nbLines = readInt(linesMsg);
@@ -122,46 +121,6 @@ void Controller::mark(){
         view_.displayError();
     }
 }
-
-/**
- * @brief Controller::newGame
- * Replace current game with a new game
- */
-/*
-void Controller::newGame (int nbLines, int nbColumns, int nbBombs, double densityBombs)
-{
-    //TODO read param for game start
-    unsigned u_nbBombs = static_cast<unsigned>(nbBombs);
-    if(nbLines<0 || nbColumns<0){
-        game_ = Game();
-    }else if(nbBombs<0){
-        game_ = Game(nbLines, nbColumns);
-    }else if(densityBombs<0){
-        game_ = Game(nbLines, nbColumns, u_nbBombs);
-    }else{
-        game_ = Game(nbLines, nbColumns, densityBombs);
-    }
-}
-*/
-
-
-
-/**
- * @brief Controller::reveal
- * Reveal case in the game
- * @param line Line of the case you want to reveal
- * @param column Column of the case you want to reveal
- */
-/*
-void Controller::mark(unsigned line, unsigned column)
-{
-    try{
-        game_.mark(Coordinates(line,column));
-    } catch (GameException e){
-        cout << "error marking : " << e.what() << endl;
-    }
-}
-*/
 
 
 void Controller::saveScore() const{
