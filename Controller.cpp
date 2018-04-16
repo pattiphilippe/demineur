@@ -56,7 +56,14 @@ void Controller::run(){
                 }else{
                     view_.displayError();
                 }
-                //TODO Display end game si getGameState != inProgress.
+
+                cout << game_.getGameState() ;
+
+                //TODO Corriger bug où la partie reste en INIT et retirer la condition !=INIT ci dessous
+                if(game_.getGameState() != IN_PROGRESS && game_.getGameState() != INIT){
+                    view_.displayEndGame(game_.getGameState());
+                }
+
                 break;
             case EXIT:
                 view_.displayExit();
