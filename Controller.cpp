@@ -30,7 +30,6 @@ void Controller::run(){
     view_.displayStart();
     Command cmd;
     do {
-        //TODO gestion de commandes au mauvais moment : reveal et mark si pas de jeu ou jeu fini
         cmd = readCommand();
         switch(cmd){
             case START:
@@ -40,18 +39,19 @@ void Controller::run(){
                 custom();
                 break;
             case SCORES:
-            //TODO ajouter cmd display? (après afficher score, board pas affiché => display) (nom peut être modifié)
                 scores();
+                view_.displayChrono();
+                view_.displayBoard();
                 break;
             case MARK:
-                if(game_.getGameState()== init || game_.getGameState() == inProgress){
+                if(game_.getGameState() == inProgress){
                     mark();
                 }else{
                     view_.displayError();
                 }
                 break;
             case REVEAL:
-                if(game_.getGameState()== init || game_.getGameState() == inProgress){
+                if(game_.getGameState() == inProgress){
                     reveal();
                 }else{
                     view_.displayError();
@@ -64,7 +64,6 @@ void Controller::run(){
                 view_.displayCommands();
                 break;
             default:
-            //TODO CHANGE DISPLAY ERROR TO DISPLAY_EXCEPTION(EXCEPTION)
                 view_.displayError();
                 view_.displayCommands();
                 break;
@@ -159,7 +158,6 @@ void Controller::mark(){
     try{
         game_.mark(Coordinates(line, col));
     } catch(GameException e){
-        //TODO add view.displayError(GameException)
         view_.displayError();
     }
 }
