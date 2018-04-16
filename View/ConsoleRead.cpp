@@ -44,6 +44,31 @@ double readDouble(string const & msg){
     return nb;
 }
 
+bool readBoolean(string const & msg){
+    cout << msg << endl;
+    string input;
+    bool confirmed;
+    bool error {true};
+    do{
+        try
+        {
+            input = nvs::lineFromKbd<string>();
+            if(input == "y"){
+                confirmed = true ;
+            }else if(input == "n"){
+                confirmed = false ;
+            }
+            error = false;
+        }
+        catch (const exception & e)
+        {
+            cout << "Error : " << e.what() << endl;
+            cout << "Enter Y or N!" << endl;
+        }
+    } while (error);
+    return confirmed;
+}
+
 int readIntBetween(int nb1, int nb2, string const & msg) {
     int nb, min = nb1 < nb2 ? nb1 : nb2, max = min == nb1 ? nb2 : nb1;
     do{

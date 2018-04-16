@@ -73,9 +73,12 @@ void Controller::run(){
 }
 
 void Controller::start(){
-    //TODO ajouter vérif s'il y a déja un jeu en cours : faire readBoolean(msg)
-    game_ = Game(); //TODO ATTENTION, N'EST PLUS OBSERVE PAR VUE, FAIRE GAME::NEW_GAME()
-    view_.setModel(game_);
+    string confirmMsg = "Are you sure you want to start a new game(Y or N)";
+    bool confirmed = readBoolean(confirmMsg);
+    if(confirmed){
+        game_ = Game();
+        view_.setModel(game_);
+    }
 }
 
 void Controller::custom(){
