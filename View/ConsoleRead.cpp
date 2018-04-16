@@ -89,7 +89,7 @@ Command readCommand(){
 
 TypeOfCustom readCustom(){
     do{
-        cout << "# Enter Type of custom between (linesAndColumns, nbBombs or densityBombs) : ";
+        cout << "# Enter Type of custom between (linesAndColumns (lc), nbBombs(nb) or densityBombs(db)) : ";
         string s;
         try{
             s= nvs::lineFromKbd<string>();
@@ -99,11 +99,11 @@ TypeOfCustom readCustom(){
             s = "error";
         }
 
-        if(s == "linesandcolumns"){
+        if(s == "linesandcolumns" || s=="lc"){
             return LINESANDCOLUMNS;
-        } else if(s == "nbbombs"){
+        } else if(s == "nbbombs"|| s=="nb"){
             return NBBOMBS;
-        } else if(s == "densitybombs"){
+        } else if(s == "densitybombs" || s== "db"){
             return DENSITYBOMBS;
         } else {
             cout << "Wrong command! Enter one of the following : "<< endl;
