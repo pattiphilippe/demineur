@@ -44,18 +44,19 @@ void Controller::run(){
                 view_.displayBoard();
                 break;
             case MARK:
-                if(game_.getGameState() == inProgress){
+                if(game_.getGameState() == init || game_.getGameState() == inProgress){
                     mark();
                 }else{
                     view_.displayError();
                 }
                 break;
             case REVEAL:
-                if(game_.getGameState() == inProgress){
+                if(game_.getGameState() == init || game_.getGameState() == inProgress){
                     reveal();
                 }else{
                     view_.displayError();
                 }
+                //TODO Display end game si getGameState != inProgress.
                 break;
             case EXIT:
                 view_.displayExit();

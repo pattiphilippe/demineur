@@ -129,7 +129,7 @@ void Board::generateBombs(Coordinates& pos, bool canBeBomb)
         do {
             bombLine = rand() % b_nbLines ;
             bombColumn = rand() % b_nbColumns ;
-        } while (!canBeBomb && (bombLine==line && bombColumn==col));
+        } while (!canBeBomb && (bombLine==line && bombColumn==col) && this->getCase({bombLine, bombColumn})->isBomb());
         setBomb({bombLine, bombColumn});
     }
     b_firstAction = false ;
