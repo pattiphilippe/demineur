@@ -84,6 +84,7 @@ void Game::mark(Coordinates pos){
 void Game::reveal(Coordinates pos){
     if(!board_.reveal(pos)){
         state_ = LOST;
+        board_.revealAll();
     } else{
         hasWon();
     }
@@ -93,9 +94,7 @@ void Game::reveal(Coordinates pos){
 void Game::hasWon() {
     int lines {board_.getNbLines()}, cols {board_.getNbColumns()};
     if((lines * cols - board_.getNbBombs() - board_.getNbRevealed()) == 0){
-        board_.revealAll();
         state_ = WON;
-        notifyObservers();
     }
 }
 

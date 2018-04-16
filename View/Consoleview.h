@@ -19,7 +19,7 @@ public:
     ConsoleView(Game & game);
 
     virtual ~ConsoleView();
-    virtual void update(const nvs::Subject *subject) const override;
+    virtual void update(const nvs::Subject *subject) override;
 
     void setModel(Game & game);
 

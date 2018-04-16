@@ -40,7 +40,7 @@ void ConsoleView::setModel(Game & game){
 }
 
 
-void ConsoleView::displayStart(){
+void ConsoleView::displayStart() const{
     cout << "  ___  ____  " << endl
          << "  |  \\/  (_)                                                  " << endl
          << "  | .  . |_ _ __   ___  _____      _____  ___ _ __   ___ _ __ " << endl
@@ -64,16 +64,16 @@ void ConsoleView::displayEndGame(GameState state) const{
     }
 }
 
-void ConsoleView::displayError(){
+void ConsoleView::displayError() const{
     cout << "Wrong input, try again" << endl ;
 }
 
-void ConsoleView::displayExit()
+void ConsoleView::displayExit() const
 {
     cout << "You exited the game, bye !" << endl;
 }
 
-void ConsoleView::displayScores(int lines, int cols, unsigned nbBombs, vector<Score> scores){
+void ConsoleView::displayScores(int lines, int cols, unsigned nbBombs, vector<Score> scores) const{
     //TODO show scores of asked category
     cout << "Scores for "
          << lines << " lines, "
@@ -85,7 +85,7 @@ void ConsoleView::displayScores(int lines, int cols, unsigned nbBombs, vector<Sc
     cout << endl;
 }
 
-void ConsoleView::displayCommands()
+void ConsoleView::displayCommands() const
 {
     cout  << "Type 'start' to start a normal game (10x10 Board with 10 bombs)" << endl
           << "Type 'custom' to start a custom game" << endl
@@ -98,7 +98,7 @@ void ConsoleView::displayCommands()
 }
 
 
-void ConsoleView::displayChrono(){
+void ConsoleView::displayChrono() const{
     int score = static_cast<int>(game_->getScore().count());
     cout << endl << "Score : " << endl
          << setw(2) << setfill('0') << score/3600 << " : "
@@ -111,7 +111,7 @@ void ConsoleView::displayChrono(){
  * @brief ConsoleView::displayBoard
  * Display the board of Demineur
  */
-void ConsoleView::displayBoard()
+void ConsoleView::displayBoard() const
 {
     //TODO corriger bug affichage board : lancer custom puis start et bug...
     const BoardPublic * bp = &game_->getBoard() ;

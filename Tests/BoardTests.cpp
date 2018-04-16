@@ -176,7 +176,6 @@ TEST_CASE("Reveal"){
         }
     }
     SECTION("reveal bomb"){
-        cout << "reveal bomb" << endl;
         Coordinates src {0,0};
         REQUIRE(b.getCase(src)->isBomb());
         REQUIRE(!b.reveal(src));
@@ -199,7 +198,6 @@ TEST_CASE("Reveal"){
         }
     }
     SECTION("reveal bomb neighbour"){
-        cout << "reveal bomb neighbour" << endl;
         Coordinates t {0, 1};
         REQUIRE(b.reveal(t));
         for(int line = 0; line < b.getNbLines(); line++){
@@ -224,13 +222,11 @@ TEST_CASE("Reveal"){
         }
     }
     SECTION("reveal other"){
-        cout << "reveal other" << endl;
         Coordinates t {5, 5};
         REQUIRE(b.reveal(t));
         for(int line = 0; line < b.getNbLines(); line++){
             for(int col = 0; col < b.getNbLines(); col++){
                 c = b.getCase({line, col});
-                cout << "{" << line << ", " << col << "}" << endl;
                 nbBombs = 0;
                 if((line == 0 && col == 1) || (line == 1 && col == 0) || (line == 1 && col == 1)){
                     nbBombs = 1;
