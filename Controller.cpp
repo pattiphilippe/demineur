@@ -44,14 +44,14 @@ void Controller::run(){
                 view_.displayBoard();
                 break;
             case MARK:
-                if(game_.getGameState() == init || game_.getGameState() == inProgress){
+                if(game_.getGameState() == INIT || game_.getGameState() == IN_PROGRESS){
                     mark();
                 }else{
                     view_.displayError();
                 }
                 break;
             case REVEAL:
-                if(game_.getGameState() == init || game_.getGameState() == inProgress){
+                if(game_.getGameState() == INIT || game_.getGameState() == IN_PROGRESS){
                     reveal();
                 }else{
                     view_.displayError();
@@ -138,8 +138,8 @@ void Controller::scores(){
 void Controller::reveal(){
     string lineMsg = "Type the line of the case you want to reveal";
     string colMsg = "Type the column of the case you want to reveal";
-    int line = readIntBetween(0, game_.getBoard().getNbLines()-1, lineMsg);
-    int col = readIntBetween(0, game_.getBoard().getNbColumns()-1, colMsg);
+    int line = readIntBetween(1, game_.getBoard().getNbLines(), lineMsg) -1;
+    int col = readIntBetween(1, game_.getBoard().getNbColumns(), colMsg) -1;
     try{
         game_.reveal(Coordinates(line, col));
     } catch(GameException e){
@@ -154,8 +154,8 @@ void Controller::reveal(){
 void Controller::mark(){
     string lineMsg = "Type the line of the case you want to mark";
     string colMsg = "Type the column of the case you want to mark";
-    int line = readIntBetween(0, game_.getBoard().getNbLines()-1, lineMsg);
-    int col = readIntBetween(0, game_.getBoard().getNbColumns()-1, colMsg);
+    int line = readIntBetween(1, game_.getBoard().getNbLines(), lineMsg) -1;
+    int col = readIntBetween(1, game_.getBoard().getNbColumns(), colMsg) -1;
     try{
         game_.mark(Coordinates(line, col));
     } catch(GameException e){

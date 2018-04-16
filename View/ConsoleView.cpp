@@ -21,6 +21,9 @@ ConsoleView::ConsoleView(Game & game):
 
 void ConsoleView::update(const nvs::Subject *subject){
     if(subject == game_){
+        if(game_->getGameState()== WON || game_->getGameState() == LOST){
+            displayEndGame(game_->getGameState());
+        }
         this->displayChrono();
         this->displayBoard();
     }
@@ -49,6 +52,16 @@ void ConsoleView::displayStart(){
     displayCommands();
     displayChrono();
     displayBoard();
+}
+
+void ConsoleView::displayEndGame(GameState state) const{
+    if(state == LOST){
+        cout << "BOOM! You've lost!" << endl;
+    } else if (state == WON){
+        cout << "Congratulations, you've won!" << endl;
+    } else {
+        throw GameException("Game isn't finished!");
+    }
 }
 
 void ConsoleView::displayError(){

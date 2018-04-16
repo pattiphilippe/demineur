@@ -4,7 +4,6 @@
 #include "Case.h"
 #include "Util/Coordinates.h"
 #include "Util/GameException.h"
-#include <iostream>
 #include <vector>
 
 //TODO retirer les using namespace si non nécessaire
@@ -21,11 +20,13 @@ public:
     inline int getNbLines() const;
     inline int getNbColumns() const;
     inline unsigned getNbBombs() const;
+    inline int getNbRevealed() const;
     inline const Case * getCase(Coordinates) const;
 
     //TODO add restart method
     void mark(Coordinates);
     bool reveal(Coordinates&);
+    inline void revealAll();
     inline void setFirstAction(bool);
     void setBomb(Coordinates&&);
     Board& operator= (const Board& other);
@@ -35,6 +36,7 @@ private:
     int b_nbLines ;
     int b_nbColumns ;
     unsigned b_nbBombs ;
+    int b_nbRevealed;
     bool b_firstAction;
     vector<vector<Case>> b_cases;
 
@@ -102,6 +104,22 @@ unsigned Board::getNbBombs() const {
  */
 unsigned BoardPublic::getNbBombs() const {
     return board_->getNbBombs();
+}
+
+/**
+ * @brief getNbRevealed
+ * @return the number of tiles revealed since the start of the game
+ */
+int Board::getNbRevealed() const{
+    return b_nbRevealed;
+}
+
+void Board::revealAll(){
+    for(vector<Case> & lines : b_cases){
+        for(Case & c : lines){
+            c.setState(revealed);
+        }
+    }
 }
 
 /**

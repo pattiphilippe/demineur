@@ -54,6 +54,7 @@ Board::Board(int nbLines, int nbColumns, unsigned nbBombs):
     b_nbLines{nbLines < 5 ? 5 : nbLines},
     b_nbColumns{nbColumns < 5 ? 5 : nbColumns},
     b_nbBombs{validNbBombs(nbBombs)},
+    b_nbRevealed{},
     b_firstAction{true},
     b_cases{static_cast<unsigned>(b_nbLines)}
 {
@@ -190,9 +191,11 @@ bool Board::reveal(Coordinates& pos)
     Case * tile{&b_cases.at(pos.getLine()).at(pos.getColumn())};
     if(tile->isBomb()){
         tile->setState(revealed);
+        b_nbRevealed++;
         return false;
     } else if(tile->getState() != revealed){
         tile->setState(revealed);
+        b_nbRevealed++;
         if(tile->getNbNearBombs() == 0){
             vector<vector<bool>> checked{static_cast<unsigned>(b_nbLines)};
             for(int line = 0; line < b_nbLines; line++){
@@ -207,13 +210,11 @@ bool Board::reveal(Coordinates& pos)
 }
 
 
-#include <iostream>
-using namespace std;
 bool Board::revealRec(Coordinates& pos, vector<vector<bool>> & checked){
     Case * tile {&b_cases[pos.getLine()][pos.getColumn()]};
-    cout << "revealRec  {" << pos.getLine() << ", " << pos.getColumn() << "}" << endl;
     checked[pos.getLine()][pos.getColumn()] = true ;
     tile->setState(revealed);
+    b_nbRevealed++;
     if(tile->getNbNearBombs()==0){
         Direction dir;
         for(int dirInt =N ; dirInt != Last; dirInt++ ){

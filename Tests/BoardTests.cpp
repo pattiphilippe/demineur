@@ -1,10 +1,7 @@
-
 #include "Libraries/catch.hpp"
 #include "Model/Board.h"
 #include "Util/GameException.h"
 
-
-#include <iostream>
 
 using namespace std;
 

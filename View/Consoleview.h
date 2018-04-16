@@ -19,17 +19,18 @@ public:
     ConsoleView(Game & game);
 
     virtual ~ConsoleView();
-    virtual void update(const nvs::Subject *subject) override;
+    virtual void update(const nvs::Subject *subject) const override;
 
     void setModel(Game & game);
 
-    void displayStart();
-    void displayBoard();
-    void displayScores(int, int, unsigned, vector<Score>);
-    void displayChrono();
-    void displayError();
-    void displayExit();
-    void displayCommands();
+    void displayStart() const;
+    void displayBoard() const;
+    void displayScores(int, int, unsigned, vector<Score>) const ;
+    void displayChrono() const ;
+    void displayEndGame(GameState) const;
+    void displayError() const;
+    void displayExit() const;
+    void displayCommands() const;
 
 private:
     Game * game_;

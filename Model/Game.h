@@ -13,10 +13,10 @@ using namespace std::chrono;
  * Possibles state of the game.
 */
 enum GameState{
-    init,
-    inProgress,
-    win,
-    lose
+    INIT,
+    IN_PROGRESS,
+    WON,
+    LOST
 };
 
 /**
@@ -28,9 +28,8 @@ class Game : public nvs::Subject{
 private:
     Board board_;
     BoardPublic boardPublic_;
-    GameState state_ {init};
+    GameState state_ {INIT};
     time_point<system_clock> startTime_;
-    //TODO tester chrono
 
     void hasWon();
 

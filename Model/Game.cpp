@@ -1,5 +1,4 @@
 #include "game.h"
-#include <iostream>
 
 using namespace std;
 
@@ -12,7 +11,7 @@ using namespace std::chrono;
 Game::Game():
     board_{},
     boardPublic_{board_},
-    state_{init},
+    state_{GameState::INIT},
     startTime_{system_clock::now()}
 {}
 
@@ -25,7 +24,7 @@ Game::Game():
 Game::Game(int nbLines, int nbColumns):
     board_{nbLines, nbColumns},
     boardPublic_{board_},
-    state_{init},
+    state_{INIT},
     startTime_{system_clock::now()}
 {}
 
@@ -39,7 +38,7 @@ Game::Game(int nbLines, int nbColumns):
 Game::Game(int nbLines, int nbColumns, unsigned nbBombs):
     board_{nbLines, nbColumns, nbBombs},
     boardPublic_{board_},
-    state_{init},
+    state_{INIT},
     startTime_{system_clock::now()}
 {}
 
@@ -53,7 +52,7 @@ Game::Game(int nbLines, int nbColumns, unsigned nbBombs):
 Game::Game(int nbLines, int nbColumns, double densityBombs):
     board_{nbLines, nbColumns, densityBombs},
     boardPublic_{board_},
-    state_{init},
+    state_{INIT},
     startTime_{system_clock::now()}
 {}
 
@@ -84,7 +83,7 @@ void Game::mark(Coordinates pos){
 */
 void Game::reveal(Coordinates pos){
     if(!board_.reveal(pos)){
-        state_ = lose;
+        state_ = LOST;
     } else{
         hasWon();
     }
@@ -92,18 +91,10 @@ void Game::reveal(Coordinates pos){
 }
 
 void Game::hasWon() {
-    //TODO optimiser
     int lines {board_.getNbLines()}, cols {board_.getNbColumns()};
-    unsigned toReveal{lines * cols - board_.getNbBombs()};
-    for(int line = 0; line < board_.getNbLines(); line++){
-        for(int col = 0; col < board_.getNbColumns(); col++){
-            if(board_.getCase({line, col})->getState() == revealed){
-                toReveal--;
-            }
-        }
-    }
-    if(toReveal == 0){
-        state_ = win;
+    if((lines * cols - board_.getNbBombs() - board_.getNbRevealed()) == 0){
+        board_.revealAll();
+        state_ = WON;
         notifyObservers();
     }
 }
