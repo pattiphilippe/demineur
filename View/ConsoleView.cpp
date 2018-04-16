@@ -47,9 +47,8 @@ void ConsoleView::displayStart(){
          << "                                             | |              " << endl
          << "                                             |_|              " << endl <<endl <<endl;
     displayCommands();
-    //Commandes suivantes mises en commentaire. La partie n'a pas commencé donc afficher un board et un chrono à ce moment n'a pas de sens.
-    //displayChrono();
-    //displayBoard();
+    displayChrono();
+    displayBoard();
 }
 
 void ConsoleView::displayError(){
@@ -63,11 +62,6 @@ void ConsoleView::displayExit()
 
 void ConsoleView::displayScores(int lines, int cols, unsigned nbBombs, vector<Score> scores){
     //TODO show scores of asked category
-    /*
-    const BoardPublic & b = game_.getBoard();
-    int lines = b.getNbLines(), cols = b.getNbColumns();
-    unsigned nbBombs = b.getNbBombs();
-    */
     cout << "Scores for "
          << lines << " lines, "
          << cols<< " columns and "
@@ -112,9 +106,10 @@ void ConsoleView::displayBoard()
     const CasePublic * cp;
 
     // COUT COL NBS
-    cout << endl << endl << "  ";
+    cout  << endl << "  ";
     for(int col = 0; col < bp->getNbColumns(); col ++){
-        cout << "   " << col;
+        cout << "  " ;
+        cout << setfill(' ') << setw(2) << (col + 1);
     }
     cout << endl;
     cout << "   +";
@@ -127,15 +122,19 @@ void ConsoleView::displayBoard()
     for(int line = 0; line < bp->getNbLines(); line ++){
 
         // COUT LINE WITH TILES
-        cout << line << "  | ";
+        cout << setfill(' ') << setw(2)  << (line + 1)<< " | ";
         for(int col = 0; col < bp->getNbColumns(); col++){
             cp = bp->getCase({line, col});
             if (cp->getState() == dft){
                 cout << " ";
             } else if (cp->getState()== marked){
-                cout << "X";
+                cout << "?";
             } else if (cp->getState() == revealed){
-                cout <<  cp->getNbNearBombs();
+                if(!cp->isBomb()){
+                    cout <<  cp->getNbNearBombs();
+                } else{
+                    cout << "X";
+                }
             }
             cout << " | ";
         }

@@ -3,6 +3,8 @@
 
 #include "Case.h"
 #include "Util/Coordinates.h"
+#include "Util/GameException.h"
+#include <iostream>
 #include <vector>
 
 //TODO retirer les using namespace si non nécessaire
@@ -108,6 +110,9 @@ unsigned BoardPublic::getNbBombs() const {
  * @return a pointer to the case
  */
 const Case * Board::getCase(Coordinates pos) const {
+    if(!isOnBoard(pos)){
+        throw GameException("Pos not on board");
+    }
     return &(b_cases.at(pos.getLine()).at(pos.getColumn()));
 }
 

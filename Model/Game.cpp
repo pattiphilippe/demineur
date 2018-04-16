@@ -85,6 +85,8 @@ void Game::mark(Coordinates pos){
 void Game::reveal(Coordinates pos){
     if(!board_.reveal(pos)){
         state_ = lose;
+    } else{
+        hasWon();
     }
     notifyObservers();
 }

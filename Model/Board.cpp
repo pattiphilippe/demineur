@@ -107,6 +107,7 @@ Board& Board::operator= (const Board& other){
 
 BoardPublic& BoardPublic::operator =(const BoardPublic & other){
     this->board_ = other.board_;
+    this->cases_ = other.cases_;
     return *this;
 }
 
