@@ -131,7 +131,7 @@ void Board::generateBombs(Coordinates& pos, bool canBeBomb)
         do {
             bombLine = rand() % b_nbLines ;
             bombColumn = rand() % b_nbColumns ;
-        } while (!canBeBomb && (bombLine==line && bombColumn==col) && this->getCase({bombLine, bombColumn})->isBomb());
+        } while ( (!canBeBomb && (bombLine==line && bombColumn==col)) || this->getCase({bombLine, bombColumn})->isBomb());
         setBomb({bombLine, bombColumn});
     }
     b_firstAction = false ;
@@ -167,7 +167,7 @@ void Board::mark(Coordinates pos)
         throw GameException("Coordinates not on board!");
     }
     if(b_firstAction){
-        this->generateBombs(pos, true); // -1 = Impossible value in the board
+        this->generateBombs(pos, true);
     }
     Case & tile {b_cases.at(pos.getLine()).at(pos.getColumn())};
     tile.setState(tile.getState() == marked ? dft : marked);
