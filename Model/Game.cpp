@@ -73,6 +73,9 @@ Game & Game::operator=(const Game& other){
 */
 void Game::mark(Coordinates pos){
     board_.mark(pos);
+    if(!board_.getFirstAction()){
+        state_ = IN_PROGRESS;
+    }
     notifyObservers();
 }
 
@@ -88,8 +91,12 @@ void Game::reveal(Coordinates pos){
         state_ = LOST;
         board_.revealAll();
     } else{
-        hasWon();
+        if(!board_.getFirstAction()){
+            state_ = IN_PROGRESS;
+        }
+        hasWon();   
     }
+
     notifyObservers();
 }
 

@@ -57,9 +57,7 @@ void Controller::run(){
                     view_.displayError();
                 }
 
-
-                //TODO Corriger bug où la partie reste en INIT et retirer la condition !=INIT ci dessous
-                if(game_.getGameState() != IN_PROGRESS && game_.getGameState() != INIT){
+                if(game_.getGameState() != IN_PROGRESS){
                     view_.displayEndGame(game_.getGameState());
                 }
 

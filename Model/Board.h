@@ -30,6 +30,7 @@ public:
     inline void setFirstAction(bool);
     void setBomb(Coordinates&&);
     Board& operator= (const Board& other);
+    inline bool getFirstAction() const ;
 
 private:
 
@@ -163,6 +164,10 @@ bool Board::isOnBoard(Coordinates& pos) const{
  */
 void Board::setFirstAction(bool isFirstAction){
     b_firstAction = isFirstAction;
+}
+
+bool Board::getFirstAction() const{
+    return b_firstAction;
 }
 
 #endif // BOARD_H
