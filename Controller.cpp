@@ -148,7 +148,6 @@ void Controller::reveal(){
     try{
         game_.reveal(Coordinates(line, col));
     } catch(GameException e){
-        //TODO add view.displayError(GameException)
         view_.displayError();
     }
 }

@@ -113,7 +113,6 @@ void ConsoleView::displayChrono() const{
  */
 void ConsoleView::displayBoard() const
 {
-    //TODO corriger bug affichage board : lancer custom puis start et bug...
     const BoardPublic * bp = &game_->getBoard() ;
 
     const CasePublic * cp;
