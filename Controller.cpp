@@ -112,8 +112,9 @@ void Controller::custom(){
 
         case DENSITYBOMBS:
             {
-            string densityMsg = "The density of bombs you want :";
-            double densityBombs = readDouble(densityMsg);
+            string densityMsg = "The density of bombs you want (between 5% and 95%) :";
+            int densityInt = readInt(densityMsg);
+            double densityBombs = densityInt * 0.01 ;
             game_ = Game(nbLines, nbCols, densityBombs);
             break;
             }

@@ -25,25 +25,6 @@ int readInt(string const & msg){
     return nb;
 }
 
-double readDouble(string const & msg){
-    cout << msg << endl;
-    int nb;
-    bool error {true};
-    do{
-        try
-        {
-            nb = nvs::lineFromKbd<double>();
-            error = false;
-        }
-        catch (const exception & e)
-        {
-            cout << "Error : " << e.what() << endl;
-            cout << "Enter a double number!" << endl;
-        }
-    } while (error);
-    return nb;
-}
-
 bool readBoolean(string const & msg){
     cout << msg << endl;
     string input;
