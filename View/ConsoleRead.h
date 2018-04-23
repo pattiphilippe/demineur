@@ -25,6 +25,7 @@ TypeOfCustom readCustom();
 int readInt(string const & msg);
 bool readBoolean(string const & msg);
 int readIntBetween(int, int, string const & msg) ;
+unsigned readUnsigned(string const & msg);
 string readString(string const & msg);
 
 #endif // CONSOLEREAD_H

@@ -53,12 +53,15 @@ void Controller::run(){
             case REVEAL:
                 if(game_.getGameState() == INIT || game_.getGameState() == IN_PROGRESS){
                     reveal();
+                    if(game_.getGameState() != IN_PROGRESS){
+                        const BoardPublic & b = game_.getBoard();
+                        int lines = b.getNbLines(), cols = b.getNbColumns();
+                        unsigned nbBombs = b.getNbBombs();
+                        view_.displayScores(lines, cols, nbBombs, saveScore());
+                        view_.displayEndGame(game_.getGameState());
+                    }
                 }else{
                     view_.displayError();
-                }
-
-                if(game_.getGameState() != IN_PROGRESS){
-                    view_.displayEndGame(game_.getGameState());
                 }
 
                 break;
@@ -130,8 +133,11 @@ void Controller::custom(){
 
 void Controller::scores(){
     //TODO read category and not by default
-    int nbLines = 10, nbCols = 10;
-    unsigned nbBombs = 10;
+    string linesMsg = "Enter the nb of lines in the wanted category";
+    string colsMsg = "Enter the nb of columns in the wanted category";
+    string bombsMsg = "Enter the nb of bombs in the wanted category";
+    int nbLines = readInt(linesMsg), nbCols = readInt(colsMsg);
+    unsigned nbBombs = readUnsigned(bombsMsg);
     view_.displayScores(nbLines, nbCols, nbBombs, getScores(nbLines, nbCols, nbBombs));
 }
 
@@ -168,10 +174,7 @@ void Controller::mark(){
 }
 
 
-void Controller::saveScore() const{
-    string nameMsg = "Enter your username";
-    string player = readString(nameMsg);
-
+vector<Score> Controller::saveScore() const{
     //Opening json file
     ifstream ifs("Scores.json");
     IStreamWrapper isw(ifs);
@@ -191,6 +194,7 @@ void Controller::saveScore() const{
     assert(document.IsObject());
     //CREATE CAT IF NOT THERE YET
     if(!document.HasMember(catId)){
+        cout << "created cat" << endl;
         char buffer[10];
         Value id;
         int len = sprintf(buffer, "%s", catId);
@@ -211,6 +215,7 @@ void Controller::saveScore() const{
     }
 
     //AT LEAST 5 SCORES
+    string player = readString("Enter your username");
     scores.push_back({game_.getScore().count(), player});
     for(unsigned i = scores.size(); i < 5; i++){
         scores.push_back({});
@@ -222,7 +227,6 @@ void Controller::saveScore() const{
     sort(begin(vpsc), end(vpsc), [](const Score * s1, const Score * s2){
         return *s2 < *s1;
     });
-
 
     //WRITE SCORES IN JSON
     document[catId].GetArray().Clear();
@@ -244,6 +248,13 @@ void Controller::saveScore() const{
 
     Writer<OStreamWrapper> writer(osw);
     document.Accept(writer);
+
+    vector<Score> newScores {};
+    for(Score * psc : vpsc){
+        newScores.push_back(*psc);
+    }
+
+    return newScores;
 }
 
 

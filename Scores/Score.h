@@ -8,6 +8,7 @@ public:
 
     Score();
     Score(double time, std::string player);
+    Score(const Score & other) = default;
 
     inline double getTime() const;
     inline std::string getPlayer() const ;

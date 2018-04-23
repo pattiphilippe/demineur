@@ -24,7 +24,7 @@ private :
     void mark();
     void scores();
 
-    void saveScore() const;
+    vector<Score> saveScore() const;
     vector<Score> getScores(int nbLines, int nbCols, unsigned nbBombs) const;
 };
 

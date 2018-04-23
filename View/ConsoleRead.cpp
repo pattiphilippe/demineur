@@ -61,6 +61,25 @@ int readIntBetween(int nb1, int nb2, string const & msg) {
     return nb;
 }
 
+unsigned readUnsigned(string const & msg){
+    cout << msg << endl;
+    unsigned nb;
+    bool error {true};
+    do{
+        try
+        {
+            nb = nvs::lineFromKbd<unsigned>();
+            error = false;
+        }
+        catch (const exception & e)
+        {
+            cout << "Error : " << e.what() << endl;
+            cout << "Enter a unsigned number!" << endl;
+        }
+    } while (error);
+    return nb;
+}
+
 Command readCommand(){
     do{
         cout << "# Enter command : ";
