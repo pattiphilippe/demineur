@@ -53,13 +53,7 @@ void Controller::run(){
             case REVEAL:
                 if(game_.getGameState() == INIT || game_.getGameState() == IN_PROGRESS){
                     reveal();
-                    if(game_.getGameState() != IN_PROGRESS){
-                        const BoardPublic & b = game_.getBoard();
-                        int lines = b.getNbLines(), cols = b.getNbColumns();
-                        unsigned nbBombs = b.getNbBombs();
-                        view_.displayScores(lines, cols, nbBombs, saveScore());
-                        view_.displayEndGame(game_.getGameState());
-                    }
+                    endGame();
                 }else{
                     view_.displayError();
                 }
@@ -173,6 +167,18 @@ void Controller::mark(){
     }
 }
 
+void Controller::endGame(){
+    if(game_.getGameState() != IN_PROGRESS){
+        view_.displayEndGame(game_.getGameState());
+        const BoardPublic & b = game_.getBoard();
+        int lines = b.getNbLines(), cols = b.getNbColumns();
+        unsigned nbBombs = b.getNbBombs();
+        vector<Score> scores = game_.getGameState() == WON ?
+                    saveScore() : getScores(lines, cols, nbBombs);
+        view_.displayScores(lines, cols, nbBombs, scores);
+    }
+}
+
 
 vector<Score> Controller::saveScore() const{
     //Opening json file
@@ -225,7 +231,7 @@ vector<Score> Controller::saveScore() const{
     vector<Score *> vpsc {};
     transform(scores.begin(), scores.end(), back_inserter(vpsc), [](Score & s){return &s;});
     sort(begin(vpsc), end(vpsc), [](const Score * s1, const Score * s2){
-        return *s2 < *s1;
+        return *s1 < *s2;
     });
 
     //WRITE SCORES IN JSON

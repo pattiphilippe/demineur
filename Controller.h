@@ -23,6 +23,7 @@ private :
     void reveal();
     void mark();
     void scores();
+    void endGame();
 
     vector<Score> saveScore() const;
     vector<Score> getScores(int nbLines, int nbCols, unsigned nbBombs) const;

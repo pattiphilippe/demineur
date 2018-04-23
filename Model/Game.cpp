@@ -14,7 +14,8 @@ Game::Game():
     board_{},
     boardPublic_{board_},
     state_{GameState::INIT},
-    startTime_{system_clock::now()}
+    startTime_{system_clock::now()},
+    endTime_{startTime_}
 {}
 
 /**
@@ -27,7 +28,8 @@ Game::Game(int nbLines, int nbColumns):
     board_{nbLines, nbColumns},
     boardPublic_{board_},
     state_{INIT},
-    startTime_{system_clock::now()}
+    startTime_{system_clock::now()},
+    endTime_{startTime_}
 {}
 
 /**
@@ -41,7 +43,8 @@ Game::Game(int nbLines, int nbColumns, unsigned nbBombs):
     board_{nbLines, nbColumns, nbBombs},
     boardPublic_{board_},
     state_{INIT},
-    startTime_{system_clock::now()}
+    startTime_{system_clock::now()},
+    endTime_{startTime_}
 {}
 
 /**
@@ -55,7 +58,8 @@ Game::Game(int nbLines, int nbColumns, double densityBombs):
     board_{nbLines, nbColumns, densityBombs},
     boardPublic_{board_},
     state_{INIT},
-    startTime_{system_clock::now()}
+    startTime_{system_clock::now()},
+    endTime_{startTime_}
 {}
 
 Game & Game::operator=(const Game& other){
@@ -103,6 +107,7 @@ void Game::reveal(Coordinates pos){
 void Game::hasWon() {
     int lines {board_.getNbLines()}, cols {board_.getNbColumns()};
     if((lines * cols - board_.getNbBombs() - board_.getNbRevealed()) == 0){
+        endTime_ = system_clock::now();
         state_ = WON;
     }
 }

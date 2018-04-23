@@ -30,6 +30,8 @@ private:
     BoardPublic boardPublic_;
     GameState state_ {INIT};
     time_point<system_clock> startTime_;
+    //TODO check if added everywhere
+    time_point<system_clock> endTime_;
 
     void hasWon();
 
@@ -72,7 +74,11 @@ const BoardPublic & Game::getBoard() const{
  * @return
  */
 inline duration<double> Game::getScore() const{
-    return system_clock::now() - startTime_;
+    if(state_ != WON){
+        return system_clock::now() - startTime_;
+    } else {
+        return endTime_ - startTime_;
+    }
 }
 
 #endif // GAME_H

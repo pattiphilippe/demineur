@@ -128,11 +128,13 @@ void Board::generateBombs(Coordinates& pos, bool canBeBomb)
     }
     srand(time(NULL));
     int bombLine, bombColumn, line = pos.getLine(), col = pos.getColumn();
+    bool isOrigin;
     for(unsigned nbBombs=0; nbBombs < b_nbBombs; nbBombs++){
         do {
             bombLine = rand() % b_nbLines ;
             bombColumn = rand() % b_nbColumns ;
-        } while (!((bombLine==line && bombColumn==col) && canBeBomb) && this->getCase({bombLine, bombColumn})->isBomb());
+            isOrigin = bombLine==line && bombColumn==col;
+        } while ((isOrigin && !canBeBomb) || this->getCase({bombLine, bombColumn})->isBomb());
         setBomb({bombLine, bombColumn});
     }
     b_firstAction = false ;
