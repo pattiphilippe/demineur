@@ -3,7 +3,7 @@
 #define CATCH_CONFIG_RUNNER
 #include "Libraries/catch.hpp"
 #define RUN_TEST 0 //change this value
-#define CONSOLE 1
+#define CONSOLE 0
 
 
 #if RUN_TEST

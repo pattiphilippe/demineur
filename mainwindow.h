@@ -16,6 +16,7 @@ private slots:
     void creerPartie();
     void fermerPartie();
     void aide();
+    void scores();
 
 public:
     explicit MainWindow(QWidget *parent = 0);
@@ -26,6 +27,7 @@ private:
     QAction *action_Scores;
     QAction *action_Aide;
     Game *game_;
+    QString scoresMsg;
 
     void connexion();
 };
