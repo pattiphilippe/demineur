@@ -13,6 +13,9 @@
 #include "Libraries/rapidjson/include/rapidjson/writer.h"
 #include "Libraries/rapidjson/include/rapidjson/error/en.h"
 
+
+#include <iostream>
+
 using namespace rapidjson;
 using namespace std;
 
@@ -181,6 +184,7 @@ void Controller::endGame(){
 
 
 vector<Score> Controller::saveScore() const{
+    cout << "in save Score" << endl;
     //Opening json file
     ifstream ifs("Scores.json");
     IStreamWrapper isw(ifs);
@@ -191,6 +195,9 @@ vector<Score> Controller::saveScore() const{
         document.SetObject();
     }
     Document::AllocatorType& allocator = document.GetAllocator();
+
+
+    cout << "in save Score : Opened doc" << endl;
 
     //SEARCH CATEGORY FOR SCORE
     const BoardPublic & board {game_.getBoard()};
@@ -265,6 +272,8 @@ vector<Score> Controller::saveScore() const{
 
 
 vector<Score> Controller::getScores(int nbLines, int nbCols, unsigned nbBombs) const{
+
+    cout << "in getScore" << endl;
     //Opening json file
     ifstream ifs("Scores.json");
     IStreamWrapper isw(ifs);
@@ -273,6 +282,7 @@ vector<Score> Controller::getScores(int nbLines, int nbCols, unsigned nbBombs) c
     if(parseR.IsError()){
         document.SetObject();
     }
+    cout << "in getScore : Opened doc" << endl;
 
     //SEARCH CATEGORY FOR SCORE
     vector<Score> scores{};
@@ -283,10 +293,13 @@ vector<Score> Controller::getScores(int nbLines, int nbCols, unsigned nbBombs) c
     double scoreCur;
     string playerCur;
     if(document.HasMember(catId)){
+        cout << "in getScore : has Category" << endl;
         for(Value & scoreJson : document[catId].GetArray()){
+            cout << "in getScore : in array of category" << endl;
             scoreCur = scoreJson["score"].GetDouble();
             playerCur = scoreJson["player"].GetString();
             scores.push_back({scoreCur, playerCur});
+            cout << "in getScore : in array of category AFTER read" << endl;
         }
     }
 

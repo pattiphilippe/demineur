@@ -1,7 +1,5 @@
-
 #include "Libraries/catch.hpp"
 #include "Util/Coordinates.h"
-
 
 using namespace std;
 

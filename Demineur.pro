@@ -17,7 +17,8 @@ SOURCES += \
     Controller.cpp \
     View/ConsoleRead.cpp \
     Libraries/observer/subject.cpp \
-    Tests/GameTests.cpp
+    Tests/GameTests.cpp \
+    Tests/scoretests.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 

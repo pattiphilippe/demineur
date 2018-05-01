@@ -39,6 +39,11 @@ std::string Score::getPlayer() const{
 }
 
 bool Score::operator< (const Score & other) const{
+    if(s_time == other.s_time || s_time == 0){
+        return false;
+    } else if(other.s_time == 0){
+        return true;
+    }
     return s_time < other.s_time;
 }
 
