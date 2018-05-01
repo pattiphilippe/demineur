@@ -1,6 +1,7 @@
 #ifndef SCORE_H
 #define SCORE_H
 #include <string>
+#include <vector>
 
 
 class Score{
@@ -19,6 +20,10 @@ private:
     const double s_time;
     const std::string s_player;
 };
+
+//PROTOTYPES
+std::vector<Score> saveScore(Score, int, int, unsigned) ;
+std::vector<Score> getScores(int, int, unsigned) ;
 
 //INLINE METHODS
 

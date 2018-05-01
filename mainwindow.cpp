@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     game_{nullptr}
 {
     ui->setupUi(this);
+    action_Scores = ui->menuBar->addAction(tr("&Scores"));
+    action_Scores->setShortcut(QKeySequence{tr("Ctrl+S")});
     action_Aide = ui->menuBar->addAction(tr("&Aide"));
     action_Aide->setShortcut(QKeySequence{tr("Ctrl+A")});
     connexion();

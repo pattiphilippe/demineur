@@ -23,6 +23,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QAction *action_Scores;
     QAction *action_Aide;
     Game *game_;
 
