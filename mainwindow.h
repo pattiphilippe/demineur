@@ -24,7 +24,7 @@ public:
 private:
     Ui::MainWindow *ui;
     QAction *action_Aide;
-    Game game_;
+    Game *game_;
 
     void connexion();
 };

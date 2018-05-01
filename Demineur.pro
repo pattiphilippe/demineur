@@ -1,7 +1,10 @@
 TEMPLATE = app
 CONFIG += console c++14
 CONFIG -= app_bundle
-CONFIG -= qt
+#☺CONFIG -= qt
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui
 
 SOURCES += \
     Model/Case.cpp \
@@ -12,13 +15,15 @@ SOURCES += \
     Tests/CoordinatesTest.cpp \
     Tests/CaseTests.cpp \
     Tests/BoardTests.cpp \
-    ConsoleDemineur.cpp \
     View/ConsoleView.cpp \
     Controller.cpp \
     View/ConsoleRead.cpp \
     Libraries/observer/subject.cpp \
     Tests/GameTests.cpp \
-    Tests/scoretests.cpp
+    Tests/scoretests.cpp \
+    configurationdialog.cpp \
+    mainwindow.cpp \
+    Demineur.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
@@ -72,7 +77,11 @@ HEADERS += \
     Libraries/keyboardAndStringConvert/stringConvert.hpp \
     View/ConsoleRead.h \
     Libraries/observer/observer.h \
-    Libraries/observer/subject.h
+    Libraries/observer/subject.h \
+    configurationdialog.h \
+    mainwindow.h \
+    ui_configurationdialog.h \
+    ui_mainwindow.h
 
 DISTFILES += \
     Libraries/rapidjson/bin/data/glossary.json \
@@ -339,6 +348,10 @@ DISTFILES += \
     html/hierarchy.html \
     html/index.html \
     html/maintests_8h_source.html
+
+FORMS += \
+    configurationdialog.ui \
+    mainwindow.ui
 
 
 

@@ -4,7 +4,10 @@
 ConfigurationDialog::ConfigurationDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ConfigurationDialog),
-    withNbBombs{false}
+    withNbBombs{false},
+    nbLignes_{10},
+    nbColonnes_{10},
+    nbBombes_{10}
 {
     ui->setupUi(this);
 }

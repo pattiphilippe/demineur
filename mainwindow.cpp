@@ -11,7 +11,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    game_{}
+    game_{nullptr}
 {
     ui->setupUi(this);
     action_Aide = ui->menuBar->addAction(tr("&Aide"));
@@ -41,12 +41,19 @@ void MainWindow::creerPartie(){
     auto retour = cd.exec();
     if (retour == QDialog::Rejected) return;
     try{
-        game_ = Game(cd.nbLignes(), cd.nbColonnes(), cd.nbBombes());
+        game_ = new Game(cd.nbLignes(), cd.nbColonnes(), cd.nbBombes());
     } catch (const exception & e){
         cout << e.what() << endl;
     }
+    ui->actionNouveau->setEnabled(false);
+    ui->actionFermer->setEnabled(true);
 }
-void MainWindow::fermerPartie(){}
+void MainWindow::fermerPartie(){
+    delete game_;
+    game_ = nullptr;
+    ui->actionNouveau->setEnabled(true);
+    ui->actionFermer->setEnabled(false);
+}
 void MainWindow::aide(){
 
     QMessageBox::information(this, tr("Aide"),
