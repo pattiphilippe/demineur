@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ressources/img/Minesweeper_0.png</file>
+        <file>ressources/img/Minesweeper_1.png</file>
+        <file>ressources/img/Minesweeper_2.png</file>
+        <file>ressources/img/Minesweeper_3.png</file>
+        <file>ressources/img/Minesweeper_4.png</file>
+        <file>ressources/img/Minesweeper_5.png</file>
+        <file>ressources/img/Minesweeper_6.png</file>
+        <file>ressources/img/Minesweeper_7.png</file>
+        <file>ressources/img/Minesweeper_8.png</file>
+        <file>ressources/img/Minesweeper_dft.png</file>
+        <file>ressources/img/Minesweeper_flag.png</file>
+        <file>ressources/img/Minesweeper_mine.png</file>
+        <file>ressources/img/Minesweeper_mineExploded.png</file>
+    </qresource>
+</RCC>

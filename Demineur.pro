@@ -23,7 +23,8 @@ SOURCES += \
     Tests/scoretests.cpp \
     configurationdialog.cpp \
     mainwindow.cpp \
-    Demineur.cpp
+    Demineur.cpp \
+    minefieldobserver.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
@@ -81,7 +82,8 @@ HEADERS += \
     configurationdialog.h \
     mainwindow.h \
     ui_configurationdialog.h \
-    ui_mainwindow.h
+    ui_mainwindow.h \
+    minefieldobserver.h
 
 DISTFILES += \
     Libraries/rapidjson/bin/data/glossary.json \
@@ -352,6 +354,9 @@ DISTFILES += \
 FORMS += \
     configurationdialog.ui \
     mainwindow.ui
+
+RESOURCES += \
+    minesweeperimg.qrc
 
 
 
