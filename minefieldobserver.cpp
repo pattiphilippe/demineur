@@ -7,7 +7,7 @@ MineFieldObserver::MineFieldObserver(Game * sdo):
     gridLayout_{this}
 {
     sdo_->registerObserver(this);
-
+    update(sdo);
 }
 
 void MineFieldObserver::update(const nvs::Subject *sdo)
@@ -19,6 +19,7 @@ void MineFieldObserver::update(const nvs::Subject *sdo)
                 QPushButton* button = new QPushButton("");
 
                 //Button Styling
+                button->setAttribute(Qt::WA_LayoutUsesWidgetRect);
                 button->setMaximumHeight(30);
                 button->setMaximumWidth(30);
                 button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_dft.png")));
@@ -27,6 +28,8 @@ void MineFieldObserver::update(const nvs::Subject *sdo)
                 gridLayout_.addWidget(button, line, column);
             }
         }
+        //Delete space between cases
+        gridLayout_.setSpacing(1);
     }
 
 }

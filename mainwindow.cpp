@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
     action_Scores->setShortcut(QKeySequence{tr("Ctrl+S")});
     action_Aide = ui->menuBar->addAction(tr("&Aide"));
     action_Aide->setShortcut(QKeySequence{tr("Ctrl+A")});
+    this->setWindowIcon((QIcon(QString(":/ressources/img/Minesweeper_mine.png"))));
+    this->setWindowTitle("Minesweeper");
     connexion();
 }
 
@@ -58,6 +60,7 @@ void MainWindow::creerPartie(){
     game_ = new Game(cd.nbLignes(), cd.nbColonnes(), cd.nbBombes());
     ui->actionNouveau->setEnabled(false);
     ui->actionFermer->setEnabled(true);
+    observerMineField(true);
 }
 void MainWindow::fermerPartie(){
     delete game_;

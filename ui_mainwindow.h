@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.8.0
+** Created by: Qt User Interface Compiler version 5.10.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -19,6 +19,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -30,6 +31,8 @@ public:
     QAction *actionFermer;
     QAction *action_Quitter;
     QWidget *centralWidget;
+    QWidget *verticalLayoutWidget;
+    QVBoxLayout *verticalLayout;
     QWidget *wDemineur;
     QMenuBar *menuBar;
     QMenu *menuJeu;
@@ -50,9 +53,22 @@ public:
         action_Quitter->setObjectName(QStringLiteral("action_Quitter"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        wDemineur = new QWidget(centralWidget);
+        centralWidget->setEnabled(true);
+        centralWidget->setAcceptDrops(false);
+        centralWidget->setAutoFillBackground(false);
+        verticalLayoutWidget = new QWidget(centralWidget);
+        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
+        verticalLayoutWidget->setGeometry(QRect(-1, 0, 401, 271));
+        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        wDemineur = new QWidget(verticalLayoutWidget);
         wDemineur->setObjectName(QStringLiteral("wDemineur"));
-        wDemineur->setGeometry(QRect(10, 10, 381, 241));
+
+        verticalLayout->addWidget(wDemineur);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -79,14 +95,20 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "D\303\251mineur", Q_NULLPTR));
-        actionNouveau->setText(QApplication::translate("MainWindow", "&Nouveau", Q_NULLPTR));
-        actionNouveau->setShortcut(QApplication::translate("MainWindow", "Ctrl+N", Q_NULLPTR));
-        actionFermer->setText(QApplication::translate("MainWindow", "&Fermer", Q_NULLPTR));
-        actionFermer->setShortcut(QApplication::translate("MainWindow", "Ctrl+F", Q_NULLPTR));
-        action_Quitter->setText(QApplication::translate("MainWindow", "&Quitter", Q_NULLPTR));
-        action_Quitter->setShortcut(QApplication::translate("MainWindow", "Ctrl+Q", Q_NULLPTR));
-        menuJeu->setTitle(QApplication::translate("MainWindow", "&Jeu", Q_NULLPTR));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "D\303\251mineur", nullptr));
+        actionNouveau->setText(QApplication::translate("MainWindow", "&Nouveau", nullptr));
+#ifndef QT_NO_SHORTCUT
+        actionNouveau->setShortcut(QApplication::translate("MainWindow", "Ctrl+N", nullptr));
+#endif // QT_NO_SHORTCUT
+        actionFermer->setText(QApplication::translate("MainWindow", "&Fermer", nullptr));
+#ifndef QT_NO_SHORTCUT
+        actionFermer->setShortcut(QApplication::translate("MainWindow", "Ctrl+F", nullptr));
+#endif // QT_NO_SHORTCUT
+        action_Quitter->setText(QApplication::translate("MainWindow", "&Quitter", nullptr));
+#ifndef QT_NO_SHORTCUT
+        action_Quitter->setShortcut(QApplication::translate("MainWindow", "Ctrl+Q", nullptr));
+#endif // QT_NO_SHORTCUT
+        menuJeu->setTitle(QApplication::translate("MainWindow", "&Jeu", nullptr));
     } // retranslateUi
 
 };
