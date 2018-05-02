@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "Model/Game.h"
+#include "minefieldobserver.h"
 
 #include <QMainWindow>
 
@@ -28,8 +29,11 @@ private:
     QAction *action_Aide;
     Game *game_;
     QString scoresMsg;
+    MineFieldObserver * mineFieldObserver_;
+    QLayout *mineFieldLayout;
 
     void connexion();
+    void observerMineField(bool);
 };
 
 #endif // MAINWINDOW_H

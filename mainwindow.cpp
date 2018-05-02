@@ -18,9 +18,13 @@ MainWindow::MainWindow(QWidget *parent) :
                           "<li>%8 : %9</li>"
                           "<li>%10 : %11</li>"
                           "<li>%12 : %13</li>"
-                          "</ol>")}
+                          "</ol>")},
+    mineFieldObserver_{nullptr},
+    mineFieldLayout(new QBoxLayout(QBoxLayout::Direction::TopToBottom))
+
 {
     ui->setupUi(this);
+    ui->wDemineur->setLayout(mineFieldLayout);
     action_Scores = ui->menuBar->addAction(tr("&Scores"));
     action_Scores->setShortcut(QKeySequence{tr("Ctrl+S")});
     action_Aide = ui->menuBar->addAction(tr("&Aide"));
@@ -94,4 +98,23 @@ void MainWindow::aide(){
             "En révélant toutes les cases non piégées par des bombes, vous gagnez la partie."
             "Gagnez le plus vite possible la partie pour être parmi les meilleurs!"
             "<b>Bon amusement !</b>"));
+}
+
+void MainWindow::observerMineField(bool enabled){
+    if(enabled){
+        try{
+            if(mineFieldObserver_==nullptr){
+                mineFieldObserver_ = new MineFieldObserver{game_};
+                mineFieldLayout->addWidget(mineFieldObserver_);
+            }
+            mineFieldObserver_->show();
+        } catch (const std::string & e){
+            QMessageBox::critical(this, tr("MineField observer error"),
+                                  QString::fromStdString(e));
+        }
+    } else {
+        if(mineFieldObserver_ != nullptr){
+            mineFieldObserver_->hide();
+        }
+    }
 }

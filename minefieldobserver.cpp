@@ -1,18 +1,34 @@
 #include "minefieldobserver.h"
+#include "QPushButton"
 
-MineFieldObserver::MineFieldObserver(Game *sdo):
-    sdo_{sdo}
+
+MineFieldObserver::MineFieldObserver(Game * sdo):
+    sdo_{sdo},
+    gridLayout_{this}
 {
     sdo_->registerObserver(this);
+
 }
 
-void MineFieldObserver::refresh()
+void MineFieldObserver::update(const nvs::Subject *sdo)
 {
-    for (int line = 0; line < sdo_->getBoard().getNbLines(); line++){
-        for (int column=0; column < sdo_->getBoard().getNbColumns(); column++){
-            //TODO Ajouter les widgets pour afficher chaque case une à une (Utiliser this(gridboard) pour tout positionner)
+    if(sdo == sdo_){
+        for (int line = 0; line < sdo_->getBoard().getNbLines(); line++){
+            for (int column=0; column < sdo_->getBoard().getNbColumns(); column++){
+                //TODO Créer une classe MineSweeperButton qui viendrait implémenter QPushButton
+                QPushButton* button = new QPushButton("");
+
+                //Button Styling
+                button->setMaximumHeight(30);
+                button->setMaximumWidth(30);
+                button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_dft.png")));
+                button->setIconSize (QSize(30,30));
+
+                gridLayout_.addWidget(button, line, column);
+            }
         }
     }
+
 }
 
 MineFieldObserver::~MineFieldObserver()
