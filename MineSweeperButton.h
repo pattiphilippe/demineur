@@ -12,6 +12,8 @@ class MineSweeperButton : public QPushButton
 public:
     MineSweeperButton(Coordinates);
 
+    inline Coordinates getCoordinates() const;
+
 signals:
     void rightButtonClicked();
 
@@ -21,4 +23,9 @@ private :
     void mousePressEvent(QMouseEvent *);
 };
 
+Coordinates MineSweeperButton::getCoordinates() const{
+    return this->coordinates_ ;
+}
+
 #endif // MINESWEEPERBUTTON_H
+

@@ -11,6 +11,9 @@
 class MineFieldObserver: public QFrame, public nvs::Observer{
 
     Q_OBJECT
+private slots:
+    void rightClicked();
+    void leftClicked();
 
 public:
 
@@ -23,6 +26,10 @@ public:
 private:
     Game * sdo_;
     QGridLayout gridLayout_;
+
+    void init(const nvs::Subject *);
+
+
 
 };
 

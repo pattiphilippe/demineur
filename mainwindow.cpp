@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mineFieldLayout(new QBoxLayout(QBoxLayout::Direction::TopToBottom))
 
 {
+    //TODO Faire en sorte que le widget wDemineur ajuste sa taille avec la fenêtre (impossible de voir correctement les parties custom)
     ui->setupUi(this);
     ui->wDemineur->setLayout(mineFieldLayout);
     action_Scores = ui->menuBar->addAction(tr("&Scores"));
