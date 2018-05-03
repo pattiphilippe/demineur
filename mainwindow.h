@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include "Model/Game.h"
-#include "minefieldobserver.h"
+#include "MineFieldObserver.h"
 
 #include <QMainWindow>
 

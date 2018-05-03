@@ -1,4 +1,4 @@
-#include "minefieldobserver.h"
+#include "MineFieldObserver.h"
 #include "QPushButton"
 
 
@@ -19,7 +19,6 @@ void MineFieldObserver::update(const nvs::Subject *sdo)
                 QPushButton* button = new QPushButton("");
 
                 //Button Styling
-                button->setAttribute(Qt::WA_LayoutUsesWidgetRect);
                 button->setMaximumHeight(30);
                 button->setMaximumWidth(30);
                 button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_dft.png")));
@@ -29,7 +28,8 @@ void MineFieldObserver::update(const nvs::Subject *sdo)
             }
         }
         //Delete space between cases
-        gridLayout_.setSpacing(1);
+        gridLayout_.setHorizontalSpacing(0);
+        gridLayout_.setVerticalSpacing(1);
     }
 
 }

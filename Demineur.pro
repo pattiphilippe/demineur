@@ -24,7 +24,8 @@ SOURCES += \
     configurationdialog.cpp \
     mainwindow.cpp \
     Demineur.cpp \
-    minefieldobserver.cpp
+    MineSweeperButton.cpp \
+    MineFieldObserver.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
@@ -83,7 +84,8 @@ HEADERS += \
     mainwindow.h \
     ui_configurationdialog.h \
     ui_mainwindow.h \
-    minefieldobserver.h
+    MineSweeperButton.h \
+    MineFieldObserver.h
 
 DISTFILES += \
     Libraries/rapidjson/bin/data/glossary.json \

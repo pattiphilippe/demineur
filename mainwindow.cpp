@@ -65,6 +65,8 @@ void MainWindow::creerPartie(){
 void MainWindow::fermerPartie(){
     delete game_;
     game_ = nullptr;
+    delete mineFieldObserver_;
+    mineFieldObserver_ = nullptr;
     ui->actionNouveau->setEnabled(true);
     ui->actionFermer->setEnabled(false);
 }
