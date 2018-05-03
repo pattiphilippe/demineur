@@ -9,13 +9,36 @@ MineFieldObserver::MineFieldObserver(Game * sdo):
     gridLayout_{this}
 {
     sdo_->registerObserver(this);
-    update(sdo);
+    init(sdo);
 
-    //Delete space between cases
-    gridLayout_.setHorizontalSpacing(0);
-    gridLayout_.setVerticalSpacing(1);
 }
 
+void MineFieldObserver::init(const nvs::Subject *sdo)
+{
+    if(sdo == sdo_){
+        for (int line = 0; line < sdo_->getBoard().getNbLines(); line++){
+            for (int column=0; column < sdo_->getBoard().getNbColumns(); column++){
+                MineSweeperButton* button = new MineSweeperButton(Coordinates(line,column));
+                button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_dft.png")));
+                //Button Styling
+                button->setMaximumHeight(30);
+                button->setMaximumWidth(30);
+
+                button->setIconSize (QSize(30,30));
+                gridLayout_.addWidget(button, line, column);
+
+                connect(button, SIGNAL(clicked()),
+                        this, SLOT(leftClicked()));
+
+                connect(button, SIGNAL(rightButtonClicked()),
+                        this, SLOT(rightClicked()));
+            }
+        }
+        //Delete space between cases
+        gridLayout_.setHorizontalSpacing(0);
+        gridLayout_.setVerticalSpacing(1);
+    }
+}
 
 void MineFieldObserver::update(const nvs::Subject *sdo)
 {
@@ -27,7 +50,8 @@ void MineFieldObserver::update(const nvs::Subject *sdo)
         for (int line = 0; line < sdo_->getBoard().getNbLines(); line++){
             for (int column=0; column < sdo_->getBoard().getNbColumns(); column++){
 
-                MineSweeperButton* button = new MineSweeperButton(Coordinates(line,column));
+                MineSweeperButton* button = dynamic_cast<MineSweeperButton*>(gridLayout_.itemAtPosition(line,column)->widget());
+
                 if(sdo_->getBoard().getCase(button->getCoordinates())->getState() == dft){
                     button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_dft.png")));
                 }else if(sdo_->getBoard().getCase(button->getCoordinates())->getState() == marked){
@@ -67,18 +91,6 @@ void MineFieldObserver::update(const nvs::Subject *sdo)
                         break;
                     }
                 }
-                //Button Styling
-                button->setMaximumHeight(30);
-                button->setMaximumWidth(30);
-
-                button->setIconSize (QSize(30,30));
-                gridLayout_.addWidget(button, line, column);
-
-                connect(button, SIGNAL(clicked()),
-                        this, SLOT(leftClicked()));
-
-                connect(button, SIGNAL(rightButtonClicked()),
-                        this, SLOT(rightClicked()));
             }
         }
     }
