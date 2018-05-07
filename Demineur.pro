@@ -26,7 +26,8 @@ SOURCES += \
     GUI/configurationdialog.cpp \
     GUI/mainwindow.cpp \
     GUI/MineFieldObserver.cpp \
-    GUI/MineSweeperButton.cpp
+    GUI/MineSweeperButton.cpp \
+    GUI/enddialog.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
@@ -87,7 +88,8 @@ HEADERS += \
     GUI/MineFieldObserver.h \
     GUI/MineSweeperButton.h \
     GUI/ui_configurationdialog.h \
-    GUI/ui_mainwindow.h
+    GUI/ui_mainwindow.h \
+    GUI/enddialog.h
 
 DISTFILES += \
     Scores.json \
@@ -357,7 +359,8 @@ DISTFILES += \
 
 FORMS += \
     GUI/configurationdialog.ui \
-    GUI/mainwindow.ui
+    GUI/mainwindow.ui \
+    GUI/enddialog.ui
 
 RESOURCES += \
     minesweeperimg.qrc

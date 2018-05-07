@@ -16,6 +16,9 @@ void MineSweeperButton::mousePressEvent(QMouseEvent * mouseEvent)
     if(mouseEvent->button() == Qt::RightButton)
     {
         emit rightButtonClicked();
+    }else{
+        emit leftButtonClicked();
     }
-    QPushButton::mousePressEvent(mouseEvent);
+
+
 }

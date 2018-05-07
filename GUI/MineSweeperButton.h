@@ -16,6 +16,7 @@ public:
 
 signals:
     void rightButtonClicked();
+    void leftButtonClicked();
 
 private :
     Coordinates coordinates_ ;

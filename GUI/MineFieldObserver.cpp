@@ -27,7 +27,7 @@ void MineFieldObserver::init(const nvs::Subject *sdo)
                 button->setIconSize (QSize(30,30));
                 gridLayout_.addWidget(button, line, column);
 
-                connect(button, SIGNAL(clicked()),
+                connect(button, SIGNAL(leftButtonClicked()),
                         this, SLOT(leftClicked()));
 
                 connect(button, SIGNAL(rightButtonClicked()),
@@ -80,8 +80,8 @@ void MineFieldObserver::desactivateField()
     for (int line = 0; line < sdo_->getBoard().getNbLines(); line++){
         for (int column=0; column < sdo_->getBoard().getNbColumns(); column++){
             MineSweeperButton* button = dynamic_cast<MineSweeperButton*>(gridLayout_.itemAtPosition(line,column)->widget());
-            button->disconnect(button, SIGNAL(rightButtonClicked()),
-                               this, SLOT(rightClicked()));
+            button->disconnect(button, SIGNAL(leftButtonClicked()),
+                               this, SLOT(leftClicked()));
             button->disconnect(button, SIGNAL(rightButtonClicked()),
                                this, SLOT(rightClicked()));
         }

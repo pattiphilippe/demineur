@@ -2,8 +2,8 @@
 #include "Gui/ui_mainwindow.h"
 #include "Gui/configurationdialog.h"
 #include "GUI/MineFieldObserver.h"
+#include "GUI/enddialog.h"
 #include "Scores/Score.h"
-
 #include <QMessageBox>
 #include <QLabel>
 #include <QLineEdit>
@@ -71,16 +71,25 @@ void MainWindow::creerPartie(){
 }
 
 void MainWindow::endGame(){
-    switch (game_->getGameState()) {
-    case WON:
-        new QLabel("You won");
-        break;
+    //TODO Gestion de l'enregistrement du score
+    EndDialog ed{this};
+    string pseudo ;
 
+    switch (game_->getGameState()) {
+
+    case WON:
+        ed.displayWin();
+        break;
     case LOST:
-        new QLabel("You lost");
+        ed.displayLost();
         break;
     default:
         break;
+    }
+    auto retour = ed.exec();
+    if(retour == QDialog::Rejected) return ;
+    if(ed.getPseudo() !="" && game_->getGameState() == WON){
+        pseudo = ed.getPseudo().toStdString();
     }
 }
 
