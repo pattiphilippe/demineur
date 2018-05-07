@@ -30,7 +30,6 @@ private:
     Game *game_;
     QString scoresMsg;
     MineFieldObserver * mineFieldObserver_;
-    QLayout *mineFieldLayout;
 
     void connexion();
     void observerMineField(bool);

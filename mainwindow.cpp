@@ -19,13 +19,11 @@ MainWindow::MainWindow(QWidget *parent) :
                           "<li>%10 : %11</li>"
                           "<li>%12 : %13</li>"
                           "</ol>")},
-    mineFieldObserver_{nullptr},
-    mineFieldLayout(new QBoxLayout(QBoxLayout::Direction::TopToBottom))
+    mineFieldObserver_{nullptr}
 
 {
     //TODO Faire en sorte que le widget wDemineur ajuste sa taille avec la fenêtre (impossible de voir correctement les parties custom)
     ui->setupUi(this);
-    ui->wDemineur->setLayout(mineFieldLayout);
     action_Scores = ui->menuBar->addAction(tr("&Scores"));
     action_Scores->setShortcut(QKeySequence{tr("Ctrl+S")});
     action_Aide = ui->menuBar->addAction(tr("&Aide"));
@@ -39,6 +37,8 @@ MainWindow::~MainWindow()
 {
     delete ui;
     ui = nullptr;
+    delete mineFieldObserver_;
+    mineFieldObserver_ = nullptr;
 }
 
 void MainWindow::connexion(){
@@ -55,6 +55,7 @@ void MainWindow::connexion(){
 }
 
 void MainWindow::creerPartie(){
+    new QLabel("");
     ConfigurationDialog cd{this};
     auto retour = cd.exec();
     if (retour == QDialog::Rejected) return;
@@ -64,10 +65,10 @@ void MainWindow::creerPartie(){
     observerMineField(true);
 }
 void MainWindow::fermerPartie(){
-    delete game_;
-    game_ = nullptr;
     delete mineFieldObserver_;
     mineFieldObserver_ = nullptr;
+    delete game_;
+    game_ = nullptr;
     ui->actionNouveau->setEnabled(true);
     ui->actionFermer->setEnabled(false);
 }
@@ -76,7 +77,7 @@ void MainWindow::scores(){
     auto retour = cd.exec();
     if(retour == QDialog::Rejected) return;
     vector<Score> scores = getScores(cd.nbLignes(), cd.nbColonnes(), cd.nbBombes());
-    int i{};
+    int i{0};
     QMessageBox::information(this, tr("Scores"),
                     scoresMsg.arg(cd.nbLignes()).arg(cd.nbColonnes()).arg(cd.nbBombes())
                              .arg(QString::fromStdString(scores.at(i).getPlayer()))
@@ -101,8 +102,8 @@ void MainWindow::aide(){
             "Sinon, cela dévoilera de la même façon toutes les cases voisines.</li>"
             "<li>marquer une case : ceci n'a aucun effet secondaire.</li>"
             "</ul>"
-            "En révélant toutes les cases non piégées par des bombes, vous gagnez la partie."
-            "Gagnez le plus vite possible la partie pour être parmi les meilleurs!"
+            "En révélant toutes les cases non piégées par des bombes, vous gagnez la partie. "
+            "Gagnez le plus vite possible la partie pour être parmi les meilleurs! <br/>"
             "<b>Bon amusement !</b>"));
 }
 
@@ -111,7 +112,8 @@ void MainWindow::observerMineField(bool enabled){
         try{
             if(mineFieldObserver_==nullptr){
                 mineFieldObserver_ = new MineFieldObserver{game_};
-                mineFieldLayout->addWidget(mineFieldObserver_);
+                //ui->verticalLayout->addWidget(mineFieldObserver_);
+                ui->centralWidget->layout()->addWidget(mineFieldObserver_);
             }
             mineFieldObserver_->show();
         } catch (const std::string & e){

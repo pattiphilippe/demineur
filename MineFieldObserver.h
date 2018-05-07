@@ -21,7 +21,6 @@ public:
 
     virtual void update(const nvs::Subject *);
     ~MineFieldObserver();
-    void closeEvent(QCloseEvent *event);
 
 private:
     Game * sdo_;

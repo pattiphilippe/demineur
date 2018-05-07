@@ -59,37 +59,9 @@ void MineFieldObserver::update(const nvs::Subject *sdo)
                 }else if(sdo_->getBoard().getCase(button->getCoordinates())->isBomb()){
                     button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_mine.png")));
                 }else if(sdo_->getBoard().getCase(button->getCoordinates())->getState()){
-                    switch (sdo_->getBoard().getCase(button->getCoordinates())->getNbNearBombs()) {
-                    case 0:
-                        button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_0.png")));
-                        break;
-                    case 1:
-                        button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_1.png")));
-                        break;
-                    case 2:
-                        button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_2.png")));
-                        break;
-                    case 3:
-                        button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_3.png")));
-                        break;
-                    case 4:
-                        button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_4.png")));
-                        break;
-                    case 5:
-                        button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_5.png")));
-                        break;
-                    case 6:
-                        button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_6.png")));
-                        break;
-                    case 7:
-                        button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_7.png")));
-                        break;
-                    case 8:
-                        button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_8.png")));
-                        break;
-                    default:
-                        break;
-                    }
+                    unsigned nbBombs {sdo_->getBoard().getCase(button->getCoordinates())->getNbNearBombs()};
+                    QString imgName = QString(":/ressources/img/Minesweeper_%1.png").arg(nbBombs);
+                    button->setIcon(QIcon(imgName));
                 }
             }
         }
@@ -100,11 +72,6 @@ void MineFieldObserver::update(const nvs::Subject *sdo)
 MineFieldObserver::~MineFieldObserver()
 {
     sdo_->unregisterObserver(this);
-}
-
-void MineFieldObserver::closeEvent(QCloseEvent *e)
-{
-
 }
 
 void MineFieldObserver::leftClicked()
