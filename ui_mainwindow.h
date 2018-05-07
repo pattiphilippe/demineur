@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.10.1
+** Created by: Qt User Interface Compiler version 5.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -92,20 +92,14 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "D\303\251mineur", nullptr));
-        actionNouveau->setText(QApplication::translate("MainWindow", "&Nouveau", nullptr));
-#ifndef QT_NO_SHORTCUT
-        actionNouveau->setShortcut(QApplication::translate("MainWindow", "Ctrl+N", nullptr));
-#endif // QT_NO_SHORTCUT
-        actionFermer->setText(QApplication::translate("MainWindow", "&Fermer", nullptr));
-#ifndef QT_NO_SHORTCUT
-        actionFermer->setShortcut(QApplication::translate("MainWindow", "Ctrl+F", nullptr));
-#endif // QT_NO_SHORTCUT
-        action_Quitter->setText(QApplication::translate("MainWindow", "&Quitter", nullptr));
-#ifndef QT_NO_SHORTCUT
-        action_Quitter->setShortcut(QApplication::translate("MainWindow", "Ctrl+Q", nullptr));
-#endif // QT_NO_SHORTCUT
-        menuJeu->setTitle(QApplication::translate("MainWindow", "&Jeu", nullptr));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "D\303\251mineur", Q_NULLPTR));
+        actionNouveau->setText(QApplication::translate("MainWindow", "&Nouveau", Q_NULLPTR));
+        actionNouveau->setShortcut(QApplication::translate("MainWindow", "Ctrl+N", Q_NULLPTR));
+        actionFermer->setText(QApplication::translate("MainWindow", "&Fermer", Q_NULLPTR));
+        actionFermer->setShortcut(QApplication::translate("MainWindow", "Ctrl+F", Q_NULLPTR));
+        action_Quitter->setText(QApplication::translate("MainWindow", "&Quitter", Q_NULLPTR));
+        action_Quitter->setShortcut(QApplication::translate("MainWindow", "Ctrl+Q", Q_NULLPTR));
+        menuJeu->setTitle(QApplication::translate("MainWindow", "&Jeu", Q_NULLPTR));
     } // retranslateUi
 
 };

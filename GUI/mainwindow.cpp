@@ -1,14 +1,12 @@
 #include "GUI/mainwindow.h"
-#include "GUI/ui_mainwindow.h"
-#include "GUI/configurationdialog.h"
+#include "Gui/ui_mainwindow.h"
+#include "Gui/configurationdialog.h"
 #include "GUI/MineFieldObserver.h"
 #include "Scores/Score.h"
 
 #include <QMessageBox>
 #include <QLabel>
 #include <QLineEdit>
-
-
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,10 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
                           "<li>%10 : %11</li>"
                           "<li>%12 : %13</li>"
                           "</ol>")},
-    mineFieldObserver_{nullptr}
-
+    mineFieldObserver_{nullptr},
+    timer{nullptr}
 {
-    //TODO Faire en sorte que le widget wDemineur ajuste sa taille avec la fenêtre (impossible de voir correctement les parties custom)
     ui->setupUi(this);
     action_Scores = ui->menuBar->addAction(tr("&Scores"));
     action_Scores->setShortcut(QKeySequence{tr("Ctrl+S")});
@@ -66,10 +63,11 @@ void MainWindow::creerPartie(){
     game_ = new Game(cd.nbLignes(), cd.nbColonnes(), cd.nbBombes());
     ui->actionNouveau->setEnabled(false);
     ui->actionFermer->setEnabled(true);
+    timer = new LcdTimer(game_);
+    ui->centralWidget->layout()->addWidget(timer);
     observerMineField(true);
-
     connect(mineFieldObserver_, SIGNAL(gameOver()),
-            this, SLOT(endGame()));
+                this, SLOT(endGame()));
 }
 
 void MainWindow::endGame(){
@@ -87,6 +85,8 @@ void MainWindow::endGame(){
 }
 
 void MainWindow::fermerPartie(){
+    delete timer;
+    timer = nullptr;
     delete mineFieldObserver_;
     mineFieldObserver_ = nullptr;
     delete game_;
@@ -148,5 +148,3 @@ void MainWindow::observerMineField(bool enabled){
         }
     }
 }
-
-

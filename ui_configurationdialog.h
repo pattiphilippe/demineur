@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'configurationdialog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.10.1
+** Created by: Qt User Interface Compiler version 5.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -203,13 +203,13 @@ public:
 
     void retranslateUi(QDialog *ConfigurationDialog)
     {
-        ConfigurationDialog->setWindowTitle(QApplication::translate("ConfigurationDialog", "Configuration - [Preview]", nullptr));
-        groupBox->setTitle(QApplication::translate("ConfigurationDialog", "Lines and Columns", nullptr));
-        label->setText(QApplication::translate("ConfigurationDialog", "Nombre de lignes :", nullptr));
-        label_2->setText(QApplication::translate("ConfigurationDialog", "Nombre de colonnes :", nullptr));
-        groupBox_2->setTitle(QApplication::translate("ConfigurationDialog", "Bombs", nullptr));
-        rbNbBombes->setText(QApplication::translate("ConfigurationDialog", "Nombre de bombes", nullptr));
-        rbPctBombes->setText(QApplication::translate("ConfigurationDialog", "Pct de bombes (%) ", nullptr));
+        ConfigurationDialog->setWindowTitle(QApplication::translate("ConfigurationDialog", "Configuration - [Preview]", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("ConfigurationDialog", "Lines and Columns", Q_NULLPTR));
+        label->setText(QApplication::translate("ConfigurationDialog", "Nombre de lignes :", Q_NULLPTR));
+        label_2->setText(QApplication::translate("ConfigurationDialog", "Nombre de colonnes :", Q_NULLPTR));
+        groupBox_2->setTitle(QApplication::translate("ConfigurationDialog", "Bombs", Q_NULLPTR));
+        rbNbBombes->setText(QApplication::translate("ConfigurationDialog", "Nombre de bombes", Q_NULLPTR));
+        rbPctBombes->setText(QApplication::translate("ConfigurationDialog", "Pct de bombes (%) ", Q_NULLPTR));
     } // retranslateUi
 
 };

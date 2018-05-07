@@ -74,7 +74,7 @@ const BoardPublic & Game::getBoard() const{
  * @return
  */
 inline duration<double> Game::getScore() const{
-    if(state_ != WON){
+    if(state_ != WON && state_ != LOST){
         return system_clock::now() - startTime_;
     } else {
         return endTime_ - startTime_;

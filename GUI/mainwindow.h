@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include "Model/Game.h"
-#include "GUI/MineFieldObserver.h"
+#include "MineFieldObserver.h"
+#include "LcdTimer.h"
 
 #include <QMainWindow>
 
@@ -18,7 +19,6 @@ private slots:
     void fermerPartie();
     void aide();
     void scores();
-
     void endGame();
 
 public:
@@ -32,6 +32,7 @@ private:
     Game *game_;
     QString scoresMsg;
     MineFieldObserver * mineFieldObserver_;
+    LcdTimer * timer;
 
     void connexion();
     void observerMineField(bool);

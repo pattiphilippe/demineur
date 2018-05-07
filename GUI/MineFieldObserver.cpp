@@ -1,8 +1,7 @@
-#include "GUI/MineFieldObserver.h"
+#include "MineFieldObserver.h"
 #include "QPushButton"
-#include "GUI/MineSweeperButton.h"
+#include "MineSweeperButton.h"
 #include "Model/Case.h"
-
 
 
 MineFieldObserver::MineFieldObserver(Game * sdo):
@@ -43,35 +42,38 @@ void MineFieldObserver::init(const nvs::Subject *sdo)
 
 void MineFieldObserver::update(const nvs::Subject *sdo)
 {
-
-    //Check case state and set image on the button
     if(sdo == sdo_){
         for (int line = 0; line < sdo_->getBoard().getNbLines(); line++){
             for (int column=0; column < sdo_->getBoard().getNbColumns(); column++){
-
                 MineSweeperButton* button = dynamic_cast<MineSweeperButton*>(gridLayout_.itemAtPosition(line,column)->widget());
-
-                if(sdo_->getBoard().getCase(button->getCoordinates())->getState() == dft){
-                    button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_dft.png")));
-                }else if(sdo_->getBoard().getCase(button->getCoordinates())->getState() == marked){
-                    button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_flag.png")));
-                }else if(sdo_->getBoard().getCase(button->getCoordinates())->isBomb()){
-                    button->setIcon (QIcon(QString(":/ressources/img/Minesweeper_mine.png")));
-                }else if(sdo_->getBoard().getCase(button->getCoordinates())->getState()){
-                    unsigned nbBombs {sdo_->getBoard().getCase(button->getCoordinates())->getNbNearBombs()};
-                    QString imgName = QString(":/ressources/img/Minesweeper_%1.png").arg(nbBombs);
-                    button->setIcon(QIcon(imgName));
+                const CasePublic * c {sdo_->getBoard().getCase(button->getCoordinates())};
+                QString arg;
+                switch(c->getState()){
+                case marked:
+                    arg = QString("flag");
+                    break;
+                case revealed:
+                    if(c->isBomb()){
+                        arg = QString("mine");
+                    } else {
+                        arg = QString::fromStdString(to_string(c->getNbNearBombs()));
+                    }
+                    break;
+                default:
+                    arg = QString("dft");
+                    break;
                 }
+                QString imgName = QString(":/ressources/img/Minesweeper_%1.png").arg(arg);
+                button->setIcon(QIcon(imgName));
             }
         }
     }
-
     if(sdo_->getGameState() == WON || sdo_->getGameState() == LOST){
         desactivateField();
         emit gameOver();
     }
-
 }
+
 
 void MineFieldObserver::desactivateField()
 {

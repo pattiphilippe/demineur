@@ -1,4 +1,4 @@
-#include "GUI/MineSweeperButton.h"
+#include "MineSweeperButton.h"
 #include <QMouseEvent>
 
 

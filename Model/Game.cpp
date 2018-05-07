@@ -64,6 +64,7 @@ Game & Game::operator=(const Game& other){
     this->board_ = other.board_;
     this->boardPublic_ = BoardPublic(board_);
     this->startTime_ = other.startTime_;
+    this->endTime_ = other.endTime_;
     this->state_ = other.state_;
     return *this;
 }
@@ -74,6 +75,9 @@ Game & Game::operator=(const Game& other){
  * @param column
 */
 void Game::mark(Coordinates pos){
+    if(state_ == LOST || state_ == WON){
+        return;
+    }
     board_.mark(pos);
     if(!board_.getFirstAction()){
         state_ = IN_PROGRESS;
@@ -89,7 +93,11 @@ void Game::mark(Coordinates pos){
  * @param column the src column
 */
 void Game::reveal(Coordinates pos){
+    if(state_ == LOST || state_ == WON){
+        return;
+    }
     if(!board_.reveal(pos)){
+        endTime_ = system_clock::now();
         state_ = LOST;
         board_.revealAll();
     } else{

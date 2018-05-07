@@ -22,6 +22,7 @@ SOURCES += \
     Tests/GameTests.cpp \
     Tests/scoretests.cpp \
     Demineur.cpp \
+    GUI/LcdTimer.cpp \
     GUI/configurationdialog.cpp \
     GUI/mainwindow.cpp \
     GUI/MineFieldObserver.cpp \
@@ -80,16 +81,16 @@ HEADERS += \
     View/ConsoleRead.h \
     Libraries/observer/observer.h \
     Libraries/observer/subject.h \
+    GUI/LcdTimer.h \
     GUI/configurationdialog.h \
     GUI/mainwindow.h \
     GUI/MineFieldObserver.h \
     GUI/MineSweeperButton.h \
     GUI/ui_configurationdialog.h \
-    GUI/ui_mainwindow.h \
-    Libraries/observer/observer.h \
-    Libraries/observer/subject.h
+    GUI/ui_mainwindow.h
 
 DISTFILES += \
+    Scores.json \
     Libraries/rapidjson/bin/data/glossary.json \
     Libraries/rapidjson/bin/data/menu.json \
     Libraries/rapidjson/bin/data/sample.json \
@@ -253,7 +254,6 @@ DISTFILES += \
     html/jquery.js \
     html/menu.js \
     html/menudata.js \
-    Scores.json \
     html/search/close.png \
     html/search/mag_sel.png \
     html/search/search_l.png \
