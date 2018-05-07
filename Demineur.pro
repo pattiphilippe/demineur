@@ -83,7 +83,6 @@ HEADERS += \
     configurationdialog.h \
     mainwindow.h \
     ui_configurationdialog.h \
-    ui_mainwindow.h \
     MineSweeperButton.h \
     MineFieldObserver.h
 
