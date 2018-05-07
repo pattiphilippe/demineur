@@ -29,7 +29,7 @@ int main()
     return 0;
 }
 #else
-#include "mainwindow.h"
+#include "GUI/mainwindow.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

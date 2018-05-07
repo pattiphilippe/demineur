@@ -21,11 +21,11 @@ SOURCES += \
     Libraries/observer/subject.cpp \
     Tests/GameTests.cpp \
     Tests/scoretests.cpp \
-    configurationdialog.cpp \
-    mainwindow.cpp \
     Demineur.cpp \
-    MineSweeperButton.cpp \
-    MineFieldObserver.cpp
+    GUI/configurationdialog.cpp \
+    GUI/mainwindow.cpp \
+    GUI/MineFieldObserver.cpp \
+    GUI/MineSweeperButton.cpp
 
 QMAKE_CXXFLAGS += -pedantic-errors
 
@@ -80,11 +80,14 @@ HEADERS += \
     View/ConsoleRead.h \
     Libraries/observer/observer.h \
     Libraries/observer/subject.h \
-    configurationdialog.h \
-    mainwindow.h \
-    ui_configurationdialog.h \
-    MineSweeperButton.h \
-    MineFieldObserver.h
+    GUI/configurationdialog.h \
+    GUI/mainwindow.h \
+    GUI/MineFieldObserver.h \
+    GUI/MineSweeperButton.h \
+    GUI/ui_configurationdialog.h \
+    GUI/ui_mainwindow.h \
+    Libraries/observer/observer.h \
+    Libraries/observer/subject.h \
 
 DISTFILES += \
     Libraries/rapidjson/bin/data/glossary.json \
@@ -353,8 +356,8 @@ DISTFILES += \
     html/maintests_8h_source.html
 
 FORMS += \
-    configurationdialog.ui \
-    mainwindow.ui
+    GUI/configurationdialog.ui \
+    GUI/mainwindow.ui
 
 RESOURCES += \
     minesweeperimg.qrc

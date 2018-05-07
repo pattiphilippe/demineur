@@ -1,6 +1,6 @@
-#include "MineFieldObserver.h"
+#include "GUI/MineFieldObserver.h"
 #include "QPushButton"
-#include "MineSweeperButton.h"
+#include "GUI/MineSweeperButton.h"
 #include "Model/Case.h"
 
 

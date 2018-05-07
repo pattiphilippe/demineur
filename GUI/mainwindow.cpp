@@ -1,6 +1,6 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "configurationdialog.h"
+#include "GUI/mainwindow.h"
+#include "GUI/ui_mainwindow.h"
+#include "GUI/configurationdialog.h"
 #include "Scores/Score.h"
 
 #include <QMessageBox>
