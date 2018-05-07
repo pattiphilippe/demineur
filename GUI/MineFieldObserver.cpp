@@ -4,6 +4,7 @@
 #include "Model/Case.h"
 
 
+
 MineFieldObserver::MineFieldObserver(Game * sdo):
     sdo_{sdo},
     gridLayout_{this}
@@ -44,8 +45,6 @@ void MineFieldObserver::update(const nvs::Subject *sdo)
 {
 
     //Check case state and set image on the button
-    //TODO C'est moche, à améliorer
-
     if(sdo == sdo_){
         for (int line = 0; line < sdo_->getBoard().getNbLines(); line++){
             for (int column=0; column < sdo_->getBoard().getNbColumns(); column++){
@@ -64,6 +63,25 @@ void MineFieldObserver::update(const nvs::Subject *sdo)
                     button->setIcon(QIcon(imgName));
                 }
             }
+        }
+    }
+
+    if(sdo_->getGameState() == WON || sdo_->getGameState() == LOST){
+        desactivateField();
+        emit gameOver();
+    }
+
+}
+
+void MineFieldObserver::desactivateField()
+{
+    for (int line = 0; line < sdo_->getBoard().getNbLines(); line++){
+        for (int column=0; column < sdo_->getBoard().getNbColumns(); column++){
+            MineSweeperButton* button = dynamic_cast<MineSweeperButton*>(gridLayout_.itemAtPosition(line,column)->widget());
+            button->disconnect(button, SIGNAL(rightButtonClicked()),
+                               this, SLOT(rightClicked()));
+            button->disconnect(button, SIGNAL(rightButtonClicked()),
+                               this, SLOT(rightClicked()));
         }
     }
 

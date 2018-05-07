@@ -87,7 +87,7 @@ HEADERS += \
     GUI/ui_configurationdialog.h \
     GUI/ui_mainwindow.h \
     Libraries/observer/observer.h \
-    Libraries/observer/subject.h \
+    Libraries/observer/subject.h
 
 DISTFILES += \
     Libraries/rapidjson/bin/data/glossary.json \

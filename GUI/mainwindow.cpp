@@ -1,10 +1,14 @@
 #include "GUI/mainwindow.h"
 #include "GUI/ui_mainwindow.h"
 #include "GUI/configurationdialog.h"
+#include "GUI/MineFieldObserver.h"
 #include "Scores/Score.h"
 
 #include <QMessageBox>
 #include <QLabel>
+#include <QLineEdit>
+
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -63,7 +67,25 @@ void MainWindow::creerPartie(){
     ui->actionNouveau->setEnabled(false);
     ui->actionFermer->setEnabled(true);
     observerMineField(true);
+
+    connect(mineFieldObserver_, SIGNAL(gameOver()),
+            this, SLOT(endGame()));
 }
+
+void MainWindow::endGame(){
+    switch (game_->getGameState()) {
+    case WON:
+        new QLabel("You won");
+        break;
+
+    case LOST:
+        new QLabel("You lost");
+        break;
+    default:
+        break;
+    }
+}
+
 void MainWindow::fermerPartie(){
     delete mineFieldObserver_;
     mineFieldObserver_ = nullptr;
@@ -126,3 +148,5 @@ void MainWindow::observerMineField(bool enabled){
         }
     }
 }
+
+

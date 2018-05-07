@@ -19,6 +19,8 @@ private slots:
     void aide();
     void scores();
 
+    void endGame();
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
