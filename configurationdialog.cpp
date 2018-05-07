@@ -1,6 +1,9 @@
 #include "configurationdialog.h"
 #include "ui_configurationdialog.h"
 
+#include <iostream>
+using namespace std;
+
 ConfigurationDialog::ConfigurationDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ConfigurationDialog),
@@ -15,15 +18,18 @@ ConfigurationDialog::ConfigurationDialog(QWidget *parent) :
 ConfigurationDialog::~ConfigurationDialog()
 {
     delete ui;
+    ui = nullptr;
 }
 
 void ConfigurationDialog::setNbLignes(int nbLignes){
     nbLignes_ = nbLignes;
-    setPctBombes(nbBombes_);
+    double nbCases (nbLignes_ * nbColonnes_);
+    setPctBombes(static_cast<unsigned>(nbBombes_ / nbCases * 100));
 }
 void ConfigurationDialog::setNbColonnes(int nbColonnes){
     nbColonnes_ = nbColonnes;
-    setPctBombes(nbBombes_);
+    double nbCases (nbLignes_ * nbColonnes_);
+    setPctBombes(static_cast<unsigned>(nbBombes_ / nbCases * 100));
 }
 void ConfigurationDialog::setNbBombes(int nbBombes){
     nbBombes_ = static_cast<unsigned>(nbBombes);
