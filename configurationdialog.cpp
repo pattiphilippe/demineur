@@ -19,15 +19,17 @@ ConfigurationDialog::~ConfigurationDialog()
 
 void ConfigurationDialog::setNbLignes(int nbLignes){
     nbLignes_ = nbLignes;
+    setPctBombes(nbBombes_);
 }
 void ConfigurationDialog::setNbColonnes(int nbColonnes){
     nbColonnes_ = nbColonnes;
+    setPctBombes(nbBombes_);
 }
 void ConfigurationDialog::setNbBombes(int nbBombes){
     nbBombes_ = static_cast<unsigned>(nbBombes);
 }
 void ConfigurationDialog::setPctBombes(int pctBombes){
-    nbBombes_ = static_cast<unsigned>(nbLignes_ * nbColonnes_ / pctBombes);
+    nbBombes_ = static_cast<unsigned>(nbLignes_ * nbColonnes_ * pctBombes / 100);
 }
 void ConfigurationDialog::nbBombsMode(bool nbBombsMode){
     ui->nbBombes->setEnabled(nbBombsMode);
