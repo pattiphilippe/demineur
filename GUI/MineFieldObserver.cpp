@@ -99,7 +99,7 @@ void MineFieldObserver::leftClicked()
     //Get the button that emited the signal
     MineSweeperButton * button = qobject_cast<MineSweeperButton*>(sender());
     sdo_->reveal(button->getCoordinates());
-    update(sdo_);
+
 }
 
 void MineFieldObserver::rightClicked()
@@ -107,5 +107,5 @@ void MineFieldObserver::rightClicked()
     //Get the button that emited the signal
     MineSweeperButton * button = qobject_cast<MineSweeperButton*>(sender());
     sdo_->mark(button->getCoordinates());
-    update(sdo_);
+
 }
