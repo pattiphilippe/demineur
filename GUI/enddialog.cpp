@@ -22,12 +22,12 @@ void EndDialog::setPseudo(QString newPseudo)
 
 void EndDialog::displayWin()
 {
-    ui->lblEndText->setText("Congratulation ! You have won ! \n "
-                            "Type your name below to regiter your score");
+    ui->lblEndText->setText("Bravo ! Vous avez gagné ! \n "
+                            "Entrez votre nom ci dessous pour enregistrer votre score.");
     ui->pseudoEdit->setEnabled(true);
 }
 
 void EndDialog::displayLost()
 {
-    ui->lblEndText->setText("Game over, you lost. \n Try again !");
+    ui->lblEndText->setText("Une mine ! Vous avez perdu :/ \n Réessayez !");
 }
