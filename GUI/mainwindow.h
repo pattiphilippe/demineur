@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "Model/Game.h"
+#include "Scores/Score.h"
 #include "MineFieldObserver.h"
 #include "LcdTimer.h"
 
@@ -36,6 +37,7 @@ private:
 
     void connexion();
     void observerMineField(bool);
+    void showScores(vector<Score>, int nbLines, int nbCols, unsigned nbBombs);
 };
 
 #endif // MAINWINDOW_H

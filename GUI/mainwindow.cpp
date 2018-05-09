@@ -88,10 +88,11 @@ void MainWindow::endGame(){
     }
     auto retour = ed.exec();
     if(retour == QDialog::Rejected) return ;
-    vector<Score> scores {};
     if(ed.getPseudo() !="" && game_->getGameState() == WON){
         pseudo = ed.getPseudo().toStdString();
-        scores = saveScore(Score(game_->getScore().count(), pseudo), game_->getBoard().getNbLines(), game_->getBoard().getNbColumns(), game_->getBoard().getNbBombs());
+        const BoardPublic & b = game_->getBoard();
+        showScores(saveScore(Score(game_->getScore().count(), pseudo), b.getNbLines(), b.getNbColumns(), b.getNbBombs())
+               ,b.getNbLines(), b.getNbColumns(), b.getNbBombs());
     }
 }
 
@@ -105,25 +106,27 @@ void MainWindow::fermerPartie(){
     ui->actionNouveau->setEnabled(true);
     ui->actionFermer->setEnabled(false);
 }
+void MainWindow::showScores(vector<Score> scores, int nbLines, int nbCols, unsigned nbBombs){
+    int i{4};
+    QMessageBox::information(this, tr("Scores"),
+                    scoresMsg.arg(nbLines).arg(nbCols).arg(nbBombs)
+                             .arg(QString::fromStdString(scores.at(i).getPlayer()))
+                             .arg(scores.at(--i).getTime())
+                             .arg(QString::fromStdString(scores.at(i).getPlayer()))
+                             .arg(scores.at(--i).getTime())
+                             .arg(QString::fromStdString(scores.at(i).getPlayer()))
+                             .arg(scores.at(--i).getTime())
+                             .arg(QString::fromStdString(scores.at(i).getPlayer()))
+                             .arg(scores.at(--i).getTime())
+                             .arg(QString::fromStdString(scores.at(i).getPlayer()))
+                             .arg(scores.at(i).getTime())
+                             );
+}
 void MainWindow::scores(){
     ConfigurationDialog cd{this};
     auto retour = cd.exec();
     if(retour == QDialog::Rejected) return;
-    vector<Score> scores = getScores(cd.nbLignes(), cd.nbColonnes(), cd.nbBombes());
-    int i{0};
-    QMessageBox::information(this, tr("Scores"),
-                    scoresMsg.arg(cd.nbLignes()).arg(cd.nbColonnes()).arg(cd.nbBombes())
-                             .arg(QString::fromStdString(scores.at(i).getPlayer()))
-                             .arg(scores.at(i).getTime())
-                             .arg(QString::fromStdString(scores.at(++i).getPlayer()))
-                             .arg(scores.at(i).getTime())
-                             .arg(QString::fromStdString(scores.at(++i).getPlayer()))
-                             .arg(scores.at(i).getTime())
-                             .arg(QString::fromStdString(scores.at(++i).getPlayer()))
-                             .arg(scores.at(i).getTime())
-                             .arg(QString::fromStdString(scores.at(++i).getPlayer()))
-                             .arg(scores.at(i).getTime())
-                             );
+    showScores(getScores(cd.nbLignes(), cd.nbColonnes(), cd.nbBombes()), cd.nbLignes(), cd.nbColonnes(), cd.nbBombes());
 }
 void MainWindow::aide(){
 
