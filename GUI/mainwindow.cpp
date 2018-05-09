@@ -72,7 +72,6 @@ void MainWindow::creerPartie(){
 }
 
 void MainWindow::endGame(){
-    //TODO Gestion de l'enregistrement du score
     EndDialog ed{this};
     string pseudo ;
 
@@ -89,8 +88,10 @@ void MainWindow::endGame(){
     }
     auto retour = ed.exec();
     if(retour == QDialog::Rejected) return ;
+    vector<Score> scores {};
     if(ed.getPseudo() !="" && game_->getGameState() == WON){
         pseudo = ed.getPseudo().toStdString();
+        scores = saveScore(Score(game_->getScore().count(), pseudo), game_->getBoard().getNbLines(), game_->getBoard().getNbColumns(), game_->getBoard().getNbBombs());
     }
 }
 
