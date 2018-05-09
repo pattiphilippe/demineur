@@ -33,14 +33,26 @@ private:
     unsigned nbBombes_;
 };
 
+/**
+ * @brief ConfigurationDialog::nbLignes
+ * @return number of lines selected
+ */
 int ConfigurationDialog::nbLignes() const {
     return nbLignes_;
 }
 
+/**
+ * @brief ConfigurationDialog::nbColonnes
+ * @return number of columns selected
+ */
 int ConfigurationDialog::nbColonnes() const {
     return nbColonnes_;
 }
 
+/**
+ * @brief ConfigurationDialog::nbBombes
+ * @return number of bombs selected
+ */
 unsigned ConfigurationDialog::nbBombes() const {
     return nbBombes_;
 }

@@ -20,6 +20,10 @@ void EndDialog::setPseudo(QString newPseudo)
     pseudo_ = newPseudo ;
 }
 
+/**
+ * @brief EndDialog::displayWin
+ * Display win message in label and activate the lineEdit in the GUI
+ */
 void EndDialog::displayWin()
 {
     ui->lblEndText->setText("Bravo ! Vous avez gagné ! \n "
@@ -27,6 +31,10 @@ void EndDialog::displayWin()
     ui->pseudoEdit->setEnabled(true);
 }
 
+/**
+ * @brief EndDialog::displayLost
+ * Display lost message in label
+ */
 void EndDialog::displayLost()
 {
     ui->lblEndText->setText("Une mine ! Vous avez perdu :/ \n Réessayez !");

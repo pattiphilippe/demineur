@@ -43,6 +43,10 @@ MainWindow::~MainWindow()
     mineFieldObserver_ = nullptr;
 }
 
+/**
+ * @brief MainWindow::connexion
+ * Connect all the menu content to actions
+ */
 void MainWindow::connexion(){
     connect(ui->action_Quitter, &QAction::triggered,
             &QCoreApplication::quit);
@@ -56,6 +60,11 @@ void MainWindow::connexion(){
             this, &MainWindow::scores);
 }
 
+/**
+ * @brief MainWindow::creerPartie
+ * Launch configuration window where you can select all the parameter of the game.
+ * It also launch the minefieldObserver wich display the game.
+ */
 void MainWindow::creerPartie(){
     new QLabel("");
     ConfigurationDialog cd{this};
@@ -71,6 +80,10 @@ void MainWindow::creerPartie(){
                 this, SLOT(endGame()));
 }
 
+/**
+ * @brief MainWindow::endGame
+ * Launch endDialog window wich tells the user if he won or lost. Get the username and register a score if he won.
+ */
 void MainWindow::endGame(){
     EndDialog ed{this};
     string pseudo ;
@@ -96,6 +109,10 @@ void MainWindow::endGame(){
     }
 }
 
+/**
+ * @brief MainWindow::fermerPartie
+ * Provide safe close and destruction for the components of mainWindow.
+ */
 void MainWindow::fermerPartie(){
     delete timer;
     timer = nullptr;
@@ -122,12 +139,22 @@ void MainWindow::showScores(vector<Score> scores, int nbLines, int nbCols, unsig
                              .arg(scores.at(i).getTime())
                              );
 }
+
+/**
+ * @brief MainWindow::scores
+ * Display a new window with scores.
+ */
 void MainWindow::scores(){
     ConfigurationDialog cd{this};
     auto retour = cd.exec();
     if(retour == QDialog::Rejected) return;
     showScores(getScores(cd.nbLignes(), cd.nbColonnes(), cd.nbBombes()), cd.nbLignes(), cd.nbColonnes(), cd.nbBombes());
 }
+
+/**
+ * @brief MainWindow::aide
+ * Show help dialog.
+ */
 void MainWindow::aide(){
 
     QMessageBox::information(this, tr("Aide"),
@@ -143,6 +170,11 @@ void MainWindow::aide(){
             "<b>Bon amusement !</b>"));
 }
 
+/**
+ * @brief MainWindow::observerMineField
+ * launch the observerMinefield.
+ * @param enabled True if you want to activate the observerMinefield.
+ */
 void MainWindow::observerMineField(bool enabled){
     if(enabled){
         try{

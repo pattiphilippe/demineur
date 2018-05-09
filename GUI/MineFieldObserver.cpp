@@ -3,7 +3,11 @@
 #include "MineSweeperButton.h"
 #include "Model/Case.h"
 
-
+/**
+ * @brief MineFieldObserver::MineFieldObserver
+ * Display a minefield for the game MineSweeper.
+ * @param sdo Instance of mineSweeper game.
+ */
 MineFieldObserver::MineFieldObserver(Game * sdo):
     sdo_{sdo},
     gridLayout_{this}
@@ -13,6 +17,11 @@ MineFieldObserver::MineFieldObserver(Game * sdo):
 
 }
 
+/**
+ * @brief MineFieldObserver::init
+ * Create all the buttons for the board of minesweeper.
+ * @param sdo Instance of mineSweeper game.
+ */
 void MineFieldObserver::init(const nvs::Subject *sdo)
 {
     if(sdo == sdo_){
@@ -40,6 +49,11 @@ void MineFieldObserver::init(const nvs::Subject *sdo)
     }
 }
 
+/**
+ * @brief MineFieldObserver::update
+ * Update method to make the GUI board corresponding to the one in the minesweeper instance.
+ * @param sdo Instance of mineSweeper game.
+ */
 void MineFieldObserver::update(const nvs::Subject *sdo)
 {
     if(sdo == sdo_){
@@ -74,7 +88,10 @@ void MineFieldObserver::update(const nvs::Subject *sdo)
     }
 }
 
-
+/**
+ * @brief MineFieldObserver::desactivateField
+ * Set the mineField unCheckable.
+ */
 void MineFieldObserver::desactivateField()
 {
     for (int line = 0; line < sdo_->getBoard().getNbLines(); line++){
@@ -94,6 +111,10 @@ MineFieldObserver::~MineFieldObserver()
     sdo_->unregisterObserver(this);
 }
 
+/**
+ * @brief MineFieldObserver::leftClicked
+ * Slot that is called when a button is clicked with left button of the mouse
+ */
 void MineFieldObserver::leftClicked()
 {
     //Get the button that emited the signal
@@ -102,6 +123,10 @@ void MineFieldObserver::leftClicked()
 
 }
 
+/**
+ * @brief MineFieldObserver::rightClicked
+ * Slot that is called when a button is clicked with right button of the mouse
+ */
 void MineFieldObserver::rightClicked()
 {
     //Get the button that emited the signal

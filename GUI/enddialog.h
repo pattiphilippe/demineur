@@ -27,7 +27,10 @@ private:
     QString pseudo_;
 };
 
-
+/**
+ * @brief EndDialog::getPseudo
+ * @return Username typed by the user
+ */
 QString EndDialog::getPseudo() const {
     return pseudo_;
 }

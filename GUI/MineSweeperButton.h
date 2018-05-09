@@ -24,6 +24,10 @@ private :
     void mousePressEvent(QMouseEvent *);
 };
 
+/**
+ * @brief MineSweeperButton::getCoordinates
+ * @return The coordinates of the button
+ */
 Coordinates MineSweeperButton::getCoordinates() const{
     return this->coordinates_ ;
 }

@@ -1,6 +1,11 @@
 #include "configurationdialog.h"
 #include "ui_configurationdialog.h"
 
+/**
+ * @brief ConfigurationDialog::ConfigurationDialog
+ * Main constructor of ConfiguationDialog
+ * @param parent Parent widget of the configuraton dialog
+ */
 ConfigurationDialog::ConfigurationDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ConfigurationDialog),
@@ -11,6 +16,7 @@ ConfigurationDialog::ConfigurationDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 }
+
 
 ConfigurationDialog::~ConfigurationDialog()
 {
