@@ -19,7 +19,7 @@ void LcdTimer::showTime(){
         timer_.stop();
     } else {
         int nbSecs = static_cast<int>(sdo_->getScore().count() + 0.5);
-        time_ = QString(QTime(nbSecs / 3600, nbSecs / 60, nbSecs).toString("h:mm:ss"));
+        time_ = QString(QTime(nbSecs / 3600, nbSecs/60, nbSecs%60).toString("h:mm:ss"));
         display(time_);
     }
 }
